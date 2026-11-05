@@ -2,7 +2,7 @@ import { Box } from "@mui/material";
 import * as React from "react";
 import { createContext, useEffect, useMemo, useRef, useState } from "react";
 import { CSSTransition, SwitchTransition } from "react-transition-group";
-import { getTeamDetail, upsertTeam } from "../../../../api/api.ts";
+import { getTeamDetail, renameTeam } from "../../../../api/api.ts";
 import { TeamEnt } from "../../../../api/team.ts";
 import { useAppDispatch } from "../../../../redux/hooks.ts";
 import FacebookCircularProgress from "../../../Common/CircularProgress.tsx";
@@ -75,11 +75,7 @@ const TeamSettingWrapper = ({ teamID, children, onTeamChange }: TeamSettingWrapp
     }
 
     setSubmitting(true);
-    dispatch(
-      upsertTeam({
-        team: { id: modifiedValues.id, name: modifiedValues.name },
-      }),
-    )
+    dispatch(renameTeam(modifiedValues.id, { name: modifiedValues.name }))
       .then((res) => {
         setValues(res);
         setModifiedValues(res);

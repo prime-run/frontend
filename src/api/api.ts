@@ -103,9 +103,10 @@ import {
 } from "./user.ts";
 import {
   AdminListTeamResponse,
+  CreateTeamService,
+  RenameTeamService,
   TeamEnt,
   UpsertTeamMemberService,
-  UpsertTeamService,
   UserTeam,
 } from "./team.ts";
 import {
@@ -2248,12 +2249,26 @@ export function getTeamDetail(id: number): ThunkResponse<TeamEnt> {
   };
 }
 
-export function upsertTeam(args: UpsertTeamService): ThunkResponse<TeamEnt> {
+export function createTeam(args: CreateTeamService): ThunkResponse<TeamEnt> {
   return async (dispatch, _getState) => {
     return await dispatch(
       send(
-        `/admin/team${args.team.id ? `/${args.team.id}` : ""}`,
+        `/admin/team`,
         { method: "PUT", data: args },
+        {
+          ...defaultOpts,
+        },
+      ),
+    );
+  };
+}
+
+export function renameTeam(id: number, args: RenameTeamService): ThunkResponse<TeamEnt> {
+  return async (dispatch, _getState) => {
+    return await dispatch(
+      send(
+        `/admin/team/${id}`,
+        { method: "PATCH", data: args },
         {
           ...defaultOpts,
         },

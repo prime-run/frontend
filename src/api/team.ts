@@ -18,6 +18,8 @@ export interface TeamMemberEnt {
     user?: User;
   };
   user_hash_id?: string;
+  email?: string;
+  nick?: string;
 }
 
 export interface TeamEnt {
@@ -27,6 +29,8 @@ export interface TeamEnt {
   updated_at?: string;
   deleted_at?: string;
   root_file_id?: number;
+  /** Enriched members from admin get/list (preferred). */
+  members?: TeamMemberEnt[];
   edges?: {
     members?: TeamMemberEnt[];
   };
@@ -39,16 +43,16 @@ export interface AdminListTeamResponse {
   pagination: PaginationResults;
 }
 
-export interface UpsertTeamService {
-  team: {
-    id?: number;
-    name: string;
-  };
-  /** Hash ID of the user seeded as owner on create. Defaults to current admin. */
-  owner_id?: string;
+export interface CreateTeamService {
+  name: string;
+}
+
+export interface RenameTeamService {
+  name: string;
 }
 
 export interface UpsertTeamMemberService {
+  /** User hash ID (same as /user/search). */
   user_id: string;
   role: TeamRole;
 }

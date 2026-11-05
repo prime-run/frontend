@@ -2,14 +2,12 @@ import { DialogContent, Stack } from "@mui/material";
 import { useEffect, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router-dom";
-import { upsertTeam } from "../../../api/api";
-import { User } from "../../../api/user";
+import { createTeam } from "../../../api/api";
 import { useAppDispatch } from "../../../redux/hooks";
 import { loadUserTeams } from "../../../redux/thunks/session";
 import { DenseFilledTextField } from "../../Common/StyledComponents";
 import DraggableDialog from "../../Dialogs/DraggableDialog";
 import SettingForm from "../../Pages/Setting/SettingForm";
-import UserSearchInput from "../File/UserSearchInput";
 import { NoMarginHelperText } from "../Settings/Settings";
 
 export interface NewTeamDialogProps {
@@ -23,13 +21,11 @@ const NewTeamDialog = ({ open, onClose }: NewTeamDialogProps) => {
   const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
   const [name, setName] = useState("");
-  const [owner, setOwner] = useState<User | null>(null);
   const formRef = useRef<HTMLFormElement>(null);
 
   useEffect(() => {
     if (open) {
       setName("");
-      setOwner(null);
     }
   }, [open]);
 
@@ -40,12 +36,7 @@ const NewTeamDialog = ({ open, onClose }: NewTeamDialogProps) => {
     }
 
     setLoading(true);
-    dispatch(
-      upsertTeam({
-        team: { name },
-        owner_id: owner?.id,
-      }),
-    )
+    dispatch(createTeam({ name }))
       .then((r) => {
         dispatch(loadUserTeams());
         navigate(`/admin/team/${r.id}`);
@@ -81,10 +72,6 @@ const NewTeamDialog = ({ open, onClose }: NewTeamDialogProps) => {
                 onChange={(e) => setName(e.target.value)}
               />
               <NoMarginHelperText>{t("team.nameDes")}</NoMarginHelperText>
-            </SettingForm>
-            <SettingForm title={t("team.owner")} lgWidth={12}>
-              <UserSearchInput onUserSelected={setOwner} label={t("team.searchOwner")} />
-              <NoMarginHelperText>{t("team.ownerDes")}</NoMarginHelperText>
             </SettingForm>
           </Stack>
         </form>

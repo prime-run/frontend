@@ -70,7 +70,9 @@ const TeamRow = ({ team, loading, onDelete }: TeamRowProps) => {
       <NoWrapTableCell>
         <NoWrapTypography variant="inherit">{team?.name}</NoWrapTypography>
       </NoWrapTableCell>
-      <NoWrapTableCell>{team?.member_count ?? team?.edges?.members?.length ?? "—"}</NoWrapTableCell>
+      <NoWrapTableCell>
+        {team?.member_count ?? team?.members?.length ?? team?.edges?.members?.length ?? "—"}
+      </NoWrapTableCell>
       <NoWrapTableCell>{team?.hash_id ?? "—"}</NoWrapTableCell>
       <NoWrapTableCell>
         <IconButton size="small" onClick={onDeleteClick} disabled={deleteLoading}>

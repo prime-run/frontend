@@ -102,7 +102,7 @@ const TeamForm = () => {
     });
   };
 
-  const members = values.edges?.members ?? [];
+  const members = values.members ?? values.edges?.members ?? [];
 
   return (
     <Box>
@@ -169,8 +169,8 @@ const TeamForm = () => {
               <TableBody>
                 {members.map((member) => {
                   const hashId = member.user_hash_id ?? "";
-                  const nick = member.edges?.user?.nick ?? hashId;
-                  const email = member.edges?.user?.email ?? "";
+                  const nick = member.nick ?? member.edges?.user?.nick ?? hashId;
+                  const email = member.email ?? member.edges?.user?.email ?? "";
                   const busy = memberBusy === hashId;
                   return (
                     <TableRow key={member.id ?? hashId}>
