@@ -89,6 +89,10 @@ const UserDialog = ({ open, onClose, userID, onUpdated }: UserDialogProps) => {
 
     const args: UpsertUserService = {
       user: { ...modifiedValues },
+      teams: (modifiedValues.teams ?? []).map((m) => ({
+        id: m.id,
+        role: m.role,
+      })),
     };
 
     if (!args.user.two_fa_enabled) {

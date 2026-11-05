@@ -374,12 +374,13 @@ export function changeSortOption(index: number, sortBy: string, sortDirection: s
 }
 
 export function updateUserCapacity(index: number): AppThunk {
-  return async (dispatch, _getState) => {
+  return async (dispatch, getState) => {
     if (!SessionManager.currentLoginOrNull()) {
       return;
     }
     try {
-      const capacity = await dispatch(getUserCapacity());
+      const path = getState().fileManager[index]?.pure_path;
+      const capacity = await dispatch(getUserCapacity(path));
       dispatch(setCapacity({ index, value: capacity }));
     } catch (e) {
       console.warn("Failed to load user capacity", e);

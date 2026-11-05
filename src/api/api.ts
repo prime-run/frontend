@@ -326,13 +326,14 @@ export function getUserInfo(uid: string): ThunkResponse<User> {
   };
 }
 
-export function getUserCapacity(): ThunkResponse<Capacity> {
+export function getUserCapacity(uri?: string): ThunkResponse<Capacity> {
   return async (dispatch, _getState) => {
     return await dispatch(
       send(
         "/user/capacity",
         {
           method: "GET",
+          params: uri ? { uri } : undefined,
         },
         {
           ...defaultOpts,

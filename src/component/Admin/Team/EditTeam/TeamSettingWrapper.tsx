@@ -42,7 +42,10 @@ const TeamSettingWrapper = ({ teamID, children, onTeamChange }: TeamSettingWrapp
   const formRef = useRef<HTMLFormElement>(null);
 
   const showSaveButton = useMemo(() => {
-    return values.name !== modifiedValues.name;
+    return (
+      values.name !== modifiedValues.name ||
+      (values.max_storage ?? 0) !== (modifiedValues.max_storage ?? 0)
+    );
   }, [modifiedValues, values]);
 
   const loadTeam = () => {
@@ -75,7 +78,14 @@ const TeamSettingWrapper = ({ teamID, children, onTeamChange }: TeamSettingWrapp
     }
 
     setSubmitting(true);
-    dispatch(renameTeam(modifiedValues.id, { name: modifiedValues.name }))
+    const maxStorage = modifiedValues.max_storage ?? 0;
+    dispatch(
+      renameTeam(modifiedValues.id, {
+        name: modifiedValues.name,
+        max_storage: maxStorage > 0 ? maxStorage : undefined,
+        clear_max_storage: maxStorage <= 0,
+      }),
+    )
       .then((res) => {
         setValues(res);
         setModifiedValues(res);

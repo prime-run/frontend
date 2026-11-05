@@ -29,6 +29,10 @@ export interface TeamEnt {
   updated_at?: string;
   deleted_at?: string;
   root_file_id?: number;
+  /** Shared storage quota for the team drive (bytes). */
+  max_storage?: number;
+  /** Used shared storage under the team root (bytes). */
+  storage?: number;
   /** Enriched members from admin get/list (preferred). */
   members?: TeamMemberEnt[];
   edges?: {
@@ -38,6 +42,13 @@ export interface TeamEnt {
   hash_id?: string;
 }
 
+/** Admin user ↔ team assignment (hash team id + role). */
+export interface UserTeamMembership {
+  id: string;
+  name?: string;
+  role: TeamRole;
+}
+
 export interface AdminListTeamResponse {
   teams: TeamEnt[];
   pagination: PaginationResults;
@@ -45,10 +56,13 @@ export interface AdminListTeamResponse {
 
 export interface CreateTeamService {
   name: string;
+  max_storage?: number;
 }
 
 export interface RenameTeamService {
   name: string;
+  max_storage?: number;
+  clear_max_storage?: boolean;
 }
 
 export interface UpsertTeamMemberService {

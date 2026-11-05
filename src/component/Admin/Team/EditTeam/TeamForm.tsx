@@ -27,9 +27,11 @@ import {
   SecondaryButton,
   StyledTableContainerPaper,
 } from "../../../Common/StyledComponents.tsx";
+import SizeInput from "../../../Common/SizeInput";
 import UserAvatar from "../../../Common/User/UserAvatar.tsx";
 import Delete from "../../../Icons/Delete.tsx";
 import SettingForm from "../../../Pages/Setting/SettingForm.tsx";
+import { CapacityBar } from "../../../Pages/Setting/StorageSetting";
 import UserSearchInput from "../../File/UserSearchInput.tsx";
 import { NoMarginHelperText, SettingSection, SettingSectionContent } from "../../Settings/Settings.tsx";
 import { TeamSettingContext } from "./TeamSettingWrapper.tsx";
@@ -48,6 +50,16 @@ const TeamForm = () => {
   const onNameChange = useCallback(
     (e: React.ChangeEvent<HTMLInputElement>) => {
       setTeam((p) => ({ ...p, name: e.target.value }));
+    },
+    [setTeam],
+  );
+
+  const onMaxStorageChange = useCallback(
+    (size: number) => {
+      setTeam((p) => ({
+        ...p,
+        max_storage: size ? size : undefined,
+      }));
     },
     [setTeam],
   );
@@ -122,6 +134,30 @@ const TeamForm = () => {
               <SettingForm title={t("team.hashId")} lgWidth={5}>
                 <DenseFilledTextField fullWidth value={values.hash_id} disabled />
                 <NoMarginHelperText>{t("team.hashIdDes")}</NoMarginHelperText>
+              </SettingForm>
+            )}
+            <SettingForm title={t("team.maxStorage")} lgWidth={5}>
+              <FormControl fullWidth>
+                <SizeInput
+                  variant={"outlined"}
+                  required
+                  value={values.max_storage ?? 0}
+                  onChange={onMaxStorageChange}
+                />
+                <NoMarginHelperText>{t("team.maxStorageDes")}</NoMarginHelperText>
+              </FormControl>
+            </SettingForm>
+            {(values.max_storage ?? 0) > 0 && (
+              <SettingForm title={t("application:vas.quota")} lgWidth={5}>
+                <Box sx={{ mt: 1, width: "100%" }}>
+                  <CapacityBar
+                    forceRow
+                    capacity={{
+                      used: values.storage ?? 0,
+                      total: values.max_storage ?? 0,
+                    }}
+                  />
+                </Box>
               </SettingForm>
             )}
           </SettingSectionContent>

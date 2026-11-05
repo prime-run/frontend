@@ -1,4 +1,4 @@
-import { DialogContent, Stack } from "@mui/material";
+import { DialogContent, FormControl, Stack } from "@mui/material";
 import { useEffect, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router-dom";
@@ -6,6 +6,7 @@ import { createTeam } from "../../../api/api";
 import { useAppDispatch } from "../../../redux/hooks";
 import { loadUserTeams } from "../../../redux/thunks/session";
 import { DenseFilledTextField } from "../../Common/StyledComponents";
+import SizeInput from "../../Common/SizeInput";
 import DraggableDialog from "../../Dialogs/DraggableDialog";
 import SettingForm from "../../Pages/Setting/SettingForm";
 import { NoMarginHelperText } from "../Settings/Settings";
@@ -15,17 +16,21 @@ export interface NewTeamDialogProps {
   onClose: () => void;
 }
 
+const defaultMaxStorage = 10 << 30; // 10 GB
+
 const NewTeamDialog = ({ open, onClose }: NewTeamDialogProps) => {
   const { t } = useTranslation("dashboard");
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
   const [name, setName] = useState("");
+  const [maxStorage, setMaxStorage] = useState(defaultMaxStorage);
   const formRef = useRef<HTMLFormElement>(null);
 
   useEffect(() => {
     if (open) {
       setName("");
+      setMaxStorage(defaultMaxStorage);
     }
   }, [open]);
 
@@ -36,7 +41,12 @@ const NewTeamDialog = ({ open, onClose }: NewTeamDialogProps) => {
     }
 
     setLoading(true);
-    dispatch(createTeam({ name }))
+    dispatch(
+      createTeam({
+        name,
+        max_storage: maxStorage > 0 ? maxStorage : undefined,
+      }),
+    )
       .then((r) => {
         dispatch(loadUserTeams());
         navigate(`/admin/team/${r.id}`);
@@ -72,6 +82,12 @@ const NewTeamDialog = ({ open, onClose }: NewTeamDialogProps) => {
                 onChange={(e) => setName(e.target.value)}
               />
               <NoMarginHelperText>{t("team.nameDes")}</NoMarginHelperText>
+            </SettingForm>
+            <SettingForm title={t("team.maxStorage")} lgWidth={12}>
+              <FormControl fullWidth>
+                <SizeInput variant={"outlined"} required value={maxStorage} onChange={setMaxStorage} />
+                <NoMarginHelperText>{t("team.maxStorageDes")}</NoMarginHelperText>
+              </FormControl>
             </SettingForm>
           </Stack>
         </form>

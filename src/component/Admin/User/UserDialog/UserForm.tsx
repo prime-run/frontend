@@ -5,22 +5,37 @@ import {
   Divider,
   FormControl,
   Grid2 as Grid,
+  IconButton,
   Link,
   ListItemText,
+  MenuItem,
   SelectChangeEvent,
   Stack,
+  Table,
+  TableBody,
+  TableContainer,
+  TableHead,
+  TableRow,
   Typography,
   useMediaQuery,
   useTheme,
 } from "@mui/material";
 import { useSnackbar } from "notistack";
-import { useCallback, useContext, useState } from "react";
+import { useCallback, useContext, useEffect, useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { sendCalibrateUserStorage } from "../../../../api/api";
+import { getTeamList, sendCalibrateUserStorage } from "../../../../api/api";
 import { UserStatus } from "../../../../api/dashboard";
+import { TeamEnt, TeamRole, UserTeamMembership } from "../../../../api/team";
 import { useAppDispatch } from "../../../../redux/hooks";
 import { DefaultCloseAction } from "../../../Common/Snackbar/snackbar";
-import { DenseFilledTextField, DenseSelect, SecondaryButton } from "../../../Common/StyledComponents";
+import {
+  DenseFilledTextField,
+  DenseSelect,
+  NoWrapTableCell,
+  NoWrapTypography,
+  SecondaryButton,
+  StyledTableContainerPaper,
+} from "../../../Common/StyledComponents";
 import UserAvatar from "../../../Common/User/UserAvatar";
 import { SquareMenuItem } from "../../../FileManager/ContextMenu/ContextMenu";
 import Delete from "../../../Icons/Delete";
@@ -31,6 +46,8 @@ import ProDialog from "../../Common/ProDialog";
 import { NoMarginHelperText } from "../../Settings/Settings";
 import { UserDialogContext } from "./UserDialog";
 
+const teamRoles: TeamRole[] = ["owner", "admin", "member"];
+
 const UserForm = ({ reload, setLoading }: { reload: () => void; setLoading: (loading: boolean) => void }) => {
   const dispatch = useAppDispatch();
   const { enqueueSnackbar } = useSnackbar();
@@ -39,6 +56,34 @@ const UserForm = ({ reload, setLoading }: { reload: () => void; setLoading: (loa
   const { t } = useTranslation("dashboard");
   const { formRef, values, setUser } = useContext(UserDialogContext);
   const [proOpen, setProOpen] = useState(false);
+  const [allTeams, setAllTeams] = useState<TeamEnt[]>([]);
+  const [newTeamHashId, setNewTeamHashId] = useState("");
+  const [newTeamRole, setNewTeamRole] = useState<TeamRole>("member");
+
+  useEffect(() => {
+    dispatch(
+      getTeamList({
+        page: 1,
+        page_size: 1000,
+        order_by: "id",
+        order_direction: "asc",
+      }),
+    ).then((res) => setAllTeams(res.teams ?? []));
+  }, [dispatch]);
+
+  const memberships = values.teams ?? [];
+
+  const availableTeams = useMemo(() => {
+    const assigned = new Set(memberships.map((m) => m.id));
+    return allTeams.filter((t) => t.hash_id && !assigned.has(t.hash_id));
+  }, [allTeams, memberships]);
+
+  const setTeams = useCallback(
+    (next: UserTeamMembership[]) => {
+      setUser((prev) => ({ ...prev, teams: next }));
+    },
+    [setUser],
+  );
 
   const removeAvatar = useCallback(() => {
     setUser((prev) => ({ ...prev, avatar: undefined }));
@@ -106,6 +151,34 @@ const UserForm = ({ reload, setLoading }: { reload: () => void; setLoading: (loa
     },
     [dispatch, values.id],
   );
+
+  const onAddTeam = () => {
+    if (!newTeamHashId) {
+      return;
+    }
+    const team = allTeams.find((t) => t.hash_id === newTeamHashId);
+    if (!team?.hash_id) {
+      return;
+    }
+    setTeams([
+      ...memberships,
+      {
+        id: team.hash_id,
+        name: team.name,
+        role: newTeamRole,
+      },
+    ]);
+    setNewTeamHashId("");
+    setNewTeamRole("member");
+  };
+
+  const onTeamRoleChange = (teamId: string, role: TeamRole) => {
+    setTeams(memberships.map((m) => (m.id === teamId ? { ...m, role } : m)));
+  };
+
+  const onRemoveTeam = (teamId: string) => {
+    setTeams(memberships.filter((m) => m.id !== teamId));
+  };
 
   return (
     <Box component={"form"} ref={formRef} onSubmit={(e) => e.preventDefault()}>
@@ -240,6 +313,93 @@ const UserForm = ({ reload, setLoading }: { reload: () => void; setLoading: (loa
                   </Link>
                 )}
               </Typography>
+            </SettingForm>
+            <SettingForm title={t("user.teams")} noContainer lgWidth={12}>
+              <NoMarginHelperText sx={{ mb: 1 }}>{t("user.teamsDes")}</NoMarginHelperText>
+              <Stack direction={{ xs: "column", sm: "row" }} spacing={1} sx={{ mb: 1 }}>
+                <FormControl fullWidth sx={{ flex: 1 }}>
+                  <DenseSelect
+                    displayEmpty
+                    value={newTeamHashId}
+                    onChange={(e) => setNewTeamHashId(e.target.value as string)}
+                  >
+                    <MenuItem value="">
+                      <em>{t("user.selectTeam")}</em>
+                    </MenuItem>
+                    {availableTeams.map((team) => (
+                      <MenuItem key={team.hash_id} value={team.hash_id}>
+                        {team.name}
+                      </MenuItem>
+                    ))}
+                  </DenseSelect>
+                </FormControl>
+                <FormControl sx={{ minWidth: 140 }}>
+                  <DenseSelect
+                    value={newTeamRole}
+                    onChange={(e) => setNewTeamRole(e.target.value as TeamRole)}
+                  >
+                    {teamRoles.map((role) => (
+                      <MenuItem key={role} value={role}>
+                        {t(`team.role_${role}`)}
+                      </MenuItem>
+                    ))}
+                  </DenseSelect>
+                </FormControl>
+                <SecondaryButton
+                  variant="contained"
+                  disabled={!newTeamHashId}
+                  onClick={onAddTeam}
+                  sx={{ whiteSpace: "nowrap" }}
+                >
+                  {t("team.addMember")}
+                </SecondaryButton>
+              </Stack>
+              <TableContainer component={StyledTableContainerPaper}>
+                <Table size="small" sx={{ width: "100%", tableLayout: "fixed" }}>
+                  <TableHead>
+                    <TableRow>
+                      <NoWrapTableCell>{t("team.name")}</NoWrapTableCell>
+                      <NoWrapTableCell width={140}>{t("team.role")}</NoWrapTableCell>
+                      <NoWrapTableCell width={60}></NoWrapTableCell>
+                    </TableRow>
+                  </TableHead>
+                  <TableBody>
+                    {memberships.map((m) => (
+                      <TableRow key={m.id}>
+                        <NoWrapTableCell>
+                          <NoWrapTypography variant="inherit">{m.name || m.id}</NoWrapTypography>
+                        </NoWrapTableCell>
+                        <NoWrapTableCell>
+                          <DenseSelect
+                            value={m.role}
+                            onChange={(e) => onTeamRoleChange(m.id, e.target.value as TeamRole)}
+                          >
+                            {teamRoles.map((role) => (
+                              <MenuItem key={role} value={role}>
+                                {t(`team.role_${role}`)}
+                              </MenuItem>
+                            ))}
+                          </DenseSelect>
+                        </NoWrapTableCell>
+                        <NoWrapTableCell>
+                          <IconButton size="small" onClick={() => onRemoveTeam(m.id)}>
+                            <Delete fontSize="small" />
+                          </IconButton>
+                        </NoWrapTableCell>
+                      </TableRow>
+                    ))}
+                    {memberships.length === 0 && (
+                      <TableRow>
+                        <NoWrapTableCell colSpan={3}>
+                          <Typography variant="body2" color="text.secondary">
+                            {t("user.noTeams")}
+                          </Typography>
+                        </NoWrapTableCell>
+                      </TableRow>
+                    )}
+                  </TableBody>
+                </Table>
+              </TableContainer>
             </SettingForm>
           </Grid>
         </Box>
