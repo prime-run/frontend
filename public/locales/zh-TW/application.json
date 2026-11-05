@@ -147,7 +147,10 @@
     "toDarkMode": "黑暗",
     "toLightMode": "淺色",
     "myProfile": "個人主頁",
-    "dashboard": "管理面板"
+    "dashboard": "管理面板",
+    "personal": "Personal",
+    "teams": "Teams",
+    "team": "Team"
   },
   "fileManager": {
     "continueInDesktop": "授權成功，請在桌面客戶端中繼續操作。",
@@ -991,7 +994,12 @@
     "validDurationDays": "{{num}} 天",
     "reportTarget": "舉報對象",
     "reportReason": "原因",
-    "reportReasonOptions": ["侵權", "有害內容", "垃圾訊息", "其他"],
+    "reportReasonOptions": [
+      "侵權",
+      "有害內容",
+      "垃圾訊息",
+      "其他"
+    ],
     "reportDescription": "補充說明",
     "reportAbuseSuccess": "舉報已提交"
   }

@@ -47,15 +47,21 @@ const StorageSummary = memo(() => {
       </StorageHeaderContainer>
       {capacity && (
         <BorderLinearProgress
-          warning={capacity.used > capacity.total}
+          warning={capacity.total > 0 && capacity.used > capacity.total}
           variant="determinate"
-          value={Math.min(100, (capacity.used / capacity.total) * 100)}
+          value={
+            capacity.total > 0 ? Math.min(100, (capacity.used / capacity.total) * 100) : 0
+          }
         />
       )}
       {!capacity && <Skeleton sx={{ mt: 1, height: 8 }} variant="rounded" />}
       <Typography variant={"caption"} color={"text.secondary"}>
         {capacity ? (
-          `${sizeToString(capacity.used)} / ${sizeToString(capacity.total)}`
+          capacity.total > 0 ? (
+            `${sizeToString(capacity.used)} / ${sizeToString(capacity.total)}`
+          ) : (
+            `${sizeToString(capacity.used)} / ∞`
+          )
         ) : (
           <Skeleton sx={{ width: "50%" }} variant="text" />
         )}

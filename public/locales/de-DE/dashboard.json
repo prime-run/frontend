@@ -44,7 +44,8 @@
     "customProps": "Benutzerdefinierte Eigenschaften",
     "fullTextSearch": "Volltextsuche",
     "abuseReport": "Missbrauchsmeldung",
-    "oauthClients": "OAuth-Apps"
+    "oauthClients": "OAuth-Apps",
+    "teams": "Teams"
   },
   "oauth": {
     "oauthClients": "OAuth-Apps",
@@ -1357,7 +1358,11 @@
     "deleteXUsers": "{{num}} Benutzer löschen",
     "confirmBatchDelete": "Sind Sie sicher, dass Sie {{num}} Benutzer löschen möchten?",
     "calibrateStorage": "Speicher kalibrieren",
-    "calibrateStorageSuccess": "Speicher erfolgreich kalibriert."
+    "calibrateStorageSuccess": "Speicher erfolgreich kalibriert.",
+    "teams": "Teams",
+    "teamsDes": "Assign this user to one or more team workspaces and set their role in each.",
+    "selectTeam": "Select a team…",
+    "noTeams": "Not a member of any team."
   },
   "file": {
     "deleteXFiles": "{{num}} Dateien löschen",
@@ -1746,5 +1751,30 @@
     "reportedUserID": "Gemeldete Benutzer-ID",
     "shareID": "Freigabe-ID",
     "reason": "Grund"
+  },
+  "team": {
+    "#": "#",
+    "name": "Name",
+    "nameDes": "Display name of the team workspace.",
+    "create": "Create",
+    "new": "New team",
+    "editTeam": "Edit {{team}}",
+    "confirmDelete": "Are you sure you want to delete team {{team}}? The team must be empty.",
+    "members": "Members",
+    "hashId": "Hash ID",
+    "hashIdDes": "Encoded team ID used in cloudreve://{hash}@team URIs.",
+    "maxStorage": "Shared storage limit",
+    "maxStorageDes": "Total storage shared by all members for files in this team drive. Separate from each member's personal quota.",
+    "owner": "Owner",
+    "ownerDes": "Optional. Leave empty to make the creating admin the team owner.",
+    "searchOwner": "Search user as owner...",
+    "searchMember": "Search user to add...",
+    "addMember": "Add member",
+    "role": "Role",
+    "role_owner": "Owner",
+    "role_admin": "Admin",
+    "role_member": "Member",
+    "noMembers": "No members yet.",
+    "confirmRemoveMember": "Remove {{user}} from this team?"
   }
 }

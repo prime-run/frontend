@@ -44,7 +44,8 @@
     "customProps": "사용자 정의 속성",
     "fullTextSearch": "전문 검색",
     "abuseReport": "남용 신고",
-    "oauthClients": "OAuth 앱"
+    "oauthClients": "OAuth 앱",
+    "teams": "Teams"
   },
   "oauth": {
     "oauthClients": "OAuth 앱",
@@ -1350,7 +1351,11 @@
     "deleteXUsers": "{{num}}명 사용자 삭제",
     "confirmBatchDelete": "{{num}}명 사용자를 삭제하시겠습니까?",
     "calibrateStorage": "스토리지 공간 보정",
-    "calibrateStorageSuccess": "스토리지 공간 보정 성공"
+    "calibrateStorageSuccess": "스토리지 공간 보정 성공",
+    "teams": "Teams",
+    "teamsDes": "Assign this user to one or more team workspaces and set their role in each.",
+    "selectTeam": "Select a team…",
+    "noTeams": "Not a member of any team."
   },
   "file": {
     "deleteXFiles": "{{num}}개 파일 삭제",
@@ -1754,5 +1759,30 @@
     "reportedUserID": "신고 대상 사용자 ID",
     "shareID": "공유 ID",
     "reason": "원인"
+  },
+  "team": {
+    "#": "#",
+    "name": "Name",
+    "nameDes": "Display name of the team workspace.",
+    "create": "Create",
+    "new": "New team",
+    "editTeam": "Edit {{team}}",
+    "confirmDelete": "Are you sure you want to delete team {{team}}? The team must be empty.",
+    "members": "Members",
+    "hashId": "Hash ID",
+    "hashIdDes": "Encoded team ID used in cloudreve://{hash}@team URIs.",
+    "maxStorage": "Shared storage limit",
+    "maxStorageDes": "Total storage shared by all members for files in this team drive. Separate from each member's personal quota.",
+    "owner": "Owner",
+    "ownerDes": "Optional. Leave empty to make the creating admin the team owner.",
+    "searchOwner": "Search user as owner...",
+    "searchMember": "Search user to add...",
+    "addMember": "Add member",
+    "role": "Role",
+    "role_owner": "Owner",
+    "role_admin": "Admin",
+    "role_member": "Member",
+    "noMembers": "No members yet.",
+    "confirmRemoveMember": "Remove {{user}} from this team?"
   }
 }

@@ -147,7 +147,10 @@
     "toDarkMode": "Escuro",
     "toLightMode": "Claro",
     "myProfile": "Meu perfil",
-    "dashboard": "Painel de controle"
+    "dashboard": "Painel de controle",
+    "personal": "Personal",
+    "teams": "Teams",
+    "team": "Team"
   },
   "fileManager": {
     "continueInDesktop": "Autorização bem-sucedida, continue no cliente desktop.",
@@ -1110,7 +1113,12 @@
     "report": "Denunciar abuso",
     "reportTarget": "Alvo da denúncia",
     "reportReason": "Razão",
-    "reportReasonOptions": ["Violação de direitos autorais", "Conteúdo prejudicial", "Spam", "Outro"],
+    "reportReasonOptions": [
+      "Violação de direitos autorais",
+      "Conteúdo prejudicial",
+      "Spam",
+      "Outro"
+    ],
     "reportDescription": "Descrição adicional",
     "reportAbuseSuccess": "Denúncia enviada.",
     "migrateStoragePolicy": "Migrar política de armazenamento",

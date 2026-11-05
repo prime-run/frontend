@@ -55,10 +55,13 @@ export const CapacityBar = ({ capacity, forceRow }: { capacity?: Capacity; force
       return;
     }
 
-    summary.used = capacity.used / capacity.total;
+    // total <= 0 means unlimited — avoid NaN / over-quota paint.
+    summary.used = capacity.total > 0 ? capacity.used / capacity.total : 0;
     summary.base = 1;
     setStorageBreakdown(summary);
   }, [capacity]);
+
+  const unlimited = (capacity?.total ?? 0) <= 0;
 
   return (
     <>
@@ -87,9 +90,11 @@ export const CapacityBar = ({ capacity, forceRow }: { capacity?: Capacity; force
               backgroundColor: (theme) => theme.palette.grey[theme.palette.mode === "light" ? 200 : 800],
             }}
           />
-          {t("vas.total", {
-            size: sizeToString(capacity?.total ?? 0),
-          })}
+          {unlimited
+            ? t("vas.total", { size: "∞" })
+            : t("vas.total", {
+                size: sizeToString(capacity?.total ?? 0),
+              })}
         </Typography>
       </Stack>
     </>

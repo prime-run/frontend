@@ -46,6 +46,7 @@ export function setTargetSession(session: LoginResponse): AppThunk {
     // TODO: clear fm cache
     dispatch(setPolicyOptionCache());
     dispatch(clearSessionCache({ index: 0, value: undefined }));
+    dispatch(setTeams(undefined));
     refreshTimeZone();
     dispatch(loadUserTeams());
   };
@@ -53,15 +54,15 @@ export function setTargetSession(session: LoginResponse): AppThunk {
 
 export function loadUserTeams(): AppThunk<Promise<void>> {
   return async (dispatch, _getState) => {
+    dispatch(setTeams(undefined));
     if (!SessionManager.currentLoginOrNull()) {
-      dispatch(setTeams(undefined));
       return;
     }
     try {
       const teams = await dispatch(getUserTeams());
       dispatch(setTeams(teams ?? []));
     } catch {
-      // Backend may not have team APIs yet; keep prior list.
+      dispatch(setTeams([]));
     }
   };
 }
