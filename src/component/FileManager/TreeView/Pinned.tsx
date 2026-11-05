@@ -46,7 +46,12 @@ const Pinned = memo(() => {
             p.crUri.fs() != Filesystem.share ||
             (p.crUri.fs() == Filesystem.share && (!p.crUri.is_root() || p.crUri.is_search()))
           }
-          canDrop={(p.crUri.fs() == Filesystem.share || p.crUri.fs() == Filesystem.my) && !p.crUri.is_search()}
+          canDrop={
+            (p.crUri.fs() == Filesystem.share ||
+              p.crUri.fs() == Filesystem.my ||
+              p.crUri.fs() == Filesystem.team) &&
+            !p.crUri.is_search()
+          }
           level={0}
           labelOverwrite={p.name}
           path={p.uri}

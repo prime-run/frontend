@@ -102,6 +102,13 @@ import {
   UserSettings,
 } from "./user.ts";
 import {
+  AdminListTeamResponse,
+  TeamEnt,
+  UpsertTeamMemberService,
+  UpsertTeamService,
+  UserTeam,
+} from "./team.ts";
+import {
   ArchiveWorkflowService,
   DownloadWorkflowService,
   ImportWorkflowService,
@@ -2186,6 +2193,109 @@ export function sendRebuildFTSIndex(req: RebuildFTSIndexWorkflowService): ThunkR
           data: req,
           method: "POST",
         },
+        {
+          ...defaultOpts,
+        },
+      ),
+    );
+  };
+}
+
+export function getUserTeams(): ThunkResponse<UserTeam[]> {
+  return async (dispatch, _getState) => {
+    return await dispatch(
+      send(
+        `/team`,
+        {
+          method: "GET",
+        },
+        {
+          ...defaultOpts,
+        },
+      ),
+    );
+  };
+}
+
+export function getTeamList(args: AdminListService): ThunkResponse<AdminListTeamResponse> {
+  return async (dispatch, _getState) => {
+    return await dispatch(
+      send(
+        `/admin/team`,
+        {
+          method: "POST",
+          data: args,
+        },
+        {
+          ...defaultOpts,
+        },
+      ),
+    );
+  };
+}
+
+export function getTeamDetail(id: number): ThunkResponse<TeamEnt> {
+  return async (dispatch, _getState) => {
+    return await dispatch(
+      send(
+        `/admin/team/${id}`,
+        { method: "GET" },
+        {
+          ...defaultOpts,
+        },
+      ),
+    );
+  };
+}
+
+export function upsertTeam(args: UpsertTeamService): ThunkResponse<TeamEnt> {
+  return async (dispatch, _getState) => {
+    return await dispatch(
+      send(
+        `/admin/team${args.team.id ? `/${args.team.id}` : ""}`,
+        { method: "PUT", data: args },
+        {
+          ...defaultOpts,
+        },
+      ),
+    );
+  };
+}
+
+export function deleteTeam(id: number): ThunkResponse<void> {
+  return async (dispatch, _getState) => {
+    return await dispatch(
+      send(
+        `/admin/team/${id}`,
+        { method: "DELETE" },
+        {
+          ...defaultOpts,
+        },
+      ),
+    );
+  };
+}
+
+export function upsertTeamMember(teamId: number, args: UpsertTeamMemberService): ThunkResponse<TeamEnt> {
+  return async (dispatch, _getState) => {
+    return await dispatch(
+      send(
+        `/admin/team/${teamId}/member`,
+        { method: "PUT", data: args },
+        {
+          ...defaultOpts,
+        },
+      ),
+    );
+  };
+}
+
+export function deleteTeamMember(teamId: number, userId: string): ThunkResponse<TeamEnt> {
+  return async (dispatch, _getState) => {
+    return await dispatch(
+      send(
+        `/admin/team/${teamId}/member/${encodeURIComponent(userId)}`,
+        { method: "DELETE" },
         {
           ...defaultOpts,
         },

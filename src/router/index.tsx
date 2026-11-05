@@ -156,6 +156,20 @@ export const router = createBrowserRouter([
                 },
               },
               {
+                path: "team",
+                async lazy() {
+                  let { TeamSetting } = await import("../component/Admin/AdminBundle.tsx");
+                  return { Component: TeamSetting };
+                },
+              },
+              {
+                path: "team/:id",
+                async lazy() {
+                  let { EditTeam } = await import("../component/Admin/AdminBundle.tsx");
+                  return { Component: EditTeam };
+                },
+              },
+              {
                 path: "node",
                 async lazy() {
                   let { NodeSetting } = await import("../component/Admin/AdminBundle.tsx");

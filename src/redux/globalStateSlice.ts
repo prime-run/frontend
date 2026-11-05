@@ -9,6 +9,7 @@ import {
   ViewerSession,
 } from "../api/explorer.ts";
 import { Response } from "../api/request.ts";
+import { UserTeam } from "../api/team.ts";
 import { AppRegistration, User } from "../api/user.ts";
 import { SelectType } from "../component/Uploader/core";
 import SessionManager, { UserSettings } from "../session";
@@ -98,6 +99,8 @@ export interface GlobalStateSlice {
   userInfoCache: {
     [key: string]: User;
   };
+  /** Current user's team memberships (loaded after login). */
+  teams?: UserTeam[];
 
   // Others
   pinedGeneration: number;
@@ -632,6 +635,9 @@ export const globalStateSlice = createSlice({
     setUserInfoCache: (state, action: PayloadAction<[string, User]>) => {
       state.userInfoCache[action.payload[0]] = action.payload[1];
     },
+    setTeams: (state, action: PayloadAction<UserTeam[] | undefined>) => {
+      state.teams = action.payload;
+    },
     setAggregatedErrorDialog: (
       state,
       action: PayloadAction<{
@@ -928,6 +934,7 @@ export const {
   setHeadlessFrameLoading,
   setPreferredTheme,
   setUserInfoCache,
+  setTeams,
   setImageEditor,
   closeImageEditor,
   setSaveAsDialog,

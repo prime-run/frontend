@@ -14,6 +14,8 @@ import EditStoragePolicy from "./StoragePolicy/EditStoragePolicy/EditStoragePoli
 import OauthCallback from "./StoragePolicy/OauthCallback";
 import StoragePolicySetting from "./StoragePolicy/StoragePolicySetting";
 import TaskList from "./Task/TaskList";
+import EditTeam from "./Team/EditTeam/EditTeam";
+import TeamSetting from "./Team/TeamSetting";
 import UserSetting from "./User/UserSetting";
 
 export {
@@ -21,6 +23,7 @@ export {
   EditNode,
   EditOAuthClient,
   EditStoragePolicy,
+  EditTeam,
   EntitySetting,
   FileSetting,
   FileSystem,
@@ -33,5 +36,6 @@ export {
   ShareList,
   StoragePolicySetting,
   TaskList,
+  TeamSetting,
   UserSetting,
 };
