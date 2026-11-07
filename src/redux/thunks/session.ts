@@ -55,13 +55,23 @@ export function setTargetSession(session: LoginResponse): AppThunk {
 export function loadUserTeams(): AppThunk<Promise<void>> {
   return async (dispatch, _getState) => {
     dispatch(setTeams(undefined));
-    if (!SessionManager.currentLoginOrNull()) {
+    const login = SessionManager.currentLoginOrNull();
+    if (!login) {
       return;
     }
+    const userId = login.user.id;
     try {
       const teams = await dispatch(getUserTeams());
+      const current = SessionManager.currentLoginOrNull();
+      if (!current || current.user.id !== userId) {
+        return;
+      }
       dispatch(setTeams(teams ?? []));
     } catch {
+      const current = SessionManager.currentLoginOrNull();
+      if (!current || current.user.id !== userId) {
+        return;
+      }
       dispatch(setTeams([]));
     }
   };
