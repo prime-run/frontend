@@ -145,9 +145,9 @@
     "toLightMode": "浅色",
     "myProfile": "个人主页",
     "dashboard": "管理面板",
-    "personal": "Personal",
-    "teams": "Teams",
-    "team": "Team"
+    "personal": "个人空间",
+    "teams": "团队",
+    "team": "团队"
   },
   "fileManager": {
     "continueInDesktop": "授权成功，请在桌面客户端中继续操作。",

@@ -140,12 +140,12 @@ const SearchPopup = () => {
 
   const fullTextSearchDebounced = useMemo(
     () =>
-      debounce((query: string) => {
+      debounce((query: string, searchUri?: string) => {
         if (!fullTextSearchEnabled || !isLoggedIn) return;
         setFullTextLoading(true);
         setFullTextResults([]);
         setFullTextTotal(0);
-        dispatch(sendFullTextSearch(query))
+        dispatch(sendFullTextSearch(query, undefined, searchUri))
           .then((res: FullTextSearchResults) => {
             setFullTextResults(res.hits ?? []);
             setFullTextTotal(res.total);
@@ -158,7 +158,7 @@ const SearchPopup = () => {
             setFullTextLoading(false);
           });
       }, 500),
-    [fullTextSearchEnabled, isLoggedIn, path, dispatch],
+    [fullTextSearchEnabled, isLoggedIn, dispatch],
   );
 
   useEffect(() => {
@@ -168,16 +168,16 @@ const SearchPopup = () => {
       return;
     }
 
-    fullTextSearchDebounced(keywords);
+    fullTextSearchDebounced(keywords, path);
     return () => {
       fullTextSearchDebounced.clear();
     };
-  }, [keywords, fullTextSearchDebounced, fullTextSearchEnabled, isLoggedIn]);
+  }, [keywords, fullTextSearchDebounced, fullTextSearchEnabled, isLoggedIn, path]);
 
   const loadMoreFullText = useCallback(() => {
     if (fullTextLoading) return;
     setFullTextLoading(true);
-    dispatch(sendFullTextSearch(keywords, fullTextResults.length))
+    dispatch(sendFullTextSearch(keywords, fullTextResults.length, path))
       .then((res: FullTextSearchResults) => {
         setFullTextResults((prev) => [...prev, ...(res.hits ?? [])]);
         setFullTextTotal(res.total);
@@ -186,7 +186,7 @@ const SearchPopup = () => {
       .finally(() => {
         setFullTextLoading(false);
       });
-  }, [keywords, fullTextResults.length, fullTextLoading, dispatch]);
+  }, [keywords, fullTextResults.length, fullTextLoading, dispatch, path]);
 
   const fullSearchOptions = useMemo(() => {
     if (!open || !keywords) {
