@@ -14,7 +14,7 @@ import {
 } from "@mui/material";
 import { TransitionProps } from "@mui/material/transitions";
 import Fuse from "fuse.js";
-import { forwardRef, useCallback, useEffect, useMemo, useState } from "react";
+import { forwardRef, useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { sendFullTextSearch } from "../../../api/api.ts";
 import {
@@ -73,6 +73,7 @@ const SearchPopup = () => {
   const [fullTextResults, setFullTextResults] = useState<FullTextSearchResultType[]>([]);
   const [fullTextTotal, setFullTextTotal] = useState(0);
   const [fullTextLoading, setFullTextLoading] = useState(false);
+  const fullTextRequestGen = useRef(0);
 
   const onClose = () => {
     dispatch(setSearchPopup(false));
@@ -142,19 +143,23 @@ const SearchPopup = () => {
     () =>
       debounce((query: string, searchUri?: string) => {
         if (!fullTextSearchEnabled || !isLoggedIn) return;
+        const requestGen = ++fullTextRequestGen.current;
         setFullTextLoading(true);
         setFullTextResults([]);
         setFullTextTotal(0);
         dispatch(sendFullTextSearch(query, undefined, searchUri))
           .then((res: FullTextSearchResults) => {
+            if (requestGen !== fullTextRequestGen.current) return;
             setFullTextResults(res.hits ?? []);
             setFullTextTotal(res.total);
           })
           .catch(() => {
+            if (requestGen !== fullTextRequestGen.current) return;
             setFullTextResults([]);
             setFullTextTotal(0);
           })
           .finally(() => {
+            if (requestGen !== fullTextRequestGen.current) return;
             setFullTextLoading(false);
           });
       }, 500),
@@ -163,27 +168,35 @@ const SearchPopup = () => {
 
   useEffect(() => {
     if (keywords === "" || keywords.length < 2 || !fullTextSearchEnabled || !isLoggedIn) {
+      fullTextRequestGen.current++;
       setFullTextResults([]);
       setFullTextTotal(0);
+      setFullTextLoading(false);
       return;
     }
 
     fullTextSearchDebounced(keywords, path);
     return () => {
       fullTextSearchDebounced.clear();
+      // Invalidate in-flight responses from the previous workspace/query.
+      fullTextRequestGen.current++;
     };
   }, [keywords, fullTextSearchDebounced, fullTextSearchEnabled, isLoggedIn, path]);
 
   const loadMoreFullText = useCallback(() => {
     if (fullTextLoading) return;
+    const requestGen = ++fullTextRequestGen.current;
+    const requestPath = path;
     setFullTextLoading(true);
-    dispatch(sendFullTextSearch(keywords, fullTextResults.length, path))
+    dispatch(sendFullTextSearch(keywords, fullTextResults.length, requestPath))
       .then((res: FullTextSearchResults) => {
+        if (requestGen !== fullTextRequestGen.current) return;
         setFullTextResults((prev) => [...prev, ...(res.hits ?? [])]);
         setFullTextTotal(res.total);
       })
       .catch(() => {})
       .finally(() => {
+        if (requestGen !== fullTextRequestGen.current) return;
         setFullTextLoading(false);
       });
   }, [keywords, fullTextResults.length, fullTextLoading, dispatch, path]);
