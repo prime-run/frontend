@@ -1,17 +1,19 @@
-import { Box, Collapse, Fade } from "@mui/material";
+import { Box, Collapse, Fade, Typography } from "@mui/material";
 
 import { ChevronRight, ExpandMore } from "@mui/icons-material";
 import { TreeView } from "@mui/x-tree-view";
 import React, { useEffect } from "react";
+import { useTranslation } from "react-i18next";
 import { TransitionGroup } from "react-transition-group";
 import { defaultPath, defaultSharedWithMePath, defaultTrashPath } from "../../../hooks/useNavigation.tsx";
 import { useAppSelector } from "../../../redux/hooks.ts";
 import SessionManager, { UserSettings } from "../../../session";
-import CrUri, { Filesystem } from "../../../util/uri.ts";
+import CrUri, { Filesystem, newTeamUri } from "../../../util/uri.ts";
 import { FileManagerIndex } from "../FileManager.tsx";
 import { FmIndexContext } from "../FmIndexContext.tsx";
 import Pinned, { usePinned } from "./Pinned.tsx";
 import TreeFiles from "./TreeFiles.tsx";
+import WorkspaceSwitcher from "./WorkspaceSwitcher.tsx";
 
 export interface TreeNavigationProps {
   scrollRef?: React.MutableRefObject<HTMLElement | undefined>;
@@ -23,11 +25,13 @@ export interface TreeNavigationProps {
 
 const TreeNavigation = React.memo(
   ({ index = 0, scrollRef, hideWithDrawer, disableSharedWithMe, disableTrash }: TreeNavigationProps) => {
+    const { t } = useTranslation();
     const base = useAppSelector((s) => s.fileManager[index].path_root);
     const path = useAppSelector((s) => s.fileManager[index].pure_path_with_category);
     const currentFs = useAppSelector((s) => s.fileManager[index].current_fs);
     const elements = useAppSelector((s) => s.fileManager[index].path_elements);
     const drawerOpen = useAppSelector((s) => s.globalState.drawerOpen);
+    const teams = useAppSelector((s) => s.globalState.teams);
     const [expanded, setExpanded] = React.useState<string[]>([]);
 
     useEffect(() => {
@@ -62,81 +66,119 @@ const TreeNavigation = React.memo(
     }, [showShareTree]);
 
     const isLogin = !!SessionManager.currentLoginOrNull();
+    const teamElements = currentFs == Filesystem.team ? elements : undefined;
+    const activeTeamId =
+      currentFs == Filesystem.team && path
+        ? (() => {
+            try {
+              return new CrUri(path).id();
+            } catch {
+              return "";
+            }
+          })()
+        : "";
 
     return (
       <FmIndexContext.Provider value={index}>
         <Box sx={{ width: "100%" }}>
           <Fade in={drawerOpen || !hideWithDrawer} unmountOnExit>
-            <TreeView
-              selected={path ?? ""}
-              defaultCollapseIcon={<ExpandMore />}
-              defaultExpandIcon={<ChevronRight />}
-              expanded={expanded}
-              onNodeToggle={(_event, nodeIds: string[]) => {
-                setExpanded(nodeIds);
-              }}
-            >
-              <TransitionGroup>
-                {showShareTree && (
-                  <Collapse key={"share"}>
-                    <TreeFiles level={0} path={base} elements={elements} />
-                  </Collapse>
-                )}
-                {isLogin && (
-                  <>
-                    <TreeFiles
-                      canDrop
-                      level={0}
-                      path={defaultPath}
-                      key={defaultPath}
-                      elements={currentFs == Filesystem.my ? elements : undefined}
-                    />
-                    {index == FileManagerIndex.main && (
-                      <>
-                        <TreeFiles
-                          flatten
-                          level={0}
-                          path={"cloudreve://my/?category=image"}
-                          key={"cloudreve://my/?category=image"}
-                        />
-                        <TreeFiles
-                          flatten
-                          level={0}
-                          path={"cloudreve://my/?category=video"}
-                          key={"cloudreve://my/?category=video"}
-                        />
-                        <TreeFiles
-                          flatten
-                          level={0}
-                          path={"cloudreve://my/?category=audio"}
-                          key={"cloudreve://my/?category=audio"}
-                        />
-                        <TreeFiles
-                          flatten
-                          level={0}
-                          path={"cloudreve://my/?category=document"}
-                          key={"cloudreve://my/?category=document"}
-                        />
-                      </>
-                    )}
-                    {!disableSharedWithMe && (
-                      <TreeFiles level={0} path={defaultSharedWithMePath} key={defaultSharedWithMePath} />
-                    )}
-                    {!disableTrash && (
+            <Box>
+              <WorkspaceSwitcher />
+              <TreeView
+                selected={path ?? ""}
+                defaultCollapseIcon={<ExpandMore />}
+                defaultExpandIcon={<ChevronRight />}
+                expanded={expanded}
+                onNodeToggle={(_event, nodeIds: string[]) => {
+                  setExpanded(nodeIds);
+                }}
+              >
+                <TransitionGroup>
+                  {showShareTree && (
+                    <Collapse key={"share"}>
+                      <TreeFiles level={0} path={base} elements={elements} />
+                    </Collapse>
+                  )}
+                  {isLogin && (
+                    <>
                       <TreeFiles
-                        level={0}
-                        flatten
                         canDrop
-                        key={defaultTrashPath}
-                        path={defaultTrashPath}
-                        elements={currentFs == Filesystem.trash ? elements : undefined}
+                        level={0}
+                        path={defaultPath}
+                        key={defaultPath}
+                        elements={currentFs == Filesystem.my ? elements : undefined}
                       />
-                    )}
-                    <Pinned />
-                  </>
-                )}
-              </TransitionGroup>
-            </TreeView>
+                      {index == FileManagerIndex.main && (
+                        <>
+                          <TreeFiles
+                            flatten
+                            level={0}
+                            path={"cloudreve://my/?category=image"}
+                            key={"cloudreve://my/?category=image"}
+                          />
+                          <TreeFiles
+                            flatten
+                            level={0}
+                            path={"cloudreve://my/?category=video"}
+                            key={"cloudreve://my/?category=video"}
+                          />
+                          <TreeFiles
+                            flatten
+                            level={0}
+                            path={"cloudreve://my/?category=audio"}
+                            key={"cloudreve://my/?category=audio"}
+                          />
+                          <TreeFiles
+                            flatten
+                            level={0}
+                            path={"cloudreve://my/?category=document"}
+                            key={"cloudreve://my/?category=document"}
+                          />
+                        </>
+                      )}
+                      {!disableSharedWithMe && (
+                        <TreeFiles level={0} path={defaultSharedWithMePath} key={defaultSharedWithMePath} />
+                      )}
+                      {!disableTrash && (
+                        <TreeFiles
+                          level={0}
+                          flatten
+                          canDrop
+                          key={defaultTrashPath}
+                          path={defaultTrashPath}
+                          elements={currentFs == Filesystem.trash ? elements : undefined}
+                        />
+                      )}
+                      {teams && teams.length > 0 && (
+                        <>
+                          <Typography
+                            variant="caption"
+                            color="text.secondary"
+                            sx={{ display: "block", px: 1.5, pt: 1, pb: 0.5 }}
+                          >
+                            {t("navbar.teams")}
+                          </Typography>
+                          {teams.map((team) => {
+                            const teamPath = newTeamUri(team.id).toString();
+                            return (
+                              <TreeFiles
+                                canDrop
+                                level={0}
+                                path={teamPath}
+                                key={teamPath}
+                                labelOverwrite={team.name}
+                                elements={activeTeamId === team.id ? teamElements : undefined}
+                              />
+                            );
+                          })}
+                        </>
+                      )}
+                      <Pinned />
+                    </>
+                  )}
+                </TransitionGroup>
+              </TreeView>
+            </Box>
           </Fade>
         </Box>
       </FmIndexContext.Provider>

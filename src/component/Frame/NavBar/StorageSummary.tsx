@@ -1,9 +1,10 @@
 import { LinearProgress, linearProgressClasses, Skeleton, styled, Typography } from "@mui/material";
-import { memo, useEffect } from "react";
+import { memo, useEffect, useMemo } from "react";
 import { useTranslation } from "react-i18next";
 import { useAppDispatch, useAppSelector } from "../../../redux/hooks.ts";
 import { updateUserCapacity } from "../../../redux/thunks/filemanager.ts";
 import { sizeToString } from "../../../util";
+import CrUri from "../../../util/uri.ts";
 import { RadiusFrame } from "../RadiusFrame.tsx";
 
 const StyledBox = styled(RadiusFrame)(({ theme }) => ({
@@ -34,12 +35,21 @@ const StorageSummary = memo(() => {
   const { t } = useTranslation("application");
   const dispatch = useAppDispatch();
   const capacity = useAppSelector((state) => state.fileManager[0].capacity);
-  useEffect(() => {
-    if (!capacity) {
-      dispatch(updateUserCapacity(0));
-      return;
+  const purePath = useAppSelector((state) => state.fileManager[0].pure_path);
+  const workspaceKey = useMemo(() => {
+    if (!purePath) {
+      return "";
     }
-  }, [capacity]);
+    try {
+      const uri = new CrUri(purePath);
+      return `${uri.fs()}/${uri.id()}`;
+    } catch {
+      return purePath;
+    }
+  }, [purePath]);
+  useEffect(() => {
+    dispatch(updateUserCapacity(0));
+  }, [dispatch, workspaceKey]);
   return (
     <StyledBox withBorder>
       <StorageHeaderContainer>
@@ -47,15 +57,21 @@ const StorageSummary = memo(() => {
       </StorageHeaderContainer>
       {capacity && (
         <BorderLinearProgress
-          warning={capacity.used > capacity.total}
+          warning={capacity.total > 0 && capacity.used > capacity.total}
           variant="determinate"
-          value={Math.min(100, (capacity.used / capacity.total) * 100)}
+          value={
+            capacity.total > 0 ? Math.min(100, (capacity.used / capacity.total) * 100) : 0
+          }
         />
       )}
       {!capacity && <Skeleton sx={{ mt: 1, height: 8 }} variant="rounded" />}
       <Typography variant={"caption"} color={"text.secondary"}>
         {capacity ? (
-          `${sizeToString(capacity.used)} / ${sizeToString(capacity.total)}`
+          capacity.total > 0 ? (
+            `${sizeToString(capacity.used)} / ${sizeToString(capacity.total)}`
+          ) : (
+            `${sizeToString(capacity.used)} / ∞`
+          )
         ) : (
           <Skeleton sx={{ width: "50%" }} variant="text" />
         )}

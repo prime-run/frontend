@@ -144,7 +144,10 @@
     "toDarkMode": "Ciemny",
     "toLightMode": "Jasny",
     "myProfile": "Mój profil",
-    "dashboard": "Panel sterowania"
+    "dashboard": "Panel sterowania",
+    "personal": "Personal",
+    "teams": "Teams",
+    "team": "Team"
   },
   "fileManager": {
     "continueInDesktop": "Autoryzacja zakończona pomyślnie, kontynuuj w kliencie desktopowym.",
@@ -994,7 +997,12 @@
     "validDurationDays": "{{num}} dni",
     "reportTarget": "Cel zgłoszenia",
     "reportReason": "Powód",
-    "reportReasonOptions": ["Naruszenie praw autorskich", "Szkodliwa treść", "Spam", "Inne"],
+    "reportReasonOptions": [
+      "Naruszenie praw autorskich",
+      "Szkodliwa treść",
+      "Spam",
+      "Inne"
+    ],
     "reportDescription": "Dodatkowy opis",
     "reportAbuseSuccess": "Zgłoszenie przesłane."
   }

@@ -44,7 +44,8 @@
     "customProps": "カスタムプロパティ",
     "fullTextSearch": "全文検索",
     "abuseReport": "不正利用報告",
-    "oauthClients": "OAuth アプリ"
+    "oauthClients": "OAuth アプリ",
+    "teams": "Teams"
   },
   "oauth": {
     "oauthClients": "OAuth アプリ",
@@ -1351,7 +1352,11 @@
     "deleteXUsers": "{{num}}件のユーザーを削除",
     "confirmBatchDelete": "{{num}}件のユーザーを削除しますか？",
     "calibrateStorage": "ストレージ容量の校正",
-    "calibrateStorageSuccess": "ストレージ容量の校正が完了しました"
+    "calibrateStorageSuccess": "ストレージ容量の校正が完了しました",
+    "teams": "Teams",
+    "teamsDes": "Assign this user to one or more team workspaces and set their role in each.",
+    "selectTeam": "Select a team…",
+    "noTeams": "Not a member of any team."
   },
   "file": {
     "deleteXFiles": "{{num}}件のファイルを削除",
@@ -1757,5 +1762,30 @@
     "reportedUserID": "舉報対象ユーザー ID",
     "shareID": "共有 ID",
     "reason": "原因"
+  },
+  "team": {
+    "#": "#",
+    "name": "Name",
+    "nameDes": "Display name of the team workspace.",
+    "create": "Create",
+    "new": "New team",
+    "editTeam": "Edit {{team}}",
+    "confirmDelete": "Are you sure you want to delete team {{team}}? The team must be empty.",
+    "members": "Members",
+    "hashId": "Hash ID",
+    "hashIdDes": "Encoded team ID used in cloudreve://{hash}@team URIs.",
+    "maxStorage": "Shared storage limit",
+    "maxStorageDes": "Total storage shared by all members for files in this team drive. Separate from each member's personal quota.",
+    "owner": "Owner",
+    "ownerDes": "Optional. Leave empty to make the creating admin the team owner.",
+    "searchOwner": "Search user as owner...",
+    "searchMember": "Search user to add...",
+    "addMember": "Add member",
+    "role": "Role",
+    "role_owner": "Owner",
+    "role_admin": "Admin",
+    "role_member": "Member",
+    "noMembers": "No members yet.",
+    "confirmRemoveMember": "Remove {{user}} from this team?"
   }
 }

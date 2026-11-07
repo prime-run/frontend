@@ -144,7 +144,10 @@
     "toDarkMode": "داكن",
     "toLightMode": "فاتح",
     "myProfile": "ملفي الشخصي",
-    "dashboard": "لوحة البيانات"
+    "dashboard": "لوحة البيانات",
+    "personal": "Personal",
+    "teams": "Teams",
+    "team": "Team"
   },
   "fileManager": {
     "continueInDesktop": "تم التفويض بنجاح، يرجى المتابعة عبر تطبيق سطح المكتب.",
@@ -979,7 +982,12 @@
     "validDurationDays": "{{num}} يوم",
     "reportTarget": "الذي تريد الإبلاغ عنه",
     "reportReason": "السبب",
-    "reportReasonOptions": ["انتهاك حقوق الطبع والنشر", "محتوى ضار", "غير المرغوب به", "أخرى"],
+    "reportReasonOptions": [
+      "انتهاك حقوق الطبع والنشر",
+      "محتوى ضار",
+      "غير المرغوب به",
+      "أخرى"
+    ],
     "reportDescription": "وصف إضافي",
     "reportAbuseSuccess": "تم رفع التقرير."
   }

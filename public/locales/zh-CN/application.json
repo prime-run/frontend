@@ -144,7 +144,10 @@
     "toDarkMode": "黑暗",
     "toLightMode": "浅色",
     "myProfile": "个人主页",
-    "dashboard": "管理面板"
+    "dashboard": "管理面板",
+    "personal": "Personal",
+    "teams": "Teams",
+    "team": "Team"
   },
   "fileManager": {
     "continueInDesktop": "授权成功，请在桌面客户端中继续操作。",
@@ -991,7 +994,12 @@
     "validDurationDays": "{{num}} 天",
     "reportTarget": "举报对象",
     "reportReason": "原因",
-    "reportReasonOptions": ["侵权", "有害内容", "垃圾信息", "其他"],
+    "reportReasonOptions": [
+      "侵权",
+      "有害内容",
+      "垃圾信息",
+      "其他"
+    ],
     "reportDescription": "补充说明",
     "reportAbuseSuccess": "举报已提交"
   }

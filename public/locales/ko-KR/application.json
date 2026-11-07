@@ -147,7 +147,10 @@
     "toDarkMode": "다크",
     "toLightMode": "라이트",
     "myProfile": "개인 프로필",
-    "dashboard": "관리 패널"
+    "dashboard": "관리 패널",
+    "personal": "Personal",
+    "teams": "Teams",
+    "team": "Team"
   },
   "fileManager": {
     "continueInDesktop": "인증 성공, 데스크톱 클라이언트에서 계속하세요.",
@@ -1110,7 +1113,12 @@
     "report": "남용 신고",
     "reportTarget": "신고 대상",
     "reportReason": "이유",
-    "reportReasonOptions": ["침해", "유해 콘텐츠", "스팸 정보", "기타"],
+    "reportReasonOptions": [
+      "침해",
+      "유해 콘텐츠",
+      "스팸 정보",
+      "기타"
+    ],
     "reportDescription": "추가 설명",
     "reportAbuseSuccess": "신고가 제출되었습니다",
     "migrateStoragePolicy": "저장 정책 전송",

@@ -147,7 +147,10 @@
     "toDarkMode": "ダーク",
     "toLightMode": "ライト",
     "myProfile": "マイページ",
-    "dashboard": "管理パネル"
+    "dashboard": "管理パネル",
+    "personal": "Personal",
+    "teams": "Teams",
+    "team": "Team"
   },
   "fileManager": {
     "continueInDesktop": "認証に成功しました。デスクトップクライアントで操作を続けてください。",
@@ -994,7 +997,12 @@
     "validDurationDays": "{{num}} 日",
     "reportTarget": "報告対象",
     "reportReason": "理由",
-    "reportReasonOptions": ["著作権侵害", "有害なコンテンツ", "スパム", "その他"],
+    "reportReasonOptions": [
+      "著作権侵害",
+      "有害なコンテンツ",
+      "スパム",
+      "その他"
+    ],
     "reportDescription": "詳細説明",
     "reportAbuseSuccess": "報告を受け付けました"
   }

@@ -44,7 +44,8 @@
     "customProps": "خصائص إضافية",
     "fullTextSearch": "البحث النصي الكامل",
     "abuseReport": "الإبلاغ عن إساءة الاستخدام",
-    "oauthClients": "تطبيقات OAuth"
+    "oauthClients": "تطبيقات OAuth",
+    "teams": "Teams"
   },
   "oauth": {
     "oauthClients": "تطبيقات OAuth",
@@ -1192,7 +1193,6 @@
     "allowedHostsDes": "أسماء المضيفين أو عناوين IP المحددة (واحدة في كل سطر) التي يحق لها تجاوز التحقق من سلامة الرابط على هذه العقدة. يتم السماح دائمًا بأسماء المضيفات الخاصة بالموقع. استخدم هذه الميزة لإدراج اسم مضيف داخلي معين في القائمة البيضاء، بحيث يسمح للمستخدمين بالتنزيل منه.",
     "allowedCIDRs": "نطاقات عناوين IP المسموح بها (CIDR)",
     "allowedCIDRsDes": "كتل CIDR (واحدة في كل سطر، IPv4 أو IPv6) التي يتم معاملة عناوين IP الخاصة بها على أنها آمنة حتى لو كان من المفترض رفضها عادةً. استخدم هذه الميزة لعرض شبكة فرعية LAN — على سبيل المثال جهاز NAS على 192.168.10.0/24 — دون تعطيل بقية إجراءات الفحص الأمني.",
-    "webUIEndpoint": "نقطة نهاية Web UI",
     "webUIEndpointDes": "نقطة نهاية Web UI لـ qBittorrent، مثل <0>http://127.0.0.1:8080/</0>.",
     "tempPath": "مجلد التنزيل المؤقت",
     "tempPathDes": "المجلد على العقدة الذي يستخدمه Aria2 كمجلد تنزيل مؤقت. تحتاج عملية Cloudreve على العقدة إلى أذونات القراءة والكتابة والتنفيذ على هذا المجلد، ويجب أن يتمكن برنامج التنزيل أيضًا من الوصول إليه. اتركه فارغًا لاستخدام مسار الملفات المؤقتة الافتراضي.",
@@ -1351,7 +1351,11 @@
     "deleteXUsers": "حذف {{num}} من المستخدمين",
     "confirmBatchDelete": "هل أنت متأكد من رغبتك في حذف {{num}} من المستخدمين؟ ",
     "calibrateStorage": "ضبط مساحة التخزين",
-    "calibrateStorageSuccess": "تم ضبط مساحة التخزين بنجاح."
+    "calibrateStorageSuccess": "تم ضبط مساحة التخزين بنجاح.",
+    "teams": "Teams",
+    "teamsDes": "Assign this user to one or more team workspaces and set their role in each.",
+    "selectTeam": "Select a team…",
+    "noTeams": "Not a member of any team."
   },
   "file": {
     "deleteXFiles": "حذف {{num}} من الملفات",
@@ -1757,5 +1761,30 @@
     "reportedUserID": "معرف المستخدم المُبلغ عنه",
     "shareID": "معرف المشاركة",
     "reason": "السبب"
+  },
+  "team": {
+    "#": "#",
+    "name": "Name",
+    "nameDes": "Display name of the team workspace.",
+    "create": "Create",
+    "new": "New team",
+    "editTeam": "Edit {{team}}",
+    "confirmDelete": "Are you sure you want to delete team {{team}}? The team must be empty.",
+    "members": "Members",
+    "hashId": "Hash ID",
+    "hashIdDes": "Encoded team ID used in cloudreve://{hash}@team URIs.",
+    "maxStorage": "Shared storage limit",
+    "maxStorageDes": "Total storage shared by all members for files in this team drive. Separate from each member's personal quota.",
+    "owner": "Owner",
+    "ownerDes": "Optional. Leave empty to make the creating admin the team owner.",
+    "searchOwner": "Search user as owner...",
+    "searchMember": "Search user to add...",
+    "addMember": "Add member",
+    "role": "Role",
+    "role_owner": "Owner",
+    "role_admin": "Admin",
+    "role_member": "Member",
+    "noMembers": "No members yet.",
+    "confirmRemoveMember": "Remove {{user}} from this team?"
   }
 }

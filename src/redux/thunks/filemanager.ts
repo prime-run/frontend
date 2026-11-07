@@ -373,13 +373,31 @@ export function changeSortOption(index: number, sortBy: string, sortDirection: s
   };
 }
 
+function workspaceCapacityKey(path?: string): string {
+  if (!path) {
+    return "";
+  }
+  try {
+    const uri = new CrUri(path);
+    return `${uri.fs()}/${uri.id()}`;
+  } catch {
+    return path;
+  }
+}
+
 export function updateUserCapacity(index: number): AppThunk {
-  return async (dispatch, _getState) => {
+  return async (dispatch, getState) => {
     if (!SessionManager.currentLoginOrNull()) {
       return;
     }
+    const path = getState().fileManager[index]?.pure_path;
+    const key = workspaceCapacityKey(path);
     try {
-      const capacity = await dispatch(getUserCapacity());
+      const capacity = await dispatch(getUserCapacity(path));
+      const currentKey = workspaceCapacityKey(getState().fileManager[index]?.pure_path);
+      if (currentKey !== key) {
+        return;
+      }
       dispatch(setCapacity({ index, value: capacity }));
     } catch (e) {
       console.warn("Failed to load user capacity", e);

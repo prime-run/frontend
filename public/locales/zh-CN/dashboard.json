@@ -44,7 +44,8 @@
     "customProps": "自定义属性",
     "fullTextSearch": "全文搜索",
     "abuseReport": "滥用举报",
-    "oauthClients": "OAuth 应用"
+    "oauthClients": "OAuth 应用",
+    "teams": "Teams"
   },
   "oauth": {
     "oauthClients": "OAuth 应用",
@@ -1351,7 +1352,11 @@
     "deleteXUsers": "删除 {{num}} 个用户",
     "confirmBatchDelete": "确认要删除 {{num}} 个用户？",
     "calibrateStorage": "校准存储空间",
-    "calibrateStorageSuccess": "存储空间校准成功"
+    "calibrateStorageSuccess": "存储空间校准成功",
+    "teams": "Teams",
+    "teamsDes": "Assign this user to one or more team workspaces and set their role in each.",
+    "selectTeam": "Select a team…",
+    "noTeams": "Not a member of any team."
   },
   "file": {
     "deleteXFiles": "删除 {{num}} 个文件",
@@ -1756,5 +1761,30 @@
     "reportedUserID": "举报对象用户 ID",
     "shareID": "分享 ID",
     "reason": "原因"
+  },
+  "team": {
+    "#": "#",
+    "name": "Name",
+    "nameDes": "Display name of the team workspace.",
+    "create": "Create",
+    "new": "New team",
+    "editTeam": "Edit {{team}}",
+    "confirmDelete": "Are you sure you want to delete team {{team}}? The team must be empty.",
+    "members": "Members",
+    "hashId": "Hash ID",
+    "hashIdDes": "Encoded team ID used in cloudreve://{hash}@team URIs.",
+    "maxStorage": "Shared storage limit",
+    "maxStorageDes": "Total storage shared by all members for files in this team drive. Separate from each member's personal quota.",
+    "owner": "Owner",
+    "ownerDes": "Optional. Leave empty to make the creating admin the team owner.",
+    "searchOwner": "Search user as owner...",
+    "searchMember": "Search user to add...",
+    "addMember": "Add member",
+    "role": "Role",
+    "role_owner": "Owner",
+    "role_admin": "Admin",
+    "role_member": "Member",
+    "noMembers": "No members yet.",
+    "confirmRemoveMember": "Remove {{user}} from this team?"
   }
 }

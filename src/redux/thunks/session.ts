@@ -1,6 +1,6 @@
 import i18next from "i18next";
 import { enqueueSnackbar } from "notistack";
-import { getUserInfo, sendSignout } from "../../api/api.ts";
+import { getUserInfo, getUserTeams, sendSignout } from "../../api/api.ts";
 import { LoginResponse, User } from "../../api/user.ts";
 import { DefaultCloseAction } from "../../component/Common/Snackbar/snackbar.tsx";
 import { router } from "../../router";
@@ -14,6 +14,7 @@ import {
   setDrawerWidth,
   setPolicyOptionCache,
   setPreferredTheme,
+  setTeams,
   setUserInfoCache,
 } from "../globalStateSlice.ts";
 import { AppThunk } from "../store.ts";
@@ -45,7 +46,34 @@ export function setTargetSession(session: LoginResponse): AppThunk {
     // TODO: clear fm cache
     dispatch(setPolicyOptionCache());
     dispatch(clearSessionCache({ index: 0, value: undefined }));
+    dispatch(setTeams(undefined));
     refreshTimeZone();
+    dispatch(loadUserTeams());
+  };
+}
+
+export function loadUserTeams(): AppThunk<Promise<void>> {
+  return async (dispatch, _getState) => {
+    dispatch(setTeams(undefined));
+    const login = SessionManager.currentLoginOrNull();
+    if (!login) {
+      return;
+    }
+    const userId = login.user.id;
+    try {
+      const teams = await dispatch(getUserTeams());
+      const current = SessionManager.currentLoginOrNull();
+      if (!current || current.user.id !== userId) {
+        return;
+      }
+      dispatch(setTeams(teams ?? []));
+    } catch {
+      const current = SessionManager.currentLoginOrNull();
+      if (!current || current.user.id !== userId) {
+        return;
+      }
+      dispatch(setTeams([]));
+    }
   };
 }
 
@@ -76,6 +104,7 @@ export function signout(): AppThunk<void> {
 
     router.navigate("/session");
     dispatch(closeMusicPlayer());
+    dispatch(setTeams(undefined));
     SessionManager.signOutCurrent();
   };
 }

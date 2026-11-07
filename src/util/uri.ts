@@ -11,6 +11,7 @@ export const Filesystem = {
   shared_by_me: "shared_by_me",
   shared_with_me: "shared_with_me",
   trash: "trash",
+  team: "team",
 };
 
 export const UriQuery = {
@@ -318,4 +319,8 @@ export default class CrUri {
 
 export const newMyUri = (uid?: string): CrUri => {
   return uid ? new CrUri(`cloudreve://${uid}@my`) : new CrUri("cloudreve://my");
+};
+
+export const newTeamUri = (teamHash: string): CrUri => {
+  return new CrUri(`cloudreve://${teamHash}@team`);
 };

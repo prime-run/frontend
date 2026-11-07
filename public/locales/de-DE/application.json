@@ -144,7 +144,10 @@
     "toDarkMode": "Dunkel",
     "toLightMode": "Hell",
     "myProfile": "Mein Profil",
-    "dashboard": "Dashboard"
+    "dashboard": "Dashboard",
+    "personal": "Personal",
+    "teams": "Teams",
+    "team": "Team"
   },
   "fileManager": {
     "continueInDesktop": "Autorisierung erfolgreich, bitte fahren Sie im Desktop-Client fort.",
@@ -1108,7 +1111,12 @@
     "report": "Missbrauch melden",
     "reportTarget": "Meldeobjekt",
     "reportReason": "Grund",
-    "reportReasonOptions": ["Urheberrechtsverletzung", "Schädlicher Inhalt", "Spam", "Andere"],
+    "reportReasonOptions": [
+      "Urheberrechtsverletzung",
+      "Schädlicher Inhalt",
+      "Spam",
+      "Andere"
+    ],
     "reportDescription": "Zusätzliche Beschreibung",
     "reportAbuseSuccess": "Meldung eingereicht",
     "migrateStoragePolicy": "Speicherrichtlinie übertragen",

@@ -147,7 +147,10 @@
     "toDarkMode": "Тёмная",
     "toLightMode": "Светлая",
     "myProfile": "Мой профиль",
-    "dashboard": "Панель управления"
+    "dashboard": "Панель управления",
+    "personal": "Personal",
+    "teams": "Teams",
+    "team": "Team"
   },
   "fileManager": {
     "continueInDesktop": "Авторизация успешна, продолжите в настольном клиенте.",
@@ -1110,7 +1113,12 @@
     "report": "Сообщить о злоупотреблении",
     "reportTarget": "Объект жалобы",
     "reportReason": "Причина",
-    "reportReasonOptions": ["Нарушение авторских прав", "Вредоносный контент", "Спам", "Другое"],
+    "reportReasonOptions": [
+      "Нарушение авторских прав",
+      "Вредоносный контент",
+      "Спам",
+      "Другое"
+    ],
     "reportDescription": "Дополнительное описание",
     "reportAbuseSuccess": "Жалоба подана",
     "migrateStoragePolicy": "Перенести политику хранения",

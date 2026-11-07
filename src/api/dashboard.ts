@@ -1,4 +1,5 @@
 import { EncryptionCipher, EntityType, PaginationResults, PolicyType } from "./explorer.ts";
+import { UserTeamMembership } from "./team.ts";
 import { Capacity } from "./user.ts";
 import { TaskStatus, TaskSummary, TaskType } from "./workflow.ts";
 
@@ -270,6 +271,8 @@ export interface User extends CommonMixin {
   hash_id?: string;
   two_fa_enabled?: boolean;
   capacity?: Capacity;
+  /** Team memberships returned by AdminGetUser / accepted by AdminUpdateUser. */
+  teams?: UserTeamMembership[];
 }
 
 export interface OpenID extends CommonMixin {
@@ -362,6 +365,7 @@ export interface UpsertUserService {
   user: User;
   password?: string;
   two_fa?: string;
+  teams?: UserTeamMembership[];
 }
 
 export interface BatchIDService {

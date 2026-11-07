@@ -4,7 +4,7 @@ import { usePopupState } from "material-ui-popup-state/hooks";
 import { useCallback, useContext, useEffect, useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { Share } from "../../../api/explorer.ts";
-import { useAppDispatch } from "../../../redux/hooks.ts";
+import { useAppDispatch, useAppSelector } from "../../../redux/hooks.ts";
 import { navigateToPath, openContextUrlFromUri } from "../../../redux/thunks/filemanager.ts";
 import { queueLoadShareInfo } from "../../../redux/thunks/share.ts";
 import PageTitle from "../../../router/PageTitle.tsx";
@@ -67,6 +67,7 @@ export const useBreadcrumbButtons = ({
   const { t } = useTranslation();
   const dispatch = useAppDispatch();
   const fmIndex = useContext(FmIndexContext);
+  const teams = useAppSelector((s) => s.globalState.teams);
   const [loading, setLoading] = useState(false);
   const [shareInfo, setShareInfo] = useState<Share | undefined | null>(undefined);
 
@@ -148,13 +149,17 @@ export const useBreadcrumbButtons = ({
           }
 
           return "";
+        case Filesystem.team: {
+          const team = teams?.find((tm) => tm.id === uri.id());
+          return team?.name ?? t("navbar.team");
+        }
         default:
           "Root";
       }
     }
 
     return name;
-  }, [name, uri, t, shareInfo]);
+  }, [name, uri, t, shareInfo, teams]);
 
   const startIcon = useMemo(() => {
     if (uri.is_root()) {
@@ -190,6 +195,8 @@ export const useBreadcrumbButtons = ({
         case Filesystem.trash:
           return { Icons: [Delete, DeleteOutlined] };
         case Filesystem.shared_with_me:
+          return { Icons: [PeopleTeam, PeopleTeamOutlined] };
+        case Filesystem.team:
           return { Icons: [PeopleTeam, PeopleTeamOutlined] };
         case Filesystem.share:
           if (shareInfo) {

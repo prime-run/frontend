@@ -26,6 +26,8 @@ import Payment from "../../Icons/Payment.tsx";
 import PaymentFilled from "../../Icons/PaymentFilled.tsx";
 import People from "../../Icons/People.tsx";
 import PeopleFilled from "../../Icons/PeopleFilled.tsx";
+import PeopleTeam from "../../Icons/PeopleTeam.tsx";
+import PeopleTeamOutlined from "../../Icons/PeopleTeamOutlined.tsx";
 import Person from "../../Icons/Person.tsx";
 import PersonOutlined from "../../Icons/PersonOutlined.tsx";
 import PhoneLaptop from "../../Icons/PhoneLaptop.tsx";
@@ -181,6 +183,11 @@ AdminNavigationItems = [
     label: "dashboard:nav.groups",
     icon: [PeopleFilled, People],
     path: "/admin/group",
+  },
+  {
+    label: "dashboard:nav.teams",
+    icon: [PeopleTeam, PeopleTeamOutlined],
+    path: "/admin/team",
   },
   {
     label: "dashboard:nav.users",
