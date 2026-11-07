@@ -148,9 +148,9 @@
     "toLightMode": "Светлая",
     "myProfile": "Мой профиль",
     "dashboard": "Панель управления",
-    "personal": "Personal",
-    "teams": "Teams",
-    "team": "Team"
+    "personal": "Личное",
+    "teams": "Команды",
+    "team": "Команда"
   },
   "fileManager": {
     "continueInDesktop": "Авторизация успешна, продолжите в настольном клиенте.",

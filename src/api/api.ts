@@ -2164,11 +2164,14 @@ export function sendRevokeOAuthGrant(grant_id: string): ThunkResponse {
   };
 }
 
-export function sendFullTextSearch(query: string, offset?: number): ThunkResponse {
+export function sendFullTextSearch(query: string, offset?: number, uri?: string): ThunkResponse {
   const params = new URLSearchParams();
   params.set("query", query);
   if (offset) {
     params.set("offset", offset.toString());
+  }
+  if (uri) {
+    params.set("uri", uri);
   }
   return async (dispatch, _getState) => {
     return await dispatch(

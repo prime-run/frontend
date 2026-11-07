@@ -148,9 +148,9 @@
     "toLightMode": "라이트",
     "myProfile": "개인 프로필",
     "dashboard": "관리 패널",
-    "personal": "Personal",
-    "teams": "Teams",
-    "team": "Team"
+    "personal": "개인",
+    "teams": "팀",
+    "team": "팀"
   },
   "fileManager": {
     "continueInDesktop": "인증 성공, 데스크톱 클라이언트에서 계속하세요.",

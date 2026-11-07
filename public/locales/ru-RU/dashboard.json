@@ -45,7 +45,7 @@
     "fullTextSearch": "Полнотекстовый поиск",
     "abuseReport": "Жалобы на злоупотребления",
     "oauthClients": "OAuth-приложения",
-    "teams": "Teams"
+    "teams": "Команды"
   },
   "oauth": {
     "oauthClients": "OAuth-приложения",
@@ -1353,10 +1353,10 @@
     "confirmBatchDelete": "Подтвердите удаление {{num}} пользователей?",
     "calibrateStorage": "Калибровать хранилище",
     "calibrateStorageSuccess": "Хранилище успешно откалибровано",
-    "teams": "Teams",
-    "teamsDes": "Assign this user to one or more team workspaces and set their role in each.",
-    "selectTeam": "Select a team…",
-    "noTeams": "Not a member of any team."
+    "teams": "Команды",
+    "teamsDes": "Назначьте пользователя одному или нескольким командным пространствам и задайте роль в каждом.",
+    "selectTeam": "Выберите команду…",
+    "noTeams": "Не состоит ни в одной команде."
   },
   "file": {
     "deleteXFiles": "Удалить {{num}} файлов",
@@ -1764,27 +1764,27 @@
   },
   "team": {
     "#": "#",
-    "name": "Name",
-    "nameDes": "Display name of the team workspace.",
-    "create": "Create",
-    "new": "New team",
-    "editTeam": "Edit {{team}}",
-    "confirmDelete": "Are you sure you want to delete team {{team}}? The team must be empty.",
-    "members": "Members",
+    "name": "Название",
+    "nameDes": "Отображаемое имя командного пространства.",
+    "create": "Создать",
+    "new": "Новая команда",
+    "editTeam": "Изменить {{team}}",
+    "confirmDelete": "Удалить команду {{team}}? Команда должна быть пустой.",
+    "members": "Участники",
     "hashId": "Hash ID",
-    "hashIdDes": "Encoded team ID used in cloudreve://{hash}@team URIs.",
-    "maxStorage": "Shared storage limit",
-    "maxStorageDes": "Total storage shared by all members for files in this team drive. Separate from each member's personal quota.",
-    "owner": "Owner",
-    "ownerDes": "Optional. Leave empty to make the creating admin the team owner.",
-    "searchOwner": "Search user as owner...",
-    "searchMember": "Search user to add...",
-    "addMember": "Add member",
-    "role": "Role",
-    "role_owner": "Owner",
-    "role_admin": "Admin",
-    "role_member": "Member",
-    "noMembers": "No members yet.",
-    "confirmRemoveMember": "Remove {{user}} from this team?"
+    "hashIdDes": "Закодированный ID команды для URI cloudreve://{hash}@team.",
+    "maxStorage": "Лимит общего хранилища",
+    "maxStorageDes": "Общий объём хранилища, разделяемый всеми участниками для файлов на этом командном диске. Отдельно от личной квоты каждого участника.",
+    "owner": "Владелец",
+    "ownerDes": "Необязательно. Оставьте пустым, чтобы владельцем стал создающий администратор.",
+    "searchOwner": "Найти пользователя как владельца…",
+    "searchMember": "Найти пользователя для добавления…",
+    "addMember": "Добавить участника",
+    "role": "Роль",
+    "role_owner": "Владелец",
+    "role_admin": "Админ",
+    "role_member": "Участник",
+    "noMembers": "Пока нет участников.",
+    "confirmRemoveMember": "Удалить {{user}} из этой команды?"
   }
 }
