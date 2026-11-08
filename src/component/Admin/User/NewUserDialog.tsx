@@ -5,7 +5,7 @@ import { useNavigate } from "react-router-dom";
 import { upsertUser } from "../../../api/api";
 import { User, UserStatus } from "../../../api/dashboard";
 import { useAppDispatch } from "../../../redux/hooks";
-import { USERNAME_MAX_LENGTH, USERNAME_MIN_LENGTH, USERNAME_PATTERN } from "../../../util/username.ts";
+import { USERNAME_MAX_LENGTH, USERNAME_MIN_LENGTH } from "../../../util/username.ts";
 import { DenseFilledTextField } from "../../Common/StyledComponents";
 import DraggableDialog from "../../Dialogs/DraggableDialog";
 import SettingForm from "../../Pages/Setting/SettingForm";
@@ -88,7 +88,6 @@ const NewUserDialog = ({ open, onClose, onCreated }: NewUserDialogProps) => {
                   htmlInput: {
                     minLength: USERNAME_MIN_LENGTH,
                     maxLength: USERNAME_MAX_LENGTH,
-                    pattern: USERNAME_PATTERN,
                     autoComplete: "username",
                     title: t("application:login.usernameInvalid"),
                   },

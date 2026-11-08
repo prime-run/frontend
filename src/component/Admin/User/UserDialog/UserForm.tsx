@@ -27,7 +27,7 @@ import { getTeamList, sendCalibrateUserStorage } from "../../../../api/api";
 import { UserStatus } from "../../../../api/dashboard";
 import { TeamEnt, TeamRole, UserTeamMembership } from "../../../../api/team";
 import { useAppDispatch } from "../../../../redux/hooks";
-import { USERNAME_MAX_LENGTH, USERNAME_MIN_LENGTH, USERNAME_PATTERN } from "../../../../util/username.ts";
+import { USERNAME_MAX_LENGTH, USERNAME_MIN_LENGTH } from "../../../../util/username.ts";
 import { DefaultCloseAction } from "../../../Common/Snackbar/snackbar";
 import {
   DenseFilledTextField,
@@ -246,7 +246,6 @@ const UserForm = ({ reload, setLoading }: { reload: () => void; setLoading: (loa
                   htmlInput: {
                     minLength: USERNAME_MIN_LENGTH,
                     maxLength: USERNAME_MAX_LENGTH,
-                    pattern: USERNAME_PATTERN,
                     autoComplete: "username",
                     title: t("application:login.usernameInvalid"),
                   },

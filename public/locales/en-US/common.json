@@ -69,7 +69,7 @@
     "40029": "This link is invalid.",
     "40030": "This link is expired.",
     "40032": "This username is already in use.",
-    "40033": "This account is not activated, activation email has been resent.",
+    "40033": "This account is not activated. Ask an administrator to activate it.",
     "40034": "This user cannot be activated.",
     "40035": "Storage policy not found.",
     "40039": "Group not found.",

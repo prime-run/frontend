@@ -16,7 +16,7 @@
     "selectAccountToUse": "選擇要使用的賬號",
     "useOtherAccount": "使用其他賬號",
     "username": "使用者名稱",
-    "usernameInvalid": "請使用 5–100 個字元：字母、數字、底線或連字號，不能是郵箱。",
+    "usernameInvalid": "使用者名稱長度須為 5–100 個字元。",
     "password": "密碼",
     "captcha": "驗證碼",
     "captchaError": "驗證碼載入失敗：",

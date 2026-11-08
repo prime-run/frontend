@@ -9,7 +9,7 @@ import { sendSinUp } from "../../../api/api.ts";
 import { useAppDispatch, useAppSelector } from "../../../redux/hooks.ts";
 import PageTitle from "../../../router/PageTitle.tsx";
 import { useQuery } from "../../../util";
-import { USERNAME_MAX_LENGTH, USERNAME_MIN_LENGTH, USERNAME_PATTERN } from "../../../util/username.ts";
+import { USERNAME_MAX_LENGTH, USERNAME_MIN_LENGTH } from "../../../util/username.ts";
 import { Captcha, CaptchaParams } from "../../Common/Captcha/Captcha.tsx";
 import { OutlineIconTextField } from "../../Common/Form/OutlineIconTextField.tsx";
 import { DefaultCloseAction } from "../../Common/Snackbar/snackbar.tsx";
@@ -106,7 +106,6 @@ const SignUp = () => {
                   required: "true",
                   minLength: USERNAME_MIN_LENGTH,
                   maxLength: USERNAME_MAX_LENGTH,
-                  pattern: USERNAME_PATTERN,
                   title: t("login.usernameInvalid"),
                 }}
                 onChange={(e) => setUsername(e.target.value)}

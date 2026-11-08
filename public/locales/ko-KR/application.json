@@ -16,7 +16,7 @@
     "selectAccountToUse": "사용할 계정을 선택하세요",
     "useOtherAccount": "다른 계정 사용",
     "username": "사용자 이름",
-    "usernameInvalid": "5~100자. 영문, 숫자, 밑줄, 하이픈만 사용할 수 있으며 이메일 형식은 사용할 수 없습니다.",
+    "usernameInvalid": "사용자 이름은 5~100자여야 합니다.",
     "password": "비밀번호",
     "captcha": "보안문자",
     "captchaError": "보안문자 로드 실패: ",

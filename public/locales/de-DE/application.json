@@ -16,7 +16,7 @@
     "selectAccountToUse": "Konto auswählen",
     "useOtherAccount": "Anderes Konto verwenden",
     "username": "Benutzername",
-    "usernameInvalid": "5–100 Zeichen: Buchstaben, Ziffern, Unterstrich oder Bindestrich. Keine E-Mail-Adresse.",
+    "usernameInvalid": "Der Benutzername muss zwischen 5 und 100 Zeichen lang sein.",
     "password": "Passwort",
     "captcha": "CAPTCHA",
     "captchaError": "CAPTCHA konnte nicht geladen werden: ",

@@ -16,7 +16,7 @@
     "selectAccountToUse": "选择要使用的账号",
     "useOtherAccount": "使用其他账号",
     "username": "用户名",
-    "usernameInvalid": "请使用 5–100 个字符：字母、数字、下划线或连字符，不能是邮箱。",
+    "usernameInvalid": "用户名长度须为 5–100 个字符。",
     "password": "密码",
     "captcha": "验证码",
     "captchaError": "验证码加载失败：",

@@ -11,7 +11,7 @@
     "privacyPolicy": "Privacy policy",
     "termOfUse": "Terms of use",
     "username": "Username",
-    "usernameInvalid": "Use 5–100 characters: letters, digits, underscore, or hyphen. Email addresses are not allowed.",
+    "usernameInvalid": "Username must be between 5 and 100 characters.",
     "signupHint": "The account {{username}} does not exist, do you want to signup now?",
     "accountNotFoundHint": "The account \"{{username}}\" you entered does not exist.",
     "or": "Or",
@@ -995,7 +995,12 @@
     "validDurationDays": "{{num}} days",
     "reportTarget": "Report target",
     "reportReason": "Reason",
-    "reportReasonOptions": ["Copyright infringement", "Harmful content", "Spam", "Other"],
+    "reportReasonOptions": [
+      "Copyright infringement",
+      "Harmful content",
+      "Spam",
+      "Other"
+    ],
     "reportDescription": "Additional description",
     "reportAbuseSuccess": "Report submitted."
   }

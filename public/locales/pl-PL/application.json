@@ -11,7 +11,7 @@
     "privacyPolicy": "Polityka prywatności",
     "termOfUse": "Warunki użytkowania",
     "username": "Nazwa użytkownika",
-    "usernameInvalid": "5–100 znaków: litery, cyfry, podkreślenie lub myślnik. Adresy e-mail są niedozwolone.",
+    "usernameInvalid": "Nazwa użytkownika musi mieć od 5 do 100 znaków.",
     "signupHint": "Konto {{username}} nie istnieje, czy chcesz się teraz zarejestrować?",
     "accountNotFoundHint": "Wprowadzone konto \"{{username}}\" nie istnieje.",
     "or": "Lub",

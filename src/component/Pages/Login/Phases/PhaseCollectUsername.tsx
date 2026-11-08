@@ -5,7 +5,7 @@ import { Link as RouterLink } from "react-router-dom";
 import { LoginResponse } from "../../../../api/user.ts";
 import { useAppSelector } from "../../../../redux/hooks.ts";
 import { useQuery } from "../../../../util";
-import { USERNAME_MAX_LENGTH, USERNAME_MIN_LENGTH, USERNAME_PATTERN } from "../../../../util/username.ts";
+import { USERNAME_MAX_LENGTH, USERNAME_MIN_LENGTH } from "../../../../util/username.ts";
 import { OutlineIconTextField } from "../../../Common/Form/OutlineIconTextField.tsx";
 import PersonOutlined from "../../../Icons/PersonOutlined.tsx";
 import PasskeyLoginButton from "../Signin/PasskeyLoginButton.tsx";
@@ -79,7 +79,6 @@ const PhaseCollectUsername = ({ username, setUsername, control, onOAuthPasskeyLo
             required: "true",
             minLength: USERNAME_MIN_LENGTH,
             maxLength: USERNAME_MAX_LENGTH,
-            pattern: USERNAME_PATTERN,
             title: t("login.usernameInvalid"),
           }}
           onChange={(e) => setUsername(e.target.value)}
