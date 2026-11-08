@@ -45,7 +45,7 @@
     "fullTextSearch": "全文検索",
     "abuseReport": "不正利用報告",
     "oauthClients": "OAuth アプリ",
-    "teams": "Teams"
+    "teams": "チーム"
   },
   "oauth": {
     "oauthClients": "OAuth アプリ",
@@ -1353,10 +1353,10 @@
     "confirmBatchDelete": "{{num}}件のユーザーを削除しますか？",
     "calibrateStorage": "ストレージ容量の校正",
     "calibrateStorageSuccess": "ストレージ容量の校正が完了しました",
-    "teams": "Teams",
-    "teamsDes": "Assign this user to one or more team workspaces and set their role in each.",
-    "selectTeam": "Select a team…",
-    "noTeams": "Not a member of any team."
+    "teams": "チーム",
+    "teamsDes": "このユーザーを1つ以上のチームワークスペースに割り当て、各チームでの役割を設定します。",
+    "selectTeam": "チームを選択…",
+    "noTeams": "どのチームのメンバーでもありません。"
   },
   "file": {
     "deleteXFiles": "{{num}}件のファイルを削除",
@@ -1765,27 +1765,27 @@
   },
   "team": {
     "#": "#",
-    "name": "Name",
-    "nameDes": "Display name of the team workspace.",
-    "create": "Create",
-    "new": "New team",
-    "editTeam": "Edit {{team}}",
-    "confirmDelete": "Are you sure you want to delete team {{team}}? The team must be empty.",
-    "members": "Members",
-    "hashId": "Hash ID",
-    "hashIdDes": "Encoded team ID used in cloudreve://{hash}@team URIs.",
-    "maxStorage": "Shared storage limit",
-    "maxStorageDes": "Total storage shared by all members for files in this team drive. Separate from each member's personal quota.",
-    "owner": "Owner",
-    "ownerDes": "Optional. Leave empty to make the creating admin the team owner.",
-    "searchOwner": "Search user as owner...",
-    "searchMember": "Search user to add...",
-    "addMember": "Add member",
-    "role": "Role",
-    "role_owner": "Owner",
-    "role_admin": "Admin",
-    "role_member": "Member",
-    "noMembers": "No members yet.",
-    "confirmRemoveMember": "Remove {{user}} from this team?"
+    "name": "名前",
+    "nameDes": "チームワークスペースの表示名。",
+    "create": "作成",
+    "new": "新しいチーム",
+    "editTeam": "{{team}} を編集",
+    "confirmDelete": "チーム {{team}} を削除しますか？チームは空である必要があります。",
+    "members": "メンバー",
+    "hashId": "ハッシュ ID",
+    "hashIdDes": "cloudreve://{hash}@team URI で使うエンコード済みチーム ID。",
+    "maxStorage": "共有ストレージ上限",
+    "maxStorageDes": "このチームドライブ内の全メンバーが共有する合計ストレージ。各メンバーの個人クォータとは別です。",
+    "owner": "オーナー",
+    "ownerDes": "任意。空欄の場合、作成した管理者がチームオーナーになります。",
+    "searchOwner": "オーナーにするユーザーを検索…",
+    "searchMember": "追加するユーザーを検索…",
+    "addMember": "メンバーを追加",
+    "role": "役割",
+    "role_owner": "オーナー",
+    "role_admin": "管理者",
+    "role_member": "メンバー",
+    "noMembers": "まだメンバーがいません。",
+    "confirmRemoveMember": "{{user}} をこのチームから削除しますか？"
   }
 }

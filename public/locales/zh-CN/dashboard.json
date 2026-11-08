@@ -45,7 +45,7 @@
     "fullTextSearch": "全文搜索",
     "abuseReport": "滥用举报",
     "oauthClients": "OAuth 应用",
-    "teams": "Teams"
+    "teams": "团队"
   },
   "oauth": {
     "oauthClients": "OAuth 应用",
@@ -1353,10 +1353,10 @@
     "confirmBatchDelete": "确认要删除 {{num}} 个用户？",
     "calibrateStorage": "校准存储空间",
     "calibrateStorageSuccess": "存储空间校准成功",
-    "teams": "Teams",
-    "teamsDes": "Assign this user to one or more team workspaces and set their role in each.",
-    "selectTeam": "Select a team…",
-    "noTeams": "Not a member of any team."
+    "teams": "团队",
+    "teamsDes": "将此用户加入一个或多个团队工作区，并设置其在各团队中的角色。",
+    "selectTeam": "选择团队…",
+    "noTeams": "未加入任何团队。"
   },
   "file": {
     "deleteXFiles": "删除 {{num}} 个文件",
@@ -1764,27 +1764,27 @@
   },
   "team": {
     "#": "#",
-    "name": "Name",
-    "nameDes": "Display name of the team workspace.",
-    "create": "Create",
-    "new": "New team",
-    "editTeam": "Edit {{team}}",
-    "confirmDelete": "Are you sure you want to delete team {{team}}? The team must be empty.",
-    "members": "Members",
-    "hashId": "Hash ID",
-    "hashIdDes": "Encoded team ID used in cloudreve://{hash}@team URIs.",
-    "maxStorage": "Shared storage limit",
-    "maxStorageDes": "Total storage shared by all members for files in this team drive. Separate from each member's personal quota.",
-    "owner": "Owner",
-    "ownerDes": "Optional. Leave empty to make the creating admin the team owner.",
-    "searchOwner": "Search user as owner...",
-    "searchMember": "Search user to add...",
-    "addMember": "Add member",
-    "role": "Role",
-    "role_owner": "Owner",
-    "role_admin": "Admin",
-    "role_member": "Member",
-    "noMembers": "No members yet.",
-    "confirmRemoveMember": "Remove {{user}} from this team?"
+    "name": "名称",
+    "nameDes": "团队工作区的显示名称。",
+    "create": "创建",
+    "new": "新建团队",
+    "editTeam": "编辑 {{team}}",
+    "confirmDelete": "确定要删除团队 {{team}} 吗？团队必须为空。",
+    "members": "成员",
+    "hashId": "哈希 ID",
+    "hashIdDes": "用于 cloudreve://{hash}@team URI 的编码团队 ID。",
+    "maxStorage": "共享存储上限",
+    "maxStorageDes": "该团队网盘中所有成员共享的存储总量。与每位成员的个人配额分开计算。",
+    "owner": "所有者",
+    "ownerDes": "可选。留空则将创建者（管理员）设为团队所有者。",
+    "searchOwner": "搜索用户作为所有者…",
+    "searchMember": "搜索用户以添加…",
+    "addMember": "添加成员",
+    "role": "角色",
+    "role_owner": "所有者",
+    "role_admin": "管理员",
+    "role_member": "成员",
+    "noMembers": "暂无成员。",
+    "confirmRemoveMember": "将 {{user}} 移出此团队？"
   }
 }

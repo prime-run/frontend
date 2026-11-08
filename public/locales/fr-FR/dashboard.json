@@ -45,7 +45,7 @@
     "fullTextSearch": "Recherche plein texte",
     "abuseReport": "Rapport d'abus",
     "oauthClients": "Applications OAuth",
-    "teams": "Teams"
+    "teams": "Équipes"
   },
   "oauth": {
     "oauthClients": "Applications OAuth",
@@ -1352,10 +1352,10 @@
     "confirmBatchDelete": "Êtes-vous sûr de vouloir supprimer {{num}} utilisateurs ?",
     "calibrateStorage": "Calibrer le stockage",
     "calibrateStorageSuccess": "Stockage calibré avec succès.",
-    "teams": "Teams",
-    "teamsDes": "Assign this user to one or more team workspaces and set their role in each.",
-    "selectTeam": "Select a team…",
-    "noTeams": "Not a member of any team."
+    "teams": "Équipes",
+    "teamsDes": "Assignez cet utilisateur à un ou plusieurs espaces d’équipe et définissez son rôle dans chacun.",
+    "selectTeam": "Sélectionner une équipe…",
+    "noTeams": "Membre d’aucune équipe."
   },
   "file": {
     "deleteXFiles": "Supprimer {{num}} fichiers",
@@ -1763,27 +1763,27 @@
   },
   "team": {
     "#": "#",
-    "name": "Name",
-    "nameDes": "Display name of the team workspace.",
-    "create": "Create",
-    "new": "New team",
-    "editTeam": "Edit {{team}}",
-    "confirmDelete": "Are you sure you want to delete team {{team}}? The team must be empty.",
-    "members": "Members",
-    "hashId": "Hash ID",
-    "hashIdDes": "Encoded team ID used in cloudreve://{hash}@team URIs.",
-    "maxStorage": "Shared storage limit",
-    "maxStorageDes": "Total storage shared by all members for files in this team drive. Separate from each member's personal quota.",
-    "owner": "Owner",
-    "ownerDes": "Optional. Leave empty to make the creating admin the team owner.",
-    "searchOwner": "Search user as owner...",
-    "searchMember": "Search user to add...",
-    "addMember": "Add member",
-    "role": "Role",
-    "role_owner": "Owner",
+    "name": "Nom",
+    "nameDes": "Nom d’affichage de l’espace d’équipe.",
+    "create": "Créer",
+    "new": "Nouvelle équipe",
+    "editTeam": "Modifier {{team}}",
+    "confirmDelete": "Supprimer l’équipe {{team}} ? L’équipe doit être vide.",
+    "members": "Membres",
+    "hashId": "ID de hachage",
+    "hashIdDes": "ID d’équipe encodé utilisé dans les URI cloudreve://{hash}@team.",
+    "maxStorage": "Limite de stockage partagé",
+    "maxStorageDes": "Stockage total partagé par tous les membres pour les fichiers de ce lecteur d’équipe. Séparé du quota personnel de chaque membre.",
+    "owner": "Propriétaire",
+    "ownerDes": "Facultatif. Laisser vide pour faire de l’admin créateur le propriétaire.",
+    "searchOwner": "Rechercher un utilisateur comme propriétaire…",
+    "searchMember": "Rechercher un utilisateur à ajouter…",
+    "addMember": "Ajouter un membre",
+    "role": "Rôle",
+    "role_owner": "Propriétaire",
     "role_admin": "Admin",
-    "role_member": "Member",
-    "noMembers": "No members yet.",
-    "confirmRemoveMember": "Remove {{user}} from this team?"
+    "role_member": "Membre",
+    "noMembers": "Aucun membre pour le moment.",
+    "confirmRemoveMember": "Retirer {{user}} de cette équipe ?"
   }
 }

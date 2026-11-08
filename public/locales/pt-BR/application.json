@@ -148,9 +148,9 @@
     "toLightMode": "Claro",
     "myProfile": "Meu perfil",
     "dashboard": "Painel de controle",
-    "personal": "Personal",
-    "teams": "Teams",
-    "team": "Team"
+    "personal": "Pessoal",
+    "teams": "Equipes",
+    "team": "Equipe"
   },
   "fileManager": {
     "continueInDesktop": "Autorização bem-sucedida, continue no cliente desktop.",

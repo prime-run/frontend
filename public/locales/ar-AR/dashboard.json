@@ -45,7 +45,7 @@
     "fullTextSearch": "البحث النصي الكامل",
     "abuseReport": "الإبلاغ عن إساءة الاستخدام",
     "oauthClients": "تطبيقات OAuth",
-    "teams": "Teams"
+    "teams": "الفرق"
   },
   "oauth": {
     "oauthClients": "تطبيقات OAuth",
@@ -1352,10 +1352,10 @@
     "confirmBatchDelete": "هل أنت متأكد من رغبتك في حذف {{num}} من المستخدمين؟ ",
     "calibrateStorage": "ضبط مساحة التخزين",
     "calibrateStorageSuccess": "تم ضبط مساحة التخزين بنجاح.",
-    "teams": "Teams",
-    "teamsDes": "Assign this user to one or more team workspaces and set their role in each.",
-    "selectTeam": "Select a team…",
-    "noTeams": "Not a member of any team."
+    "teams": "الفرق",
+    "teamsDes": "عيّن هذا المستخدم إلى مساحة عمل فريق واحدة أو أكثر وحدد دوره في كل منها.",
+    "selectTeam": "اختر فريقاً…",
+    "noTeams": "ليس عضواً في أي فريق."
   },
   "file": {
     "deleteXFiles": "حذف {{num}} من الملفات",
@@ -1764,27 +1764,27 @@
   },
   "team": {
     "#": "#",
-    "name": "Name",
-    "nameDes": "Display name of the team workspace.",
-    "create": "Create",
-    "new": "New team",
-    "editTeam": "Edit {{team}}",
-    "confirmDelete": "Are you sure you want to delete team {{team}}? The team must be empty.",
-    "members": "Members",
-    "hashId": "Hash ID",
-    "hashIdDes": "Encoded team ID used in cloudreve://{hash}@team URIs.",
-    "maxStorage": "Shared storage limit",
-    "maxStorageDes": "Total storage shared by all members for files in this team drive. Separate from each member's personal quota.",
-    "owner": "Owner",
-    "ownerDes": "Optional. Leave empty to make the creating admin the team owner.",
-    "searchOwner": "Search user as owner...",
-    "searchMember": "Search user to add...",
-    "addMember": "Add member",
-    "role": "Role",
-    "role_owner": "Owner",
-    "role_admin": "Admin",
-    "role_member": "Member",
-    "noMembers": "No members yet.",
-    "confirmRemoveMember": "Remove {{user}} from this team?"
+    "name": "الاسم",
+    "nameDes": "الاسم المعروض لمساحة عمل الفريق.",
+    "create": "إنشاء",
+    "new": "فريق جديد",
+    "editTeam": "تعديل {{team}}",
+    "confirmDelete": "هل تريد حذف الفريق {{team}}؟ يجب أن يكون الفريق فارغاً.",
+    "members": "الأعضاء",
+    "hashId": "معرّف الهاش",
+    "hashIdDes": "معرّف الفريق المرمّز المستخدم في روابط cloudreve://{hash}@team.",
+    "maxStorage": "حد التخزين المشترك",
+    "maxStorageDes": "إجمالي التخزين المشترك بين جميع الأعضاء لملفات محرك الفريق هذا. منفصل عن حصة كل عضو الشخصية.",
+    "owner": "المالك",
+    "ownerDes": "اختياري. اتركه فارغاً لجعل المسؤول المنشئ مالكاً للفريق.",
+    "searchOwner": "ابحث عن مستخدم كمالك…",
+    "searchMember": "ابحث عن مستخدم لإضافته…",
+    "addMember": "إضافة عضو",
+    "role": "الدور",
+    "role_owner": "مالك",
+    "role_admin": "مسؤول",
+    "role_member": "عضو",
+    "noMembers": "لا يوجد أعضاء بعد.",
+    "confirmRemoveMember": "إزالة {{user}} من هذا الفريق؟"
   }
 }

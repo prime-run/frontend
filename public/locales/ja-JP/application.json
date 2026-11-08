@@ -148,9 +148,9 @@
     "toLightMode": "ライト",
     "myProfile": "マイページ",
     "dashboard": "管理パネル",
-    "personal": "Personal",
-    "teams": "Teams",
-    "team": "Team"
+    "personal": "個人",
+    "teams": "チーム",
+    "team": "チーム"
   },
   "fileManager": {
     "continueInDesktop": "認証に成功しました。デスクトップクライアントで操作を続けてください。",
