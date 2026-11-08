@@ -248,7 +248,7 @@ export interface PolicySetting {
 }
 
 export interface User extends CommonMixin {
-  email: string;
+  username: string;
   nick: string;
   password?: string;
   settings?: UserSetting;
@@ -260,7 +260,6 @@ export interface User extends CommonMixin {
   notify_date?: string;
   group_users?: number;
   previous_group?: number;
-  unmanaged_email?: boolean;
   edges: {
     group?: GroupEnt;
     storage_policy?: StoragePolicy;

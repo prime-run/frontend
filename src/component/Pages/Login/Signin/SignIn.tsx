@@ -1,7 +1,6 @@
 import { ArrowBackIos } from "@mui/icons-material";
 import { LoadingButton } from "@mui/lab";
 import { Box, Button, Typography } from "@mui/material";
-import { enqueueSnackbar } from "notistack";
 import { FormEvent, useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router-dom";
@@ -12,7 +11,6 @@ import {
   sendConsentOauthApp,
   sendLogin,
   sendPrepareLogin,
-  sendResetEmail,
 } from "../../../../api/api.ts";
 import { AppError, Code } from "../../../../api/request.ts";
 import { AppRegistration, GrantService, LoginResponse, PrepareLoginResponse } from "../../../../api/user.ts";
@@ -23,25 +21,22 @@ import PageTitle from "../../../../router/PageTitle.tsx";
 import SessionManager, { Session } from "../../../../session/index.ts";
 import { useQuery } from "../../../../util";
 import { CaptchaParams } from "../../../Common/Captcha/Captcha.tsx";
-import { DefaultCloseAction } from "../../../Common/Snackbar/snackbar.tsx";
 import DismissCircleFilled from "../../../Icons/DismissCircleFilled.tsx";
 import Phase2FA from "../Phases/Phase2FA.tsx";
-import PhaseCollectEmail from "../Phases/PhaseCollectEmail.tsx";
 import PhaseCollectPassword from "../Phases/PhaseCollectPassword.tsx";
+import PhaseCollectUsername from "../Phases/PhaseCollectUsername.tsx";
 import PhaseConsent from "../Phases/PhaseConsent.tsx";
-import PhaseForgetPassword from "../Phases/PhaseForgetPassword.tsx";
 import PhaseSignupNeeded from "../Phases/PhaseSignupNeeded.tsx";
 import "../SideTransition.css";
 
 // Local storage key for OAuth redirect
 export const OAUTH_REDIRECT_KEY = "oauth_redirect_url";
 
-enum EmailLoginPhase {
-  CollectEmail,
+enum LoginPhase {
+  CollectUsername,
   CollectPassword,
   SignupNeeded,
   Collect2FA,
-  ForgetPassword,
   Consent,
 }
 
@@ -54,7 +49,7 @@ interface phaseSetting {
   title: string;
   nextButtonText: string;
   showBackButton: boolean;
-  previous?: EmailLoginPhase;
+  previous?: LoginPhase;
   control?: Control;
 }
 
@@ -87,8 +82,8 @@ const EmailLogin = ({ oauthConsent }: SignInProps) => {
   // Get OAuth app from Redux
   const app = useAppSelector((state) => state.globalState.oauthApp);
 
-  const [phase, setPhase] = useState<EmailLoginPhase>(EmailLoginPhase.CollectEmail);
-  const [email, setEmail] = useState("");
+  const [phase, setPhase] = useState<LoginPhase>(LoginPhase.CollectUsername);
+  const [username, setUsername] = useState("");
   const [pwd, setPwd] = useState("");
   const [otp, setOTP] = useState("");
   const [captchaGen, setCaptchaGen] = useState(0);
@@ -182,7 +177,7 @@ const EmailLogin = ({ oauthConsent }: SignInProps) => {
       } else {
         // Need user to consent to new scopes
         setSelectedScopes(requestedScopes.filter((s) => !consentedScopes.includes(s)));
-        setPhase(EmailLoginPhase.Consent);
+        setPhase(LoginPhase.Consent);
       }
     },
     [requestedScopes, sendConsent],
@@ -203,27 +198,30 @@ const EmailLogin = ({ oauthConsent }: SignInProps) => {
     [dispatch, loadAppRegistration, checkAndProceed],
   );
 
-  const prepareLogin = useCallback(async () => {
-    try {
-      setLoading(true);
-      const opts = await dispatch(sendPrepareLogin(email));
-      setLoginOptions(opts);
-      setPhase(EmailLoginPhase.CollectPassword);
-    } catch (e) {
-      if (e instanceof AppError && e.code === Code.NodeFound) {
-        // User not registered yet, guided to register
-        setPhase(EmailLoginPhase.SignupNeeded);
-      }
-    } finally {
-      setLoading(false);
-    }
-  }, [dispatch, email, setPhase]);
-
-  const passwordLogin = useCallback(
-    async (email: string, password: string, captcha?: CaptchaParams) => {
+  const prepareLogin = useCallback(
+    async (name: string) => {
       try {
         setLoading(true);
-        const loginRes = await dispatch(sendLogin({ email, password, ...captcha }));
+        const opts = await dispatch(sendPrepareLogin(name));
+        setLoginOptions(opts);
+        setPhase(LoginPhase.CollectPassword);
+      } catch (e) {
+        if (e instanceof AppError && e.code === Code.NodeFound) {
+          // User not registered yet, guided to register
+          setPhase(LoginPhase.SignupNeeded);
+        }
+      } finally {
+        setLoading(false);
+      }
+    },
+    [dispatch],
+  );
+
+  const passwordLogin = useCallback(
+    async (name: string, password: string, captcha?: CaptchaParams) => {
+      try {
+        setLoading(true);
+        const loginRes = await dispatch(sendLogin({ username: name, password, ...captcha }));
         if (isOAuthFlow) {
           await handleOAuthSessionSwitch(loginRes);
         } else {
@@ -233,7 +231,7 @@ const EmailLogin = ({ oauthConsent }: SignInProps) => {
         if (e instanceof AppError && e.code === Code.Continue) {
           twoFaSession.current = e.response.data;
           // User needs 2FA
-          setPhase(EmailLoginPhase.Collect2FA);
+          setPhase(LoginPhase.Collect2FA);
         } else {
           setCaptchaGen((g) => g + 1);
         }
@@ -241,7 +239,7 @@ const EmailLogin = ({ oauthConsent }: SignInProps) => {
         setLoading(false);
       }
     },
-    [dispatch, setPhase, setCaptchaGen, setLoading, t],
+    [dispatch, isOAuthFlow, handleOAuthSessionSwitch, query],
   );
 
   const finish2FA = useCallback(
@@ -262,45 +260,22 @@ const EmailLogin = ({ oauthConsent }: SignInProps) => {
     [dispatch, isOAuthFlow, handleOAuthSessionSwitch, query],
   );
 
-  const submitSendResetEmail = useCallback(
-    async (email: string, captcha?: CaptchaParams) => {
-      try {
-        setLoading(true);
-        await dispatch(sendResetEmail({ email, ...captcha }));
-        setPhase(EmailLoginPhase.CollectEmail);
-        enqueueSnackbar({
-          message: t("login.resetEmailSent"),
-          variant: "success",
-          action: DefaultCloseAction,
-        });
-      } catch (e) {
-        setCaptchaGen((g) => g + 1);
-      } finally {
-        setLoading(false);
-      }
-    },
-    [dispatch, setPhase, setCaptchaGen, setLoading, isOAuthFlow, handleOAuthSessionSwitch, query],
-  );
-
   const submit = (e?: FormEvent<HTMLFormElement>) => {
     e?.preventDefault();
     switch (phase) {
-      case EmailLoginPhase.CollectEmail:
-        prepareLogin();
+      case LoginPhase.CollectUsername:
+        prepareLogin(username);
         break;
-      case EmailLoginPhase.SignupNeeded:
-        navigate(`/session/signup?email=${email}`);
+      case LoginPhase.SignupNeeded:
+        navigate(`/session/signup?username=${encodeURIComponent(username)}`);
         break;
-      case EmailLoginPhase.CollectPassword:
-        passwordLogin(email, pwd, captchaState.current);
+      case LoginPhase.CollectPassword:
+        passwordLogin(username, pwd, captchaState.current);
         break;
-      case EmailLoginPhase.Collect2FA:
+      case LoginPhase.Collect2FA:
         finish2FA(otp, twoFaSession.current);
         break;
-      case EmailLoginPhase.ForgetPassword:
-        submitSendResetEmail(email, captchaState.current);
-        break;
-      case EmailLoginPhase.Consent:
+      case LoginPhase.Consent:
         sendConsent();
         break;
     }
@@ -314,6 +289,14 @@ const EmailLogin = ({ oauthConsent }: SignInProps) => {
 
   // Initial load for OAuth or regular login
   useEffect(() => {
+    const fromQuery = query.get("username") ?? "";
+    if (fromQuery) {
+      setUsername(fromQuery);
+    }
+    if (!isOAuthFlow && query.get("phase") === "password" && fromQuery) {
+      void prepareLogin(fromQuery);
+    }
+
     const init = async () => {
       if (isOAuthFlow) {
         const registration = await loadAppRegistration();
@@ -344,51 +327,43 @@ const EmailLogin = ({ oauthConsent }: SignInProps) => {
       showBackButton: false,
     };
     switch (phase) {
-      case EmailLoginPhase.CollectEmail:
+      case LoginPhase.CollectUsername:
         phaseSetting = {
           title: t("login.siginToYourAccount"),
           nextButtonText: t("login.continue"),
           showBackButton: false,
         };
         break;
-      case EmailLoginPhase.SignupNeeded:
+      case LoginPhase.SignupNeeded:
         phaseSetting = {
           title: t("login.siginToYourAccount"),
           nextButtonText: t("login.signUpAccount"),
           showBackButton: true,
-          previous: EmailLoginPhase.CollectEmail,
+          previous: LoginPhase.CollectUsername,
         };
         break;
-      case EmailLoginPhase.CollectPassword:
+      case LoginPhase.CollectPassword:
         phaseSetting = {
           title: t("login.enterPassword"),
           nextButtonText: t("login.signIn"),
           showBackButton: true,
-          previous: EmailLoginPhase.CollectEmail,
+          previous: LoginPhase.CollectUsername,
         };
         break;
-      case EmailLoginPhase.Collect2FA:
+      case LoginPhase.Collect2FA:
         phaseSetting = {
           title: t("login.2FA"),
           nextButtonText: t("login.signIn"),
           showBackButton: true,
-          previous: EmailLoginPhase.CollectPassword,
+          previous: LoginPhase.CollectPassword,
         };
         break;
-      case EmailLoginPhase.ForgetPassword:
-        phaseSetting = {
-          title: t("login.resetPassword"),
-          nextButtonText: t("login.sendMeAnEmail"),
-          showBackButton: true,
-          previous: EmailLoginPhase.CollectPassword,
-        };
-        break;
-      case EmailLoginPhase.Consent:
+      case LoginPhase.Consent:
         phaseSetting = {
           title: t("oauth.reviewPermissions"),
           nextButtonText: t("oauth.authorize"),
           showBackButton: true,
-          previous: EmailLoginPhase.CollectEmail,
+          previous: LoginPhase.CollectUsername,
         };
         break;
       default:
@@ -411,14 +386,14 @@ const EmailLogin = ({ oauthConsent }: SignInProps) => {
               disabled={loading}
               color="primary"
               onClick={() => {
-                if (phase === EmailLoginPhase.Consent) {
+                if (phase === LoginPhase.Consent) {
                   sendConsent(true);
                 } else {
                   phaseSetting.previous != undefined && setPhase(phaseSetting.previous);
                 }
               }}
             >
-              {t(phase === EmailLoginPhase.Consent ? "oauth.deny" : "login.back")}
+              {t(phase === LoginPhase.Consent ? "oauth.deny" : "login.back")}
             </Button>
           )}
         </>
@@ -464,11 +439,10 @@ const EmailLogin = ({ oauthConsent }: SignInProps) => {
             key={phase}
           >
             <Box>
-              {phase === EmailLoginPhase.CollectPassword && (
+              {phase === LoginPhase.CollectPassword && (
                 <PhaseCollectPassword
-                  email={email}
+                  username={username}
                   pwd={pwd}
-                  onForget={() => setPhase(EmailLoginPhase.ForgetPassword)}
                   setPwd={setPwd}
                   control={phaseConfig.control}
                   loginOptions={loginOptions}
@@ -477,10 +451,10 @@ const EmailLogin = ({ oauthConsent }: SignInProps) => {
                   onOAuthPasskeyLogin={isOAuthFlow ? handleOAuthSessionSwitch : undefined}
                 />
               )}
-              {phase === EmailLoginPhase.SignupNeeded && (
-                <PhaseSignupNeeded email={email} control={phaseConfig.control} />
+              {phase === LoginPhase.SignupNeeded && (
+                <PhaseSignupNeeded username={username} control={phaseConfig.control} />
               )}
-              {phase === EmailLoginPhase.Collect2FA && (
+              {phase === LoginPhase.Collect2FA && (
                 <Phase2FA
                   loading={loading}
                   otp={otp}
@@ -488,29 +462,21 @@ const EmailLogin = ({ oauthConsent }: SignInProps) => {
                   control={phaseConfig.control}
                 />
               )}
-              {phase === EmailLoginPhase.CollectEmail && (
-                <PhaseCollectEmail
-                  email={email}
-                  setEmail={setEmail}
+              {phase === LoginPhase.CollectUsername && (
+                <PhaseCollectUsername
+                  username={username}
+                  setUsername={setUsername}
                   control={phaseConfig.control}
                   onOAuthPasskeyLogin={isOAuthFlow ? handleOAuthSessionSwitch : undefined}
                 />
               )}
-              {phase === EmailLoginPhase.Consent && app && (
+              {phase === LoginPhase.Consent && app && (
                 <PhaseConsent
                   app={app}
                   requestedScopes={requestedScopes}
                   selectedScopes={selectedScopes}
                   onScopeToggle={handleScopeToggle}
                   control={phaseConfig.control!}
-                />
-              )}
-              {phase === EmailLoginPhase.ForgetPassword && (
-                <PhaseForgetPassword
-                  email={email}
-                  captchaGen={captchaGen}
-                  setCaptchaState={(s) => (captchaState.current = s)}
-                  control={phaseConfig.control}
                 />
               )}
             </Box>

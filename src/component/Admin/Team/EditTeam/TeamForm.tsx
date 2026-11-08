@@ -197,7 +197,7 @@ const TeamForm = () => {
               <TableHead>
                 <TableRow>
                   <NoWrapTableCell width={280}>{t("user.nick")}</NoWrapTableCell>
-                  <NoWrapTableCell width={200}>{t("user.email")}</NoWrapTableCell>
+                  <NoWrapTableCell width={200}>{t("user.username")}</NoWrapTableCell>
                   <NoWrapTableCell width={140}>{t("team.role")}</NoWrapTableCell>
                   <NoWrapTableCell width={60}></NoWrapTableCell>
                 </TableRow>
@@ -206,7 +206,7 @@ const TeamForm = () => {
                 {members.map((member) => {
                   const hashId = member.user_hash_id ?? "";
                   const nick = member.nick ?? member.edges?.user?.nick ?? hashId;
-                  const email = member.email ?? member.edges?.user?.email ?? "";
+                  const username = member.username ?? member.edges?.user?.username ?? "";
                   const busy = memberBusy === hashId;
                   return (
                     <TableRow key={member.id ?? hashId}>
@@ -224,7 +224,7 @@ const TeamForm = () => {
                       </NoWrapTableCell>
                       <NoWrapTableCell>
                         <NoWrapTypography variant="inherit" color="text.secondary">
-                          {email || "—"}
+                          {username || "—"}
                         </NoWrapTypography>
                       </NoWrapTableCell>
                       <NoWrapTableCell>

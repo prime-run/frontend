@@ -23,7 +23,7 @@ import CloudDownload from "../../../Icons/CloudDownload";
 import CloudDownloadOutlined from "../../../Icons/CloudDownloadOutlined";
 import CubeSync from "../../../Icons/CubeSync";
 import CubeSyncFilled from "../../../Icons/CubeSyncFilled";
-import MailOutlined from "../../../Icons/MailOutlined";
+import PersonOutlined from "../../../Icons/PersonOutlined";
 import PhoneLaptop from "../../../Icons/PhoneLaptop";
 import PhoneLaptopOutlined from "../../../Icons/PhoneLaptopOutlined";
 import SettingForm from "../../../Pages/Setting/SettingForm";
@@ -73,7 +73,7 @@ const HeadlessFooterPreview = ({ footer, bottom }: { footer?: string; bottom?: s
                 >
                   <Typography variant={"h6"}>{t("login.siginToYourAccount")}</Typography>
                   <FormControl variant="standard" margin="normal" fullWidth>
-                    <OutlineIconTextField label={t("login.email")} variant={"outlined"} icon={<MailOutlined />} />
+                    <OutlineIconTextField label={t("login.username")} variant={"outlined"} icon={<PersonOutlined />} />
                   </FormControl>
                   <LoadingButton sx={{ mt: 2 }} fullWidth variant="contained" color="primary">
                     <span>{t("login.continue")}</span>

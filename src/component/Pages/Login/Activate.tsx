@@ -19,7 +19,7 @@ const Activate = () => {
   const query = useQuery();
 
   const [success, setSuccess] = useState(true);
-  const [email, setEmail] = useState("");
+  const [username, setUsername] = useState("");
 
   useEffect(() => {
     const sign = query.get("sign");
@@ -33,7 +33,7 @@ const Activate = () => {
     dispatch(setHeadlessFrameLoading(true));
     dispatch(sendEmailActivate(id, decodeURIComponent(sign)))
       .then((u) => {
-        setEmail(u?.email ?? "");
+        setUsername(u?.username ?? "");
         setSuccess(true);
       })
       .catch(() => {
@@ -70,7 +70,7 @@ const Activate = () => {
               </Typography>
             </Box>
             <Button
-              onClick={() => navigate("/session?phase=email&email=" + encodeURIComponent(email))}
+              onClick={() => navigate("/session?phase=username&username=" + encodeURIComponent(username))}
               sx={{ mt: 2 }}
               variant="contained"
               color="primary"

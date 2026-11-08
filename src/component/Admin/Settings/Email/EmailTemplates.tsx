@@ -58,7 +58,7 @@ const userMagicVars: MagicVar[] = [
     example: "2534",
   },
   {
-    value: "application:login.email",
+    value: "nav.email",
     name: "{{ .User.Email }}",
     example: "example@cloudreve.org",
   },

@@ -27,7 +27,7 @@ export interface UserDialogContextProps {
 const defaultUser: User = {
   id: 0,
   nick: "",
-  email: "",
+  username: "",
   edges: {},
 };
 

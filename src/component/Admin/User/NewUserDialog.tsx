@@ -5,6 +5,7 @@ import { useNavigate } from "react-router-dom";
 import { upsertUser } from "../../../api/api";
 import { User, UserStatus } from "../../../api/dashboard";
 import { useAppDispatch } from "../../../redux/hooks";
+import { USERNAME_MAX_LENGTH, USERNAME_MIN_LENGTH, USERNAME_PATTERN } from "../../../util/username.ts";
 import { DenseFilledTextField } from "../../Common/StyledComponents";
 import DraggableDialog from "../../Dialogs/DraggableDialog";
 import SettingForm from "../../Pages/Setting/SettingForm";
@@ -19,7 +20,7 @@ export interface NewUserDialogProps {
 const defaultUser: User = {
   edges: {},
   id: 0,
-  email: "",
+  username: "",
   nick: "",
   password: "",
   status: UserStatus.active,
@@ -46,7 +47,7 @@ const NewUserDialog = ({ open, onClose, onCreated }: NewUserDialogProps) => {
       return;
     }
 
-    let newUser = { ...user, nick: user.email.split("@")[0] };
+    const newUser = { ...user, nick: user.username };
 
     setLoading(true);
     dispatch(upsertUser({ user: newUser, password: user.password }))
@@ -76,13 +77,22 @@ const NewUserDialog = ({ open, onClose, onCreated }: NewUserDialogProps) => {
       <DialogContent>
         <form ref={formRef}>
           <Stack spacing={2}>
-            <SettingForm title={t("user.email")} lgWidth={12}>
+            <SettingForm title={t("user.username")} lgWidth={12}>
               <DenseFilledTextField
                 fullWidth
                 required
-                type="email"
-                value={user.email}
-                onChange={(e) => setUser({ ...user, email: e.target.value })}
+                type="text"
+                value={user.username}
+                onChange={(e) => setUser({ ...user, username: e.target.value })}
+                slotProps={{
+                  htmlInput: {
+                    minLength: USERNAME_MIN_LENGTH,
+                    maxLength: USERNAME_MAX_LENGTH,
+                    pattern: USERNAME_PATTERN,
+                    autoComplete: "username",
+                    title: t("application:login.usernameInvalid"),
+                  },
+                }}
               />
             </SettingForm>
             <SettingForm title={t("user.password")} lgWidth={12}>

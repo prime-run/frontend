@@ -1,4 +1,4 @@
-import { Divider, FormControl, Link, Stack, Typography } from "@mui/material";
+import { Divider, FormControl, Stack, Typography } from "@mui/material";
 import { useTranslation } from "react-i18next";
 import { LoginResponse, PrepareLoginResponse } from "../../../../api/user.ts";
 import { useAppSelector } from "../../../../redux/hooks.ts";
@@ -10,25 +10,23 @@ import { Control } from "../Signin/SignIn.tsx";
 
 interface PhaseCollectPasswordProps {
   pwd: string;
-  email: string;
+  username: string;
   setPwd: (pwd: string) => void;
   control?: Control;
   loginOptions?: PrepareLoginResponse;
   captchaGen: number;
   setCaptchaState: (state: CaptchaParams) => void;
-  onForget?: () => void;
   onOAuthPasskeyLogin?: (response: LoginResponse) => void;
 }
 
 const PhaseCollectPassword = ({
   pwd,
-  email,
+  username,
   setPwd,
   control,
   loginOptions,
   captchaGen,
   setCaptchaState,
-  onForget,
   onOAuthPasskeyLogin,
 }: PhaseCollectPasswordProps) => {
   const { t } = useTranslation();
@@ -39,7 +37,7 @@ const PhaseCollectPassword = ({
     <>
       {loginOptions?.password_enabled && (
         <>
-          <Typography color={"text.secondary"}>{t("login.enterPasswordHint", { email: email })}</Typography>
+          <Typography color={"text.secondary"}>{t("login.enterPasswordHint", { username })}</Typography>
           <FormControl variant="standard" margin="normal" required fullWidth>
             <OutlineIconTextField
               autoFocus={true}
@@ -56,11 +54,8 @@ const PhaseCollectPassword = ({
               onChange={(e) => setPwd(e.target.value)}
               icon={<Password />}
               value={pwd}
-              autoComplete={"true"}
+              autoComplete={"current-password"}
             />
-            <Link sx={{ mt: 1 }} underline="hover" variant="body2" href={"#"} onClick={onForget}>
-              {t("login.forgetPassword")}
-            </Link>
           </FormControl>
           {login_captcha && (
             <FormControl variant="standard" margin="normal" required fullWidth>
@@ -79,7 +74,7 @@ const PhaseCollectPassword = ({
       )}
       {!loginOptions?.password_enabled && (
         <Typography color={"text.secondary"} sx={{ mb: 2 }}>
-          {t("login.paswordlessHint", { email: email })}
+          {t("login.paswordlessHint", { username })}
         </Typography>
       )}
       <Stack spacing={1}>

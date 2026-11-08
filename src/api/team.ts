@@ -18,7 +18,7 @@ export interface TeamMemberEnt {
     user?: User;
   };
   user_hash_id?: string;
-  email?: string;
+  username?: string;
   nick?: string;
 }
 

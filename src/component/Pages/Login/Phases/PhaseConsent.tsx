@@ -235,7 +235,7 @@ const PhaseConsent = ({ app, requestedScopes, control }: PhaseConsentProps) => {
           components={[<strong key={0} />, <strong key={1} />]}
           values={{
             appName: t(app.name),
-            userEmail: currentUser?.email || currentUser?.nickname || "",
+            username: currentUser?.username || currentUser?.nickname || "",
           }}
         />
       </Typography>

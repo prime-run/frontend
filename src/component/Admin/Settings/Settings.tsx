@@ -183,10 +183,9 @@ const Settings = () => {
                 <SettingsWrapper
                   settings={[
                     "register_enabled",
-                    "email_active",
                     "default_group",
                     "authn_enabled",
-                    "expose_user_email",
+                    "expose_user_username",
                     "avatar_path",
                     "avatar_size",
                     "avatar_size_l",
