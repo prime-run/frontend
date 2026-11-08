@@ -50,10 +50,6 @@ const UserPopover = ({ open, onClose, ...rest }: PopoverProps) => {
     return GroupBS(user).enabled(GroupPermission.is_admin);
   }, [user.group?.permission]);
 
-  const signWithHint = (email: string) => {
-    navigate("/session?phase=email&email=" + encodeURIComponent(email));
-  };
-
   const signOut = useCallback(() => {
     dispatch(signout());
     onClose && onClose({}, "backdropClick");
@@ -109,7 +105,7 @@ const UserPopover = ({ open, onClose, ...rest }: PopoverProps) => {
           </StyledTypography>
         </Box>
         <StyledTypography variant={"caption"} color={"textSecondary"}>
-          {user.email}
+          {user.username}
         </StyledTypography>
       </Box>
       <Divider />

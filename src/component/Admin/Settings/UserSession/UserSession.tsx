@@ -1,13 +1,11 @@
-import { Box, FormControl, FormControlLabel, Link, ListItemText, Stack, Switch, Typography } from "@mui/material";
+import { Box, FormControl, FormControlLabel, Link, Stack, Switch, Typography } from "@mui/material";
 import { useContext, useMemo } from "react";
 import { Trans, useTranslation } from "react-i18next";
 import { Link as RouterLink } from "react-router-dom";
 import { isTrueVal } from "../../../../session/utils.ts";
 import SizeInput from "../../../Common/SizeInput.tsx";
-import { DenseFilledTextField, DenseSelect } from "../../../Common/StyledComponents.tsx";
-import { SquareMenuItem } from "../../../FileManager/ContextMenu/ContextMenu.tsx";
+import { DenseFilledTextField } from "../../../Common/StyledComponents.tsx";
 import SettingForm, { ProChip } from "../../../Pages/Setting/SettingForm.tsx";
-import { Code } from "../../../Common/Code.tsx";
 import GroupSelectionInput from "../../Common/GroupSelectionInput.tsx";
 import SharesInput from "../../Common/SharesInput.tsx";
 import { NoMarginHelperText, SettingSection, SettingSectionContent } from "../Settings.tsx";
@@ -59,30 +57,6 @@ const UserSession = () => {
                 <FormControlLabel
                   control={
                     <Switch
-                      checked={isTrueVal(values.email_active)}
-                      onChange={(e) =>
-                        setSettings({
-                          email_active: e.target.checked ? "1" : "0",
-                        })
-                      }
-                    />
-                  }
-                  label={t("settings.emailActivation")}
-                />
-                <NoMarginHelperText>
-                  <Trans
-                    i18nKey="settings.emailActivationDes"
-                    ns={"dashboard"}
-                    components={[<Link href={"/admin/settings?tab=email"} />]}
-                  />
-                </NoMarginHelperText>
-              </FormControl>
-            </SettingForm>
-            <SettingForm lgWidth={5}>
-              <FormControl fullWidth>
-                <FormControlLabel
-                  control={
-                    <Switch
                       checked={isTrueVal(values.authn_enabled)}
                       onChange={(e) =>
                         setSettings({
@@ -101,17 +75,17 @@ const UserSession = () => {
                 <FormControlLabel
                   control={
                     <Switch
-                      checked={isTrueVal(values.expose_user_email)}
+                      checked={isTrueVal(values.expose_user_username)}
                       onChange={(e) =>
                         setSettings({
-                          expose_user_email: e.target.checked ? "1" : "0",
+                          expose_user_username: e.target.checked ? "1" : "0",
                         })
                       }
                     />
                   }
-                  label={t("settings.exposeUserEmail")}
+                  label={t("settings.exposeUserUsername")}
                 />
-                <NoMarginHelperText>{t("settings.exposeUserEmailDes")}</NoMarginHelperText>
+                <NoMarginHelperText>{t("settings.exposeUserUsernameDes")}</NoMarginHelperText>
               </FormControl>
             </SettingForm>
             <SettingForm title={t("settings.defaultGroup")} lgWidth={5}>
@@ -136,42 +110,6 @@ const UserSession = () => {
                     ns={"dashboard"}
                     components={[<Link component={RouterLink} to={"/admin/share"} />]}
                   />
-                </NoMarginHelperText>
-              </FormControl>
-            </SettingForm>
-            <SettingForm title={t("vas.filterEmailProvider")} lgWidth={5} pro>
-              <FormControl>
-                <DenseSelect value={0}>
-                  {["filterEmailProviderDisabled", "filterEmailProviderWhitelist", "filterEmailProviderBlacklist"].map(
-                    (v, i) => (
-                      <SquareMenuItem value={i.toString()}>
-                        <ListItemText
-                          slotProps={{
-                            primary: { variant: "body2" },
-                          }}
-                        >
-                          {t(`vas.${v}`)}
-                        </ListItemText>
-                      </SquareMenuItem>
-                    ),
-                  )}
-                </DenseSelect>
-                <NoMarginHelperText>{t("vas.filterEmailProviderDes")}</NoMarginHelperText>
-              </FormControl>
-            </SettingForm>
-            <SettingForm lgWidth={5} pro>
-              <FormControl fullWidth>
-                <FormControlLabel
-                  control={<Switch checked={false} />}
-                  label={
-                    <>
-                      {t("vas.disableSubAddressEmail")}
-                      <ProChip label="Pro" color="primary" size="small" />
-                    </>
-                  }
-                />
-                <NoMarginHelperText>
-                  <Trans i18nKey="vas.disableSubAddressEmailDes" ns={"dashboard"} components={[<Code />]} />
                 </NoMarginHelperText>
               </FormControl>
             </SettingForm>

@@ -2,7 +2,7 @@
  * UserLoginService 管理用户登录的服务
  */
 export interface UserLoginService {
-  email: string;
+  username: string;
   password: string;
   otp?: string;
 }
@@ -12,7 +12,7 @@ export interface UserLoginService {
  */
 export interface User {
   id: string;
-  email?: string;
+  username?: string;
   nickname: string;
   status?: any /* user.Status */;
   avatar?: string;
@@ -50,7 +50,7 @@ export interface CaptchaRequest {
 }
 
 export interface PasswordLoginRequest extends CaptchaRequest {
-  email: string;
+  username: string;
   password: string;
 }
 
@@ -190,18 +190,9 @@ export interface FinishPasskeyLoginService {
 }
 
 export interface SignUpService extends CaptchaRequest {
-  email: string;
+  username: string;
   password: string;
   language: string;
-}
-
-export interface SendResetEmailService extends CaptchaRequest {
-  email: string;
-}
-
-export interface ResetPasswordService {
-  password: string;
-  secret: string;
 }
 
 export enum ShareLinksInProfileLevel {

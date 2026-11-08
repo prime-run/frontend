@@ -64,7 +64,7 @@ const UserSearchInput = (props: UserSearchInputProps) => {
 
   const filterOptions = useMemo(() => {
     return createFilterOptions<User>({
-      stringify: (option) => option.nickname + " " + option.email,
+      stringify: (option) => option.nickname + " " + (option.username ?? ""),
     });
   }, []);
 
@@ -84,7 +84,9 @@ const UserSearchInput = (props: UserSearchInputProps) => {
       onInputChange={(_event, newInputValue) => {
         setInputValue(newInputValue);
       }}
-      getOptionLabel={(option) => (typeof option === "string" ? option : `${option.nickname} <${option.email}>`)}
+      getOptionLabel={(option) =>
+        typeof option === "string" ? option : `${option.nickname}${option.username ? ` <${option.username}>` : ""}`
+      }
       noOptionsText={t("application:modals.noResults")}
       renderOption={(props, option) => {
         return (
@@ -100,7 +102,7 @@ const UserSearchInput = (props: UserSearchInputProps) => {
                 }}
               >
                 {option.nickname}
-                {option.email && (
+                {option.username && (
                   <NoWrapTypography
                     sx={{
                       width: "100%",
@@ -108,7 +110,7 @@ const UserSearchInput = (props: UserSearchInputProps) => {
                     variant="body2"
                     color="text.secondary"
                   >
-                    {option.email}
+                    {option.username}
                   </NoWrapTypography>
                 )}
               </NoWrapBox>

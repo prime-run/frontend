@@ -100,8 +100,8 @@ const ProfileSetting = ({ setting, setSetting }: ProfileSettingProps) => {
         </Grid2>
         <Grid2 spacing={3} sx={{ flexGrow: 1, width: "100%" }} size={{ md: 6, xs: 12 }}>
           <Stack spacing={3}>
-            <SettingForm title={t("login.email")} noContainer lgWidth={12}>
-              <DenseFilledTextField disabled fullWidth value={user?.user.email} />
+            <SettingForm title={t("login.username")} noContainer lgWidth={12}>
+              <DenseFilledTextField disabled fullWidth value={user?.user.username} />
             </SettingForm>
             <SettingForm title={t("setting.nickname")} noContainer lgWidth={12}>
               <DenseFilledTextField

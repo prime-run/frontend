@@ -6,7 +6,6 @@ import { User } from "../../../api/user.ts";
 import UserAvatar from "./UserAvatar.tsx";
 import { useAppDispatch } from "../../../redux/hooks.ts";
 import { loadUserInfo } from "../../../redux/thunks/session.ts";
-import MailOutlined from "../../Icons/MailOutlined.tsx";
 import HomeOutlined from "../../Icons/HomeOutlined.tsx";
 import { useNavigate } from "react-router-dom";
 import TimeBadge from "../TimeBadge.tsx";
@@ -81,12 +80,10 @@ export const UserProfile = ({ user, open, displayOnly }: { user: User; open: boo
               </ActionButton>
             </Tooltip>
           )}
-          {user.email && (
-            <Tooltip title={user.email}>
-              <ActionButton onClick={() => window.open(`mailto:${user.email}`)}>
-                <MailOutlined />
-              </ActionButton>
-            </Tooltip>
+          {user.username && (
+            <Typography variant={"body2"} color={"text.secondary"} sx={{ alignSelf: "center", ml: 0.5 }}>
+              {user.username}
+            </Typography>
           )}
         </Box>
       </Box>

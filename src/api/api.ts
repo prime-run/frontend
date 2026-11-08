@@ -93,8 +93,6 @@ import {
   PrepareLoginResponse,
   PreparePasskeyLoginResponse,
   RefreshTokenRequest,
-  ResetPasswordService,
-  SendResetEmailService,
   SignUpService,
   Token,
   TwoFALoginRequest,
@@ -139,14 +137,14 @@ export function getSiteConfig(section: string): ThunkResponse<SiteConfig> {
   };
 }
 
-export function sendPrepareLogin(email: string): ThunkResponse<PrepareLoginResponse> {
+export function sendPrepareLogin(username: string): ThunkResponse<PrepareLoginResponse> {
   return async (dispatch, _getState) => {
     return await dispatch(
       send(
         "/session/prepare",
         {
           params: {
-            email: email,
+            username: username,
           },
           method: "GET",
         },
@@ -1256,42 +1254,6 @@ export function sendEmailActivate(id: string, sign: string): ThunkResponse<User>
         `/user/activate/${id}?sign=${encodeURIComponent(sign)}`,
         {
           method: "GET",
-        },
-        {
-          ...defaultOpts,
-          noCredential: true,
-        },
-      ),
-    );
-  };
-}
-
-export function sendResetEmail(req: SendResetEmailService): ThunkResponse<User> {
-  return async (dispatch, _getState) => {
-    return await dispatch(
-      send(
-        `/user/reset`,
-        {
-          method: "POST",
-          data: req,
-        },
-        {
-          ...defaultOpts,
-          noCredential: true,
-        },
-      ),
-    );
-  };
-}
-
-export function sendReset(uid: string, req: ResetPasswordService): ThunkResponse<User> {
-  return async (dispatch, _getState) => {
-    return await dispatch(
-      send(
-        `/user/reset/${uid}`,
-        {
-          method: "PATCH",
-          data: req,
         },
         {
           ...defaultOpts,

@@ -27,6 +27,7 @@ import { getTeamList, sendCalibrateUserStorage } from "../../../../api/api";
 import { UserStatus } from "../../../../api/dashboard";
 import { TeamEnt, TeamRole, UserTeamMembership } from "../../../../api/team";
 import { useAppDispatch } from "../../../../redux/hooks";
+import { USERNAME_MAX_LENGTH, USERNAME_MIN_LENGTH } from "../../../../util/username.ts";
 import { DefaultCloseAction } from "../../../Common/Snackbar/snackbar";
 import {
   DenseFilledTextField,
@@ -89,9 +90,9 @@ const UserForm = ({ reload, setLoading }: { reload: () => void; setLoading: (loa
     setUser((prev) => ({ ...prev, avatar: undefined }));
   }, [setUser]);
 
-  const onEmailChange = useCallback(
+  const onUsernameChange = useCallback(
     (e: React.ChangeEvent<HTMLInputElement>) => {
-      setUser((prev) => ({ ...prev, email: e.target.value }));
+      setUser((prev) => ({ ...prev, username: e.target.value }));
     },
     [setUser],
   );
@@ -234,8 +235,22 @@ const UserForm = ({ reload, setLoading }: { reload: () => void; setLoading: (loa
         <Divider orientation="vertical" flexItem />
         <Box sx={{ flexGrow: 1 }}>
           <Grid container spacing={isMobile ? 2 : 3}>
-            <SettingForm title={t("user.email")} noContainer lgWidth={6}>
-              <DenseFilledTextField fullWidth type="email" value={values.email} required onChange={onEmailChange} />
+            <SettingForm title={t("user.username")} noContainer lgWidth={6}>
+              <DenseFilledTextField
+                fullWidth
+                type="text"
+                value={values.username}
+                required
+                onChange={onUsernameChange}
+                slotProps={{
+                  htmlInput: {
+                    minLength: USERNAME_MIN_LENGTH,
+                    maxLength: USERNAME_MAX_LENGTH,
+                    autoComplete: "username",
+                    title: t("application:login.usernameInvalid"),
+                  },
+                }}
+              />
             </SettingForm>
             <SettingForm title={t("user.nick")} noContainer lgWidth={6}>
               <DenseFilledTextField fullWidth value={values.nick} required onChange={onNickChange} />

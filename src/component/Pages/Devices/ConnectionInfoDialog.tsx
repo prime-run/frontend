@@ -61,7 +61,7 @@ const ConnectionInfoDialog = ({ onClose, account, ...rest }: ConnectionInfoDialo
           <InfoTextField label={t("application:setting.webdavServer")} value={window.location.origin + "/dav"} />
           <InfoTextField
             label={t("application:setting.userName")}
-            value={SessionManager.currentLoginOrNull()?.user.email ?? ""}
+            value={SessionManager.currentLoginOrNull()?.user.username ?? ""}
           />
           <InfoTextField label={t("application:login.password")} value={account?.password ?? ""} />
         </Stack>
