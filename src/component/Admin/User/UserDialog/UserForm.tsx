@@ -47,7 +47,7 @@ import ProDialog from "../../Common/ProDialog";
 import { NoMarginHelperText } from "../../Settings/Settings";
 import { UserDialogContext } from "./UserDialog";
 
-const teamRoles: TeamRole[] = ["owner", "admin", "member"];
+const teamRoles: TeamRole[] = ["owner", "admin", "member", "viewer"];
 
 const UserForm = ({ reload, setLoading }: { reload: () => void; setLoading: (loading: boolean) => void }) => {
   const dispatch = useAppDispatch();

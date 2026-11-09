@@ -1783,6 +1783,7 @@
     "role_owner": "Propriétaire",
     "role_admin": "Admin",
     "role_member": "Membre",
+    "role_viewer": "Lecteur",
     "noMembers": "Aucun membre pour le moment.",
     "confirmRemoveMember": "Retirer {{user}} de cette équipe ?"
   }

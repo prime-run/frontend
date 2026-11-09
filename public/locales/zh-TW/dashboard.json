@@ -1785,6 +1785,7 @@
     "role_owner": "擁有者",
     "role_admin": "管理員",
     "role_member": "成員",
+    "role_viewer": "唯讀成員",
     "noMembers": "尚無成員。",
     "confirmRemoveMember": "將 {{user}} 移出此團隊？"
   }

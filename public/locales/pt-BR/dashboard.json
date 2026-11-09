@@ -1783,6 +1783,7 @@
     "role_owner": "Proprietário",
     "role_admin": "Admin",
     "role_member": "Membro",
+    "role_viewer": "Visualizador",
     "noMembers": "Ainda sem membros.",
     "confirmRemoveMember": "Remover {{user}} desta equipe?"
   }

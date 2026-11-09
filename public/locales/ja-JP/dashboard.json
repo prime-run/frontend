@@ -1785,6 +1785,7 @@
     "role_owner": "オーナー",
     "role_admin": "管理者",
     "role_member": "メンバー",
+    "role_viewer": "閲覧者",
     "noMembers": "まだメンバーがいません。",
     "confirmRemoveMember": "{{user}} をこのチームから削除しますか？"
   }

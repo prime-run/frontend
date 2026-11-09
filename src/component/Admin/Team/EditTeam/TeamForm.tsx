@@ -36,7 +36,7 @@ import UserSearchInput from "../../File/UserSearchInput.tsx";
 import { NoMarginHelperText, SettingSection, SettingSectionContent } from "../../Settings/Settings.tsx";
 import { TeamSettingContext } from "./TeamSettingWrapper.tsx";
 
-const roles: TeamRole[] = ["owner", "admin", "member"];
+const roles: TeamRole[] = ["owner", "admin", "member", "viewer"];
 
 const TeamForm = () => {
   const { t } = useTranslation("dashboard");
