@@ -210,7 +210,10 @@ export const getActionOpt = (
     display.allUpdatable &&
     display.orCapability &&
     display.orCapability.enabled(NavigatorCapability.rename_file);
-  display.showCopy = display.hasUpdatable && !!display.orCapability;
+  display.showCopy =
+    display.hasUpdatable &&
+    !!display.orCapability &&
+    display.orCapability.enabled(NavigatorCapability.lock_file);
   display.showShare =
     targets.length == 1 &&
     !!currentUser &&
@@ -221,7 +224,10 @@ export const getActionOpt = (
     display.orCapability.enabled(NavigatorCapability.share) &&
     (!targets[0].metadata ||
       (!targets[0].metadata[Metadata.share_redirect] && !targets[0].metadata[Metadata.restore_uri]));
-  display.showMove = display.hasUpdatable && !!display.orCapability;
+  display.showMove =
+    display.hasUpdatable &&
+    !!display.orCapability &&
+    display.orCapability.enabled(NavigatorCapability.lock_file);
   display.showTags =
     display.hasUpdatable && display.orCapability && display.orCapability.enabled(NavigatorCapability.update_metadata);
   display.showChangeFolderColor =
