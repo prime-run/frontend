@@ -1784,6 +1784,7 @@
     "role_owner": "Владелец",
     "role_admin": "Админ",
     "role_member": "Участник",
+    "role_viewer": "Наблюдатель",
     "noMembers": "Пока нет участников.",
     "confirmRemoveMember": "Удалить {{user}} из этой команды?"
   }

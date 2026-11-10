@@ -1,11 +1,12 @@
 import { memo, useCallback, useContext, useEffect } from "react";
 import { useDrag, useDrop } from "react-dnd";
 import { getEmptyImage } from "react-dnd-html5-backend";
-import { FileResponse, FileType } from "../../../api/explorer.ts";
+import { FileResponse, FileType, NavigatorCapability } from "../../../api/explorer.ts";
 import { setDragging } from "../../../redux/globalStateSlice.ts";
 import { useAppDispatch, useAppSelector } from "../../../redux/hooks.ts";
 import { processDnd } from "../../../redux/thunks/file.ts";
 import { getFileLinkedUri, mergeRefs } from "../../../util";
+import Boolset from "../../../util/boolset.ts";
 
 import { useTheme } from "@mui/material/styles";
 import useMediaQuery from "@mui/material/useMediaQuery";
@@ -66,7 +67,11 @@ export const useFileDrag = ({ file, includeSelected, dropUri }: UseFileDragProps
       }
 
       const crUri = new CrUri(file.path);
-      return file.owned && crUri.fs() != Filesystem.share;
+      if (!file.owned || crUri.fs() == Filesystem.share) {
+        return false;
+      }
+      // Team viewers are owned:true but lack lock_file; MoveOrCopy requires it.
+      return new Boolset(file.capability).enabled(NavigatorCapability.lock_file);
     },
     collect: (monitor) => ({
       isDragging: monitor.isDragging(),

@@ -1774,6 +1774,7 @@
     "role_owner": "Eigentümer",
     "role_admin": "Admin",
     "role_member": "Mitglied",
+    "role_viewer": "Betrachter",
     "noMembers": "Noch keine Mitglieder.",
     "confirmRemoveMember": "{{user}} aus diesem Team entfernen?"
   }

@@ -1,7 +1,7 @@
 import { User } from "./dashboard.ts";
 import { PaginationResults } from "./explorer.ts";
 
-export type TeamRole = "owner" | "admin" | "member";
+export type TeamRole = "owner" | "admin" | "member" | "viewer";
 
 /** Current user's team membership (GET /api/v4/team). */
 export interface UserTeam {

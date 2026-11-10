@@ -1782,6 +1782,7 @@
     "role_owner": "소유자",
     "role_admin": "관리자",
     "role_member": "멤버",
+    "role_viewer": "뷰어",
     "noMembers": "아직 멤버가 없습니다.",
     "confirmRemoveMember": "{{user}}을(를) 이 팀에서 제거할까요?"
   }

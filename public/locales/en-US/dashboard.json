@@ -1327,6 +1327,7 @@
     "role_owner": "Owner",
     "role_admin": "Admin",
     "role_member": "Member",
+    "role_viewer": "Viewer",
     "noMembers": "No members yet.",
     "confirmRemoveMember": "Remove {{user}} from this team?"
   },
