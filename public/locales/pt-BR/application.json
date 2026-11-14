@@ -492,7 +492,16 @@
     "noEncryption": "Não criptografado",
     "ftsStatus": "Índice de texto completo",
     "ftsIndexed": "Indexado",
-    "ftsNotIndexed": "Não indexado"
+    "ftsNotIndexed": "Não indexado",
+    "sendToTeam": "Enviar para equipe",
+    "sendToTeamDestination": "Equipe de destino",
+    "sendToTeamAllowWrite": "Permitir edição no destino (grava no arquivo de origem)",
+    "sendToTeamSuccess": "Enviado(s) {{count}} item(ns) para {{team}}",
+    "transferFromTeam": "Da equipe",
+    "transferSentBy": "Enviado por",
+    "transferAccess": "Acesso da transferência",
+    "transferAccessReadOnly": "Somente leitura",
+    "transferAccessWrite": "Pode editar a origem"
   },
   "modals": {
     "includePasswordInShareLink": "Incluir senha no link de compartilhamento",

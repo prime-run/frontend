@@ -69,6 +69,7 @@ import {
   setDirectLinkDialog,
   setExtractArchiveDialog,
   setRemoteDownloadDialog,
+  setSendToTeamDialog,
   setShareLinkDialog,
   setSidebar,
   updateLockConflicts,
@@ -932,6 +933,13 @@ export function openShareDialog(index: number, src: FileResponse): AppThunk {
   };
 }
 
+export function openSendToTeamDialog(index: number, files: FileResponse[]): AppThunk {
+  return async (dispatch, _getState) => {
+    dispatch(closeContextMenu({ index, value: undefined }));
+    dispatch(setSendToTeamDialog({ open: true, files }));
+  };
+}
+
 export function dialogBasedMoveCopy(index: number, files: FileResponse[], isCopy: boolean): AppThunk {
   return async (dispatch, _getState) => {
     dispatch(closeContextMenu({ index, value: undefined }));
@@ -1296,7 +1304,12 @@ export function resetThumbnails(files: FileResponse[]): AppThunk {
 // we need to refresh the symbolic links by getting the latest file list
 export function refreshSingleFileSymbolicLinks(file: FileResponse): AppThunk<Promise<FileResponse>> {
   return async (dispatch, _getState) => {
-    if (file.type != FileType.file || !file?.metadata?.[Metadata.share_redirect]) {
+    const redirectKey = file?.metadata?.[Metadata.team_transfer_redirect]
+      ? Metadata.team_transfer_redirect
+      : file?.metadata?.[Metadata.share_redirect]
+        ? Metadata.share_redirect
+        : undefined;
+    if (file.type != FileType.file || !redirectKey) {
       return file;
     }
     const currentUrl = new CrUri(getFileLinkedUri(file));
@@ -1317,10 +1330,15 @@ export function refreshSingleFileSymbolicLinks(file: FileResponse): AppThunk<Pro
       return file;
     }
 
-    if (latestFile.path != file?.metadata?.[Metadata.share_redirect]) {
-      // File renamed, update file share_redirect
+    // Share shortcuts store a full source path and need a metadata update on rename.
+    // Team-transfer redirects are a teamtransfer:// root hash and must not be rewritten
+    // (public PatchMetadata also rejects forging those keys).
+    if (
+      redirectKey === Metadata.share_redirect &&
+      latestFile.path != file?.metadata?.[redirectKey]
+    ) {
       dispatch(
-        patchFileMetadata(FileManagerIndex.main, [file], [{ key: Metadata.share_redirect, value: latestFile.path }]),
+        patchFileMetadata(FileManagerIndex.main, [file], [{ key: redirectKey, value: latestFile.path }]),
       );
     }
     return latestFile;

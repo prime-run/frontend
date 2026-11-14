@@ -128,7 +128,13 @@ const BasicInfo = ({ target }: BasicInfoProps) => {
   }, [target]);
 
   const isSymbolicLink = useMemo(() => {
-    return !!(target.metadata && target.metadata[Metadata.share_redirect]);
+    return !!(
+      target.metadata &&
+      (target.metadata[Metadata.share_redirect] || target.metadata[Metadata.team_transfer_redirect])
+    );
+  }, [target.metadata]);
+  const isTeamTransfer = useMemo(() => {
+    return !!(target.metadata && target.metadata[Metadata.transfer_from_team]);
   }, [target.metadata]);
   const fileType = useMemo(() => {
     let srcType = "";
@@ -260,6 +266,28 @@ const BasicInfo = ({ target }: BasicInfoProps) => {
         {t("application:fileManager.basicInfo")}
       </Typography>
       <InfoRow title={t("fileManager.type")} content={fileType} />
+      {isTeamTransfer && target.metadata?.[Metadata.transfer_from_team_name] && (
+        <InfoRow
+          title={t("application:fileManager.transferFromTeam")}
+          content={target.metadata[Metadata.transfer_from_team_name]}
+        />
+      )}
+      {isTeamTransfer && target.metadata?.[Metadata.transfer_by_nick] && (
+        <InfoRow
+          title={t("application:fileManager.transferSentBy")}
+          content={target.metadata[Metadata.transfer_by_nick]}
+        />
+      )}
+      {isTeamTransfer && (
+        <InfoRow
+          title={t("application:fileManager.transferAccess")}
+          content={
+            target.metadata?.[Metadata.transfer_allow_write] === "1"
+              ? t("application:fileManager.transferAccessWrite")
+              : t("application:fileManager.transferAccessReadOnly")
+          }
+        />
+      )}
       <InfoRow
         title={t("fileManager.parentFolder")}
         content={

@@ -16,7 +16,8 @@ const supportedArchiveTypes = ["zip", "gz", "xz", "tar", "rar", "7z", "bz2"];
 export const canManageVersion = (file: FileResponse, bs: Boolset) => {
   return (
     file.type == FileType.file &&
-    (!file.metadata || !file.metadata[Metadata.share_redirect]) &&
+    (!file.metadata ||
+      (!file.metadata[Metadata.share_redirect] && !file.metadata[Metadata.team_transfer_redirect])) &&
     bs.enabled(NavigatorCapability.version_control)
   );
 };
@@ -64,6 +65,7 @@ export interface DisplayOption {
   showOrganize?: boolean;
   showCopy?: boolean;
   showShare?: boolean;
+  showSendToTeam?: boolean;
   showInfo?: boolean;
   showDirectLink?: boolean;
 
@@ -117,7 +119,11 @@ export const getActionOpt = (
     }
 
     const parentCap = new Boolset(parent.capability);
-    display.showCreateFolder = parentCap.enabled(NavigatorCapability.create_file) && parent.owned;
+    const parentUri = new CrUri(parent.path);
+    const createByCap = parentCap.enabled(NavigatorCapability.create_file);
+    // teamtransfer write-through uses capability bits; Owned is the source owner.
+    display.showCreateFolder =
+      createByCap && (parent.owned || parentUri.fs() == Filesystem.teamtransfer);
     display.showCreateFile = display.showCreateFolder && fmIndex == FileManagerIndex.main;
     display.showUpload = display.showCreateFile;
     if (display.showCreateFile) {
@@ -138,9 +144,12 @@ export const getActionOpt = (
   }
 
   const parentUrl = new CrUri(targets?.[0]?.path ?? defaultPath);
+  const isTeamTransferFs = parentUrl.fs() == Filesystem.teamtransfer;
   targets.forEach((target) => {
     let readable = true;
-    let updatable = target.owned && parentUrl.fs() != Filesystem.share;
+    // On teamtransfer://, mutate actions follow capability bits (not Owned).
+    let updatable =
+      (target.owned || isTeamTransferFs) && parentUrl.fs() != Filesystem.share;
 
     if (display.allReadable && !readable) {
       display.allReadable = false;
@@ -224,6 +233,20 @@ export const getActionOpt = (
     display.orCapability.enabled(NavigatorCapability.share) &&
     (!targets[0].metadata ||
       (!targets[0].metadata[Metadata.share_redirect] && !targets[0].metadata[Metadata.restore_uri]));
+  display.showSendToTeam =
+    !!currentUser &&
+    parentUrl.fs() == Filesystem.team &&
+    !!targets.length &&
+    display.hasUpdatable &&
+    !!display.orCapability &&
+    display.orCapability.enabled(NavigatorCapability.lock_file) &&
+    !display.hasTrashFile &&
+    targets.every(
+      (t) =>
+        !t.metadata?.[Metadata.share_redirect] &&
+        !t.metadata?.[Metadata.team_transfer_redirect] &&
+        !t.metadata?.[Metadata.restore_uri],
+    );
   display.showMove =
     display.hasUpdatable &&
     !!display.orCapability &&
@@ -241,7 +264,7 @@ export const getActionOpt = (
   display.showDownload =
     display.hasReadable && display.orCapability && display.orCapability.enabled(NavigatorCapability.download_file);
   display.showDirectLink =
-    (display.hasOwned || groupBs.enabled(GroupPermission.is_admin)) &&
+    ((display.hasOwned && !isTeamTransferFs) || groupBs.enabled(GroupPermission.is_admin)) &&
     display.orCapability &&
     (currentUserAnonymous?.group?.direct_link_batch_size ?? 0) >= targets.length &&
     display.orCapability.enabled(NavigatorCapability.download_file);

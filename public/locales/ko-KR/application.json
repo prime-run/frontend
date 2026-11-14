@@ -492,7 +492,16 @@
     "noEncryption": "암호화되지 않음",
     "ftsStatus": "전문 검색 인덱스",
     "ftsIndexed": "인덱스됨",
-    "ftsNotIndexed": "인덱스되지 않음"
+    "ftsNotIndexed": "인덱스되지 않음",
+    "sendToTeam": "팀에 보내기",
+    "sendToTeamDestination": "대상 팀",
+    "sendToTeamAllowWrite": "대상에서 편집 허용 (원본 파일에 기록)",
+    "sendToTeamSuccess": "{{team}}에 {{count}}개 항목을 보냈습니다",
+    "transferFromTeam": "보낸 팀",
+    "transferSentBy": "보낸 사람",
+    "transferAccess": "전송 접근",
+    "transferAccessReadOnly": "읽기 전용",
+    "transferAccessWrite": "원본 편집 가능"
   },
   "modals": {
     "includePasswordInShareLink": "공유 링크에 비밀번호 포함",

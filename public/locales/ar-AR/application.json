@@ -453,7 +453,16 @@
     "noEncryption": "غير مشفر",
     "ftsStatus": "فهرس النص الكامل",
     "ftsIndexed": "مفهرس",
-    "ftsNotIndexed": "غير مفهرس"
+    "ftsNotIndexed": "غير مفهرس",
+    "sendToTeam": "إرسال إلى فريق",
+    "sendToTeamDestination": "فريق الوجهة",
+    "sendToTeamAllowWrite": "السماح للوجهة بالتعديل (تُكتب التغييرات على الملف المصدر)",
+    "sendToTeamSuccess": "تم إرسال {{count}} عنصر إلى {{team}}",
+    "transferFromTeam": "من الفريق",
+    "transferSentBy": "أرسل بواسطة",
+    "transferAccess": "صلاحية النقل",
+    "transferAccessReadOnly": "للقراءة فقط",
+    "transferAccessWrite": "يمكن تعديل المصدر"
   },
   "modals": {
     "includePasswordInShareLink": "اضافة كلمة المرور في رابط المشاركة",

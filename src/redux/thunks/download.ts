@@ -12,7 +12,7 @@ import {
   BatchDownloadCompleteAction,
 } from "../../component/Common/Snackbar/snackbar.tsx";
 import SessionManager from "../../session";
-import { getFileLinkedUri } from "../../util";
+import { getFileLinkedUri, isSymbolicLinkedFile } from "../../util";
 import Boolset from "../../util/boolset.ts";
 import { formatLocalTime } from "../../util/datetime.ts";
 import {
@@ -63,7 +63,7 @@ export function downloadMultipleFiles(files: FileResponse[]): AppThunk {
     const groupPermission = new Boolset(SessionManager.currentUser()?.group?.permission);
     if (
       groupPermission.enabled(GroupPermission.archive_download) &&
-      (files.length > 1 || !files[0].metadata?.[Metadata.share_redirect])
+      (files.length > 1 || !isSymbolicLinkedFile(files[0]))
     ) {
       options.push(MultipleDownloadOption.Backend);
     }
@@ -511,7 +511,7 @@ export function streamSaverDownload(files: FileResponse[]): AppThunk {
 
 export function downloadSingleFile(file: FileResponse, preferredEntity?: string): AppThunk {
   return async (dispatch, _getState) => {
-    const isSharedFile = file.metadata?.[Metadata.share_redirect] ?? false;
+    const isSharedFile = isSymbolicLinkedFile(file);
     if (isSharedFile) {
       file = await dispatch(refreshSingleFileSymbolicLinks(file));
     }

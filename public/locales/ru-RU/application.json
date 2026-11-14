@@ -492,7 +492,16 @@
     "noEncryption": "Не зашифровано",
     "ftsStatus": "Полнотекстовый индекс",
     "ftsIndexed": "Проиндексировано",
-    "ftsNotIndexed": "Не проиндексировано"
+    "ftsNotIndexed": "Не проиндексировано",
+    "sendToTeam": "Отправить команде",
+    "sendToTeamDestination": "Команда назначения",
+    "sendToTeamAllowWrite": "Разрешить правку на стороне получателя (пишет в исходный файл)",
+    "sendToTeamSuccess": "Отправлено {{count}} объект(ов) в {{team}}",
+    "transferFromTeam": "От команды",
+    "transferSentBy": "Отправил",
+    "transferAccess": "Доступ передачи",
+    "transferAccessReadOnly": "Только чтение",
+    "transferAccessWrite": "Может править источник"
   },
   "modals": {
     "includePasswordInShareLink": "Включить пароль в ссылку на публикацию",

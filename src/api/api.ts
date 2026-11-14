@@ -102,8 +102,11 @@ import {
 import {
   AdminListTeamResponse,
   CreateTeamService,
+  CreateTeamTransferService,
   RenameTeamService,
+  TeamDirectoryEntry,
   TeamEnt,
+  TeamTransferResponse,
   UpsertTeamMemberService,
   UserTeam,
 } from "./team.ts";
@@ -2175,6 +2178,39 @@ export function getUserTeams(): ThunkResponse<UserTeam[]> {
         `/team`,
         {
           method: "GET",
+        },
+        {
+          ...defaultOpts,
+        },
+      ),
+    );
+  };
+}
+
+export function getTeamDirectory(): ThunkResponse<TeamDirectoryEntry[]> {
+  return async (dispatch, _getState) => {
+    return await dispatch(
+      send(
+        `/team/directory`,
+        {
+          method: "GET",
+        },
+        {
+          ...defaultOpts,
+        },
+      ),
+    );
+  };
+}
+
+export function sendTeamTransfer(req: CreateTeamTransferService): ThunkResponse<TeamTransferResponse[]> {
+  return async (dispatch, _getState) => {
+    return await dispatch(
+      send(
+        `/file/teamTransfer`,
+        {
+          method: "POST",
+          data: req,
         },
         {
           ...defaultOpts,

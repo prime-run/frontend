@@ -457,7 +457,16 @@
     "noEncryption": "未加密",
     "ftsStatus": "全文索引",
     "ftsIndexed": "已索引",
-    "ftsNotIndexed": "未索引"
+    "ftsNotIndexed": "未索引",
+    "sendToTeam": "发送到团队",
+    "sendToTeamDestination": "目标团队",
+    "sendToTeamAllowWrite": "允许目标团队编辑（写入源文件）",
+    "sendToTeamSuccess": "已将 {{count}} 项发送到 {{team}}",
+    "transferFromTeam": "来自团队",
+    "transferSentBy": "发送者",
+    "transferAccess": "传输权限",
+    "transferAccessReadOnly": "只读",
+    "transferAccessWrite": "可编辑源文件"
   },
   "modals": {
     "includePasswordInShareLink": "在链接中包含密码",
