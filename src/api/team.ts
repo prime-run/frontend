@@ -10,6 +10,27 @@ export interface UserTeam {
   role: TeamRole;
 }
 
+/** Lightweight team entry for send-to-team picker (GET /api/v4/team/directory). */
+export interface TeamDirectoryEntry {
+  id: string;
+  name: string;
+}
+
+export interface CreateTeamTransferService {
+  uris: string[];
+  dst_team_id: string;
+  allow_write?: boolean;
+}
+
+export interface TeamTransferResponse {
+  id: string;
+  dest_path: string;
+  source_uri: string;
+  allow_write: boolean;
+  from_team: string;
+  from_team_name: string;
+}
+
 export interface TeamMemberEnt {
   id?: number;
   user_id: number;

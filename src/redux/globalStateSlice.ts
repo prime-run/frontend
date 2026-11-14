@@ -150,6 +150,10 @@ export interface GlobalStateSlice {
   shareLinkDialogFile?: FileResponse;
   shareLinkDialogShare?: Share;
 
+  // Send to team dialog
+  sendToTeamDialogOpen?: boolean;
+  sendToTeamDialogFiles?: FileResponse[];
+
   // Version control dialog
   versionControlDialogOpen?: boolean;
   versionControlDialogFile?: FileResponse;
@@ -406,6 +410,7 @@ export const globalStateSlice = createSlice({
       state.tagsDialogOpen = state.tagsDialogOpen ? false : undefined;
       state.changeIconDialogOpen = state.changeIconDialogOpen ? false : undefined;
       state.shareLinkDialogOpen = state.shareLinkDialogOpen ? false : undefined;
+      state.sendToTeamDialogOpen = state.sendToTeamDialogOpen ? false : undefined;
       state.versionControlDialogOpen = state.versionControlDialogOpen ? false : undefined;
       state.manageShareDialogOpen = state.manageShareDialogOpen ? false : undefined;
       state.createNewDialogOpen = state.createNewDialogOpen ? false : undefined;
@@ -748,6 +753,16 @@ export const globalStateSlice = createSlice({
     closeShareLinkDialog: (state) => {
       state.shareLinkDialogOpen = false;
     },
+    setSendToTeamDialog: (
+      state,
+      action: PayloadAction<{ open: boolean; files?: FileResponse[] }>,
+    ) => {
+      state.sendToTeamDialogOpen = action.payload.open;
+      state.sendToTeamDialogFiles = action.payload.files;
+    },
+    closeSendToTeamDialog: (state) => {
+      state.sendToTeamDialogOpen = false;
+    },
     setSidebar: (state, action: PayloadAction<{ open: boolean; target?: FileResponse | string }>) => {
       state.sidebarOpen = action.payload.open;
       state.sidebarTarget = action.payload.target;
@@ -911,6 +926,8 @@ export const {
   addShareInfo,
   setShareLinkDialog,
   closeShareLinkDialog,
+  setSendToTeamDialog,
+  closeSendToTeamDialog,
   setChangeIconDialog,
   closeChangeIconDialog,
   setTagsDialog,

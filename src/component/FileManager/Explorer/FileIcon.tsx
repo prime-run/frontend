@@ -3,6 +3,7 @@ import { forwardRef, memo, useMemo } from "react";
 import { useTranslation } from "react-i18next";
 import { FileResponse, FileType, Metadata } from "../../../api/explorer.ts";
 import UserAvatar from "../../Common/User/UserAvatar.tsx";
+import PeopleTeamOutlined from "../../Icons/PeopleTeamOutlined.tsx";
 import ShareAndroid from "../../Icons/ShareAndroid.tsx";
 import EmojiIcon from "./EmojiIcon.tsx";
 import FileTypeIcon from "./FileTypeIcon.tsx";
@@ -82,6 +83,21 @@ const FileIcon = memo(
             sx={{ width: avatarSize, height: avatarSize }}
             uid={file.metadata[Metadata.share_owner]}
           />
+        );
+      } else if (file?.metadata?.[Metadata.transfer_from_team]) {
+        const teamName = file.metadata[Metadata.transfer_from_team_name] ?? "";
+        return (
+          <Tooltip title={t("application:fileManager.transferFromTeam") + (teamName ? `: ${teamName}` : "")}>
+            <Avatar
+              sx={{
+                width: avatarSize,
+                height: avatarSize,
+                bgcolor: (theme) => theme.palette.background.default,
+              }}
+            >
+              <PeopleTeamOutlined sx={{ fontSize: `${avatarSize - 0}px!important` }} color={"action"} />
+            </Avatar>
+          </Tooltip>
         );
       } else if (file?.shared) {
         return (

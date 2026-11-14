@@ -162,6 +162,12 @@ export interface ListResponse {
 export const Metadata = {
   share_redirect: "sys:shared_redirect",
   share_owner: "sys:shared_owner",
+  team_transfer_redirect: "sys:team_transfer_redirect",
+  transfer_from_team: "sys:transfer_from_team",
+  transfer_from_team_name: "sys:transfer_from_team_name",
+  transfer_by: "sys:transfer_by",
+  transfer_by_nick: "sys:transfer_by_nick",
+  transfer_allow_write: "sys:transfer_allow_write",
   upload_session_id: "sys:upload_session_id",
   icon_color: "customize:icon_color",
   emoji: "customize:emoji",

@@ -7,6 +7,7 @@ import PathSelection from "./PathSelection.tsx";
 import Tags from "./Tags.tsx";
 import ChangeIcon from "./ChangeIcon.tsx";
 import ShareDialog from "./Share/ShareDialog.tsx";
+import SendToTeamDialog from "./SendToTeamDialog.tsx";
 import VersionControl from "./VersionControl.tsx";
 import ManageShares from "./Share/ManageShares.tsx";
 import StaleVersionConfirm from "./StaleVersionConfirm.tsx";
@@ -57,6 +58,7 @@ const Dialogs = () => {
       <Tags />
       <ChangeIcon />
       <ShareDialog />
+      <SendToTeamDialog />
       <VersionControl />
       <ManageShares />
       <StaleVersionConfirm />

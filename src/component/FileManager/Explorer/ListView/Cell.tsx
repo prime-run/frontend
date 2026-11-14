@@ -229,7 +229,8 @@ const FileNameCell = memo((props: CellProps) => {
   );
 
   if (showThumb) {
-    const showSize = !isFolder && !file.metadata?.[Metadata.share_redirect];
+    const showSize =
+      !isFolder && !file.metadata?.[Metadata.share_redirect] && !file.metadata?.[Metadata.team_transfer_redirect];
     return (
       <>
         <Box
@@ -336,7 +337,11 @@ interface FolderSizeCellProps {
 
 const FolderSizeCell = memo(({ file }: FolderSizeCellProps) => {
   const { t } = useTranslation();
-  if (file.type == FileType.folder || file.metadata?.[Metadata.share_redirect]) {
+  if (
+    file.type == FileType.folder ||
+    file.metadata?.[Metadata.share_redirect] ||
+    file.metadata?.[Metadata.team_transfer_redirect]
+  ) {
     return <Box />;
   }
   return <Box>{sizeToString(file.size)}</Box>;

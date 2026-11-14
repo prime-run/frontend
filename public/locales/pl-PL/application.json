@@ -457,7 +457,16 @@
     "noEncryption": "Niezaszyfrowane",
     "ftsStatus": "Indeks pełnotekstowy",
     "ftsIndexed": "Zindeksowane",
-    "ftsNotIndexed": "Niezindeksowane"
+    "ftsNotIndexed": "Niezindeksowane",
+    "sendToTeam": "Wyślij do zespołu",
+    "sendToTeamDestination": "Zespół docelowy",
+    "sendToTeamAllowWrite": "Zezwól na edycję w miejscu docelowym (zapisuje do źródła)",
+    "sendToTeamSuccess": "Wysłano {{count}} elementów do {{team}}",
+    "transferFromTeam": "Z zespołu",
+    "transferSentBy": "Wysłane przez",
+    "transferAccess": "Dostęp transferu",
+    "transferAccessReadOnly": "Tylko do odczytu",
+    "transferAccessWrite": "Może edytować źródło"
   },
   "modals": {
     "includePasswordInShareLink": "Dołącz hasło do linku udostępniania",

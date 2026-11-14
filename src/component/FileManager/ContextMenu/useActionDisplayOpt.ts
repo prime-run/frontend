@@ -64,6 +64,7 @@ export interface DisplayOption {
   showOrganize?: boolean;
   showCopy?: boolean;
   showShare?: boolean;
+  showSendToTeam?: boolean;
   showInfo?: boolean;
   showDirectLink?: boolean;
 
@@ -224,6 +225,20 @@ export const getActionOpt = (
     display.orCapability.enabled(NavigatorCapability.share) &&
     (!targets[0].metadata ||
       (!targets[0].metadata[Metadata.share_redirect] && !targets[0].metadata[Metadata.restore_uri]));
+  display.showSendToTeam =
+    !!currentUser &&
+    parentUrl.fs() == Filesystem.team &&
+    !!targets.length &&
+    display.hasUpdatable &&
+    !!display.orCapability &&
+    display.orCapability.enabled(NavigatorCapability.lock_file) &&
+    !display.hasTrashFile &&
+    targets.every(
+      (t) =>
+        !t.metadata?.[Metadata.share_redirect] &&
+        !t.metadata?.[Metadata.team_transfer_redirect] &&
+        !t.metadata?.[Metadata.restore_uri],
+    );
   display.showMove =
     display.hasUpdatable &&
     !!display.orCapability &&

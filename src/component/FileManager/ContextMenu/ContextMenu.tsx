@@ -15,6 +15,7 @@ import {
   goToParent,
   goToSharedLink,
   newRemoteDownload,
+  openSendToTeamDialog,
   openShareDialog,
   openSidebar,
   renameFile,
@@ -42,6 +43,7 @@ import Info from "../../Icons/Info.tsx";
 import LinkOutlined from "../../Icons/LinkOutlined.tsx";
 import Open from "../../Icons/Open.tsx";
 import RenameOutlined from "../../Icons/RenameOutlined.tsx";
+import PeopleTeamOutlined from "../../Icons/PeopleTeamOutlined.tsx";
 import ShareOutlined from "../../Icons/ShareOutlined.tsx";
 import Tag from "../../Icons/Tag.tsx";
 import Upload from "../../Icons/Upload.tsx";
@@ -123,6 +125,7 @@ const ContextMenu = ({ fmIndex = 0 }: ContextMenuProps) => {
     displayOpt.showCreateFolder ||
     displayOpt.showCreateFile ||
     displayOpt.showShare ||
+    displayOpt.showSendToTeam ||
     displayOpt.showRename ||
     displayOpt.showCopy ||
     displayOpt.showDirectLink;
@@ -253,6 +256,14 @@ const ContextMenu = ({ fmIndex = 0 }: ContextMenuProps) => {
             <ShareOutlined fontSize="small" />
           </ListItemIcon>
           <ListItemText>{t("application:fileManager.share")}</ListItemText>
+        </SquareMenuItem>
+      )}
+      {displayOpt.showSendToTeam && (
+        <SquareMenuItem onClick={() => dispatch(openSendToTeamDialog(fmIndex, targets))}>
+          <ListItemIcon>
+            <PeopleTeamOutlined fontSize="small" />
+          </ListItemIcon>
+          <ListItemText>{t("application:fileManager.sendToTeam")}</ListItemText>
         </SquareMenuItem>
       )}
       {displayOpt.showRename && (

@@ -457,7 +457,16 @@
     "noEncryption": "暗号化されていません",
     "ftsStatus": "全文インデックス",
     "ftsIndexed": "インデックス済み",
-    "ftsNotIndexed": "未インデックス"
+    "ftsNotIndexed": "未インデックス",
+    "sendToTeam": "チームに送信",
+    "sendToTeamDestination": "送信先チーム",
+    "sendToTeamAllowWrite": "送信先での編集を許可（ソースファイルに書き込みます）",
+    "sendToTeamSuccess": "{{team}} に {{count}} 件送信しました",
+    "transferFromTeam": "送信元チーム",
+    "transferSentBy": "送信者",
+    "transferAccess": "転送のアクセス",
+    "transferAccessReadOnly": "読み取り専用",
+    "transferAccessWrite": "ソースを編集可能"
   },
   "modals": {
     "includePasswordInShareLink": "共有リンクにパスワードを含める",

@@ -69,6 +69,7 @@ import {
   setDirectLinkDialog,
   setExtractArchiveDialog,
   setRemoteDownloadDialog,
+  setSendToTeamDialog,
   setShareLinkDialog,
   setSidebar,
   updateLockConflicts,
@@ -929,6 +930,13 @@ export function openShareDialog(index: number, src: FileResponse): AppThunk {
   return async (dispatch, _getState) => {
     dispatch(closeContextMenu({ index, value: undefined }));
     dispatch(setShareLinkDialog({ open: true, file: src }));
+  };
+}
+
+export function openSendToTeamDialog(index: number, files: FileResponse[]): AppThunk {
+  return async (dispatch, _getState) => {
+    dispatch(closeContextMenu({ index, value: undefined }));
+    dispatch(setSendToTeamDialog({ open: true, files }));
   };
 }
 

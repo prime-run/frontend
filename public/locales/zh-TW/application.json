@@ -457,7 +457,16 @@
     "noEncryption": "未加密",
     "ftsStatus": "全文索引",
     "ftsIndexed": "已索引",
-    "ftsNotIndexed": "未索引"
+    "ftsNotIndexed": "未索引",
+    "sendToTeam": "傳送到團隊",
+    "sendToTeamDestination": "目標團隊",
+    "sendToTeamAllowWrite": "允許目標團隊編輯（寫入來源檔案）",
+    "sendToTeamSuccess": "已將 {{count}} 項傳送到 {{team}}",
+    "transferFromTeam": "來自團隊",
+    "transferSentBy": "傳送者",
+    "transferAccess": "傳輸權限",
+    "transferAccessReadOnly": "唯讀",
+    "transferAccessWrite": "可編輯來源檔案"
   },
   "modals": {
     "includePasswordInShareLink": "在連結中包含密碼",

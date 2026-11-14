@@ -9,6 +9,7 @@ import {
   deleteFile,
   dialogBasedMoveCopy,
   openFileContextMenu,
+  openSendToTeamDialog,
   openShareDialog,
   renameFile,
   restoreFile,
@@ -26,6 +27,7 @@ import HistoryOutlined from "../../Icons/HistoryOutlined.tsx";
 import MoreHorizontal from "../../Icons/MoreHorizontal.tsx";
 import Open from "../../Icons/Open.tsx";
 import RenameOutlined from "../../Icons/RenameOutlined.tsx";
+import PeopleTeamOutlined from "../../Icons/PeopleTeamOutlined.tsx";
 import ShareOutlined from "../../Icons/ShareOutlined.tsx";
 
 export interface FileSelectedActionsProps {
@@ -149,6 +151,13 @@ const FileSelectedActions = forwardRef(({ targets }: FileSelectedActionsProps, r
               <Tooltip title={t("application:fileManager.share")}>
                 <ActionButton onClick={() => dispatch(openShareDialog(0, targets[0]))}>
                   <ShareOutlined fontSize={"small"} />
+                </ActionButton>
+              </Tooltip>
+            )}
+            {displayOpt.showSendToTeam && (
+              <Tooltip title={t("application:fileManager.sendToTeam")}>
+                <ActionButton onClick={() => dispatch(openSendToTeamDialog(0, targets))}>
+                  <PeopleTeamOutlined fontSize={"small"} />
                 </ActionButton>
               </Tooltip>
             )}
