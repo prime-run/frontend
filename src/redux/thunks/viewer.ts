@@ -8,7 +8,7 @@ import { canUpdate, getActionOpt } from "../../component/FileManager/ContextMenu
 import { FileManagerIndex } from "../../component/FileManager/FileManager.tsx";
 import SessionManager, { UserSettings } from "../../session";
 import { isTrueVal } from "../../session/utils.ts";
-import { dataUrlToBytes, fileExtension, fileNameNoExt, getFileLinkedUri, sizeToString } from "../../util";
+import { dataUrlToBytes, fileExtension, fileNameNoExt, getFileLinkedUri, isSymbolicLinkedFile, sizeToString } from "../../util";
 import { base64Encode } from "../../util/base64.ts";
 import CrUri, { CrUriPrefix } from "../../util/uri.ts";
 import { closeContextMenu, ContextMenuTypes, fileUpdated } from "../fileManagerSlice.ts";
@@ -136,7 +136,7 @@ export function openViewer(
       });
     }
 
-    const isSharedFile = file.metadata?.[Metadata.share_redirect] ?? false;
+    const isSharedFile = isSymbolicLinkedFile(file);
     const originalFileId = file.id;
 
     if (isSharedFile) {
@@ -407,7 +407,7 @@ export function switchToImageEditor(file: FileResponse, version?: string): AppTh
       return;
     }
 
-    const isSharedFile = file.metadata?.[Metadata.share_redirect] ?? false;
+    const isSharedFile = isSymbolicLinkedFile(file);
     if (isSharedFile) {
       const fileInfo = await dispatch(getFileInfo({ uri: getFileLinkedUri(file) }));
       version = fileInfo.primary_entity;
@@ -448,7 +448,7 @@ export function saveImage(name: string, data: string, file: FileResponse, versio
       version = file.primary_entity;
     }
 
-    const isSharedFile = file.metadata?.[Metadata.share_redirect] ?? false;
+    const isSharedFile = isSymbolicLinkedFile(file);
     let originFileUri = new CrUri(getFileLinkedUri(file));
     if (name != file.name) {
       if (isSharedFile) {
@@ -583,7 +583,7 @@ export function saveCode(
   saveAsNew?: boolean,
 ): AppThunk<Promise<void>> {
   return async (dispatch, getState) => {
-    const isLinkedFile = file.metadata?.[Metadata.share_redirect] ?? false;
+    const isLinkedFile = isSymbolicLinkedFile(file);
     if (!version && !isLinkedFile) {
       version = file.primary_entity;
     }
@@ -639,7 +639,7 @@ export function saveExcalidraw(
   saveAsNew?: boolean,
 ): AppThunk<Promise<void>> {
   return async (dispatch, getState) => {
-    const isLinkedFile = file.metadata?.[Metadata.share_redirect] ?? false;
+    const isLinkedFile = isSymbolicLinkedFile(file);
     if (!version && !isLinkedFile) {
       version = file.primary_entity;
     }
@@ -669,7 +669,7 @@ export function saveMarkdown(
   saveAsNew?: boolean,
 ): AppThunk<Promise<void>> {
   return async (dispatch, getState) => {
-    const isLinkedFile = file.metadata?.[Metadata.share_redirect] ?? false;
+    const isLinkedFile = isSymbolicLinkedFile(file);
     if (!version && !isLinkedFile) {
       version = file.primary_entity;
     }

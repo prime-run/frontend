@@ -67,7 +67,7 @@ export const useFileDrag = ({ file, includeSelected, dropUri }: UseFileDragProps
       }
 
       const crUri = new CrUri(file.path);
-      if (!file.owned || crUri.fs() == Filesystem.share) {
+      if (!file.owned || crUri.fs() == Filesystem.share || crUri.fs() == Filesystem.teamtransfer) {
         return false;
       }
       // Team viewers are owned:true but lack lock_file; MoveOrCopy requires it.

@@ -12,6 +12,7 @@ export const Filesystem = {
   shared_with_me: "shared_with_me",
   trash: "trash",
   team: "team",
+  teamtransfer: "teamtransfer",
 };
 
 export const UriQuery = {

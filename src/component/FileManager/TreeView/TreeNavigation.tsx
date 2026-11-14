@@ -58,12 +58,14 @@ const TreeNavigation = React.memo(
     const pinned = usePinned();
     const alreadyPinned = base && pinned && pinned.find((p) => p.uri == base);
     const showShareTree = base && currentFs && currentFs == Filesystem.share && !alreadyPinned;
+    const showTeamTransferTree =
+      base && currentFs && currentFs == Filesystem.teamtransfer && !alreadyPinned;
 
     useEffect(() => {
-      if (showShareTree && scrollRef && scrollRef.current) {
+      if ((showShareTree || showTeamTransferTree) && scrollRef && scrollRef.current) {
         scrollRef.current?.scrollTo({ top: 0, behavior: "smooth" });
       }
-    }, [showShareTree]);
+    }, [showShareTree, showTeamTransferTree]);
 
     const isLogin = !!SessionManager.currentLoginOrNull();
     const teamElements = currentFs == Filesystem.team ? elements : undefined;
@@ -96,6 +98,11 @@ const TreeNavigation = React.memo(
                 <TransitionGroup>
                   {showShareTree && (
                     <Collapse key={"share"}>
+                      <TreeFiles level={0} path={base} elements={elements} />
+                    </Collapse>
+                  )}
+                  {showTeamTransferTree && (
+                    <Collapse key={"teamtransfer"}>
                       <TreeFiles level={0} path={base} elements={elements} />
                     </Collapse>
                   )}

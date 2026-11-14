@@ -153,6 +153,8 @@ export const useBreadcrumbButtons = ({
           const team = teams?.find((tm) => tm.id === uri.id());
           return team?.name ?? t("navbar.team");
         }
+        case Filesystem.teamtransfer:
+          return t("application:fileManager.transferFromTeam");
         default:
           "Root";
       }
@@ -197,6 +199,8 @@ export const useBreadcrumbButtons = ({
         case Filesystem.shared_with_me:
           return { Icons: [PeopleTeam, PeopleTeamOutlined] };
         case Filesystem.team:
+          return { Icons: [PeopleTeam, PeopleTeamOutlined] };
+        case Filesystem.teamtransfer:
           return { Icons: [PeopleTeam, PeopleTeamOutlined] };
         case Filesystem.share:
           if (shareInfo) {

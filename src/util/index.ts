@@ -19,12 +19,18 @@ export const useQuery = (): URLSearchParams => {
 
 // getFileLinkedUri returns the linked uri of the file.
 export const getFileLinkedUri = (file: FileResponse) => {
+  if (file.metadata && file.metadata[Metadata.team_transfer_redirect]) {
+    return file.metadata[Metadata.team_transfer_redirect];
+  }
   if (file.metadata && file.metadata[Metadata.share_redirect]) {
     return file.metadata[Metadata.share_redirect];
   }
 
   return file.path;
 };
+
+export const isSymbolicLinkedFile = (file: FileResponse) =>
+  !!(file.metadata?.[Metadata.share_redirect] || file.metadata?.[Metadata.team_transfer_redirect]);
 
 export const sleep = (ms: number) => {
   return new Promise((resolve) => setTimeout(resolve, ms));
