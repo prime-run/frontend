@@ -156,8 +156,7 @@ export interface GlobalStateSlice {
 
   // Pending team sends (source owner/admin confirmation)
   pendingTeamSendsDialogOpen?: boolean;
-  pendingTeamSendsTeamId?: string;
-  pendingTeamSendsTeamName?: string;
+  pendingTeamSendsCount?: number;
 
   // Version control dialog
   versionControlDialogOpen?: boolean;
@@ -769,16 +768,14 @@ export const globalStateSlice = createSlice({
     closeSendToTeamDialog: (state) => {
       state.sendToTeamDialogOpen = false;
     },
-    setPendingTeamSendsDialog: (
-      state,
-      action: PayloadAction<{ open: boolean; teamId?: string; teamName?: string }>,
-    ) => {
+    setPendingTeamSendsDialog: (state, action: PayloadAction<{ open: boolean }>) => {
       state.pendingTeamSendsDialogOpen = action.payload.open;
-      state.pendingTeamSendsTeamId = action.payload.teamId;
-      state.pendingTeamSendsTeamName = action.payload.teamName;
     },
     closePendingTeamSendsDialog: (state) => {
       state.pendingTeamSendsDialogOpen = false;
+    },
+    setPendingTeamSendsCount: (state, action: PayloadAction<number>) => {
+      state.pendingTeamSendsCount = action.payload;
     },
     setSidebar: (state, action: PayloadAction<{ open: boolean; target?: FileResponse | string }>) => {
       state.sidebarOpen = action.payload.open;
@@ -947,6 +944,7 @@ export const {
   closeSendToTeamDialog,
   setPendingTeamSendsDialog,
   closePendingTeamSendsDialog,
+  setPendingTeamSendsCount,
   setChangeIconDialog,
   closeChangeIconDialog,
   setTagsDialog,

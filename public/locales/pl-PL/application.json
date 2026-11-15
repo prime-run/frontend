@@ -476,7 +476,14 @@
     "pendingSendConfirmed": "Send confirmed. The live link is now in the destination team.",
     "pendingSendRejected": "Pending send rejected.",
     "pendingSendUnknownFile": "Unknown file",
-    "pendingSendMeta": "To {{team}} · by {{nick}} · {{access}}"
+    "pendingSendMeta": "To {{team}} · by {{nick}} · {{access}}",
+    "pendingSendUnknownUser": "Unknown user",
+    "pendingSendSharedBy": "Shared by {{user}}",
+    "pendingSendFromTo": "From {{from}} → {{to}}",
+    "pendingSendSize": "Size {{size}}",
+    "pendingSendRequested": "Requested",
+    "pendingSendFile": "File",
+    "pendingSendFolder": "Folder"
   },
   "modals": {
     "includePasswordInShareLink": "Dołącz hasło do linku udostępniania",
