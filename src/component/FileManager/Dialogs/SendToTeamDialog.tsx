@@ -47,18 +47,24 @@ const SendToTeamDialog = () => {
     }
     setLoading(true);
     try {
-      await dispatch(
+      const results = await dispatch(
         sendTeamTransfer({
           uris: files.map((f: FileResponse) => f.path),
           dst_team_id: selected.id,
           allow_write: allowWrite,
         }),
       );
+      const pending = (results ?? []).some((r) => r.status === "pending");
       enqueueSnackbar({
-        message: t("application:fileManager.sendToTeamSuccess", {
-          team: selected.name,
-          count: files.length,
-        }),
+        message: t(
+          pending
+            ? "application:fileManager.sendToTeamPending"
+            : "application:fileManager.sendToTeamSuccess",
+          {
+            team: selected.name,
+            count: files.length,
+          },
+        ),
         variant: "success",
       });
       dispatch(closeSendToTeamDialog());
