@@ -34,6 +34,7 @@ export interface TeamTransferResponse {
 
 export interface PendingTeamTransferItem {
   id: string;
+  source_found: boolean;
   source_file_name: string;
   source_is_dir: boolean;
   source_size: number;

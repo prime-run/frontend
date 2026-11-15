@@ -52,8 +52,7 @@ const PendingTeamSendsDialog = () => {
       setItems(next);
       dispatch(setPendingTeamSendsCount(next.length));
     } catch {
-      setItems([]);
-      dispatch(setPendingTeamSendsCount(0));
+      // Keep the previous list and badge count on a failed refresh.
     } finally {
       setLoading(false);
     }
@@ -151,16 +150,20 @@ const PendingTeamSendsDialog = () => {
                 <Stack spacing={0.75} sx={{ width: "100%" }}>
                   <Stack direction="row" spacing={1} alignItems="center" flexWrap="wrap" useFlexGap>
                     <Typography variant="subtitle2" sx={{ wordBreak: "break-word" }}>
-                      {item.source_file_name || t("application:fileManager.pendingSendUnknownFile")}
+                      {item.source_found
+                        ? item.source_file_name
+                        : t("application:fileManager.pendingSendUnknownFile")}
                     </Typography>
-                    <Chip
-                      size="small"
-                      label={
-                        item.source_is_dir
-                          ? t("application:fileManager.pendingSendFolder")
-                          : t("application:fileManager.pendingSendFile")
-                      }
-                    />
+                    {item.source_found && (
+                      <Chip
+                        size="small"
+                        label={
+                          item.source_is_dir
+                            ? t("application:fileManager.pendingSendFolder")
+                            : t("application:fileManager.pendingSendFile")
+                        }
+                      />
+                    )}
                     <Chip
                       size="small"
                       color={item.allow_write ? "warning" : "default"}
@@ -183,7 +186,7 @@ const PendingTeamSendsDialog = () => {
                     })}
                   </Typography>
                   <Stack direction="row" spacing={2} flexWrap="wrap" useFlexGap>
-                    {!item.source_is_dir && (
+                    {item.source_found && !item.source_is_dir && (
                       <Typography variant="caption" color="text.secondary">
                         {t("application:fileManager.pendingSendSize", {
                           size: sizeToString(item.source_size ?? 0),

@@ -1,5 +1,5 @@
 import { Badge, Box } from "@mui/material";
-import { useCallback, useEffect, useMemo } from "react";
+import { useCallback, useEffect, useMemo, useRef } from "react";
 import { useTranslation } from "react-i18next";
 import { listPendingTeamTransfers } from "../../../api/api.ts";
 import {
@@ -18,6 +18,7 @@ const PendingTeamSendsNavItem = () => {
   const count = useAppSelector((s) => s.globalState.pendingTeamSendsCount) ?? 0;
   const dialogOpen = useAppSelector((s) => s.globalState.pendingTeamSendsDialogOpen);
   const isLogin = !!SessionManager.currentLoginOrNull();
+  const wasDialogOpen = useRef(false);
 
   const canApprove = useMemo(
     () => !!teams?.some((team) => team.role === "owner" || team.role === "admin"),
@@ -33,7 +34,7 @@ const PendingTeamSendsNavItem = () => {
       const items = await dispatch(listPendingTeamTransfers());
       dispatch(setPendingTeamSendsCount((items ?? []).length));
     } catch {
-      dispatch(setPendingTeamSendsCount(0));
+      // Keep the previous badge count on a failed refresh.
     }
   }, [canApprove, dispatch, isLogin]);
 
@@ -41,11 +42,12 @@ const PendingTeamSendsNavItem = () => {
     refreshCount();
   }, [refreshCount]);
 
-  // Refresh badge when the dialog closes after confirm/reject.
+  // Refresh only on open → closed (after confirm/reject), not on every closed mount.
   useEffect(() => {
-    if (!dialogOpen) {
+    if (wasDialogOpen.current && !dialogOpen) {
       refreshCount();
     }
+    wasDialogOpen.current = !!dialogOpen;
   }, [dialogOpen, refreshCount]);
 
   const onClick = useCallback(() => {
