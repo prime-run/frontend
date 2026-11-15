@@ -103,6 +103,7 @@ import {
   AdminListTeamResponse,
   CreateTeamService,
   CreateTeamTransferService,
+  PendingTeamTransferItem,
   RenameTeamService,
   TeamDirectoryEntry,
   TeamEnt,
@@ -2211,6 +2212,55 @@ export function sendTeamTransfer(req: CreateTeamTransferService): ThunkResponse<
         {
           method: "POST",
           data: req,
+        },
+        {
+          ...defaultOpts,
+        },
+      ),
+    );
+  };
+}
+
+export function listPendingTeamTransfers(teamId: string): ThunkResponse<PendingTeamTransferItem[]> {
+  return async (dispatch, _getState) => {
+    return await dispatch(
+      send(
+        `/file/teamTransfer`,
+        {
+          method: "GET",
+          params: { team_id: teamId },
+        },
+        {
+          ...defaultOpts,
+        },
+      ),
+    );
+  };
+}
+
+export function confirmTeamTransfer(id: string): ThunkResponse<TeamTransferResponse> {
+  return async (dispatch, _getState) => {
+    return await dispatch(
+      send(
+        `/file/teamTransfer/${id}/confirm`,
+        {
+          method: "POST",
+        },
+        {
+          ...defaultOpts,
+        },
+      ),
+    );
+  };
+}
+
+export function deleteTeamTransfer(id: string): ThunkResponse<void> {
+  return async (dispatch, _getState) => {
+    return await dispatch(
+      send(
+        `/file/teamTransfer/${id}`,
+        {
+          method: "DELETE",
         },
         {
           ...defaultOpts,

@@ -1,7 +1,8 @@
-import { FormControl, ListItemText } from "@mui/material";
+import { Box, FormControl, ListItemText, Button } from "@mui/material";
 import { useCallback, useContext, useEffect, useMemo } from "react";
 import { useTranslation } from "react-i18next";
 import { defaultPath } from "../../../hooks/useNavigation.tsx";
+import { setPendingTeamSendsDialog } from "../../../redux/globalStateSlice.ts";
 import { useAppDispatch, useAppSelector } from "../../../redux/hooks.ts";
 import { navigateToPath } from "../../../redux/thunks/filemanager.ts";
 import { loadUserTeams } from "../../../redux/thunks/session.ts";
@@ -43,6 +44,16 @@ const WorkspaceSwitcher = () => {
     return PERSONAL;
   }, [currentFs, path]);
 
+  const currentTeam = useMemo(() => {
+    if (value === PERSONAL || !teams) {
+      return undefined;
+    }
+    return teams.find((team) => team.id === value);
+  }, [teams, value]);
+
+  const canReviewPending =
+    !!currentTeam && (currentTeam.role === "owner" || currentTeam.role === "admin");
+
   const onChange = useCallback(
     (e: { target: { value: unknown } }) => {
       const next = e.target.value as string;
@@ -55,35 +66,55 @@ const WorkspaceSwitcher = () => {
     [dispatch, fmIndex],
   );
 
+  const openPending = useCallback(() => {
+    if (!currentTeam) {
+      return;
+    }
+    dispatch(
+      setPendingTeamSendsDialog({
+        open: true,
+        teamId: currentTeam.id,
+        teamName: currentTeam.name,
+      }),
+    );
+  }, [currentTeam, dispatch]);
+
   if (!isLogin || !teams || teams.length === 0) {
     return null;
   }
 
   return (
-    <FormControl fullWidth size="small" sx={{ mb: 1, px: 0.5 }}>
-      <DenseSelect variant="outlined" value={value} onChange={onChange} displayEmpty>
-        <SquareMenuItem value={PERSONAL}>
-          <ListItemText
-            slotProps={{
-              primary: { variant: "body2" },
-            }}
-          >
-            {t("navbar.personal")}
-          </ListItemText>
-        </SquareMenuItem>
-        {teams.map((team) => (
-          <SquareMenuItem key={team.id} value={team.id}>
+    <Box sx={{ mb: 1, px: 0.5 }}>
+      <FormControl fullWidth size="small">
+        <DenseSelect variant="outlined" value={value} onChange={onChange} displayEmpty>
+          <SquareMenuItem value={PERSONAL}>
             <ListItemText
               slotProps={{
                 primary: { variant: "body2" },
               }}
             >
-              {team.name}
+              {t("navbar.personal")}
             </ListItemText>
           </SquareMenuItem>
-        ))}
-      </DenseSelect>
-    </FormControl>
+          {teams.map((team) => (
+            <SquareMenuItem key={team.id} value={team.id}>
+              <ListItemText
+                slotProps={{
+                  primary: { variant: "body2" },
+                }}
+              >
+                {team.name}
+              </ListItemText>
+            </SquareMenuItem>
+          ))}
+        </DenseSelect>
+      </FormControl>
+      {canReviewPending && (
+        <Button size="small" fullWidth sx={{ mt: 1 }} onClick={openPending}>
+          {t("application:fileManager.pendingSends")}
+        </Button>
+      )}
+    </Box>
   );
 };
 

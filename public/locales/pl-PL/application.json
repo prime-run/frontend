@@ -466,7 +466,17 @@
     "transferSentBy": "Wysłane przez",
     "transferAccess": "Dostęp transferu",
     "transferAccessReadOnly": "Tylko do odczytu",
-    "transferAccessWrite": "Może edytować źródło"
+    "transferAccessWrite": "Może edytować źródło",
+    "sendToTeamPending": "Submitted {{count}} item(s) to {{team}}. Waiting for an owner or admin to confirm.",
+    "pendingSends": "Pending sends",
+    "pendingSendsTitle": "Pending sends — {{team}}",
+    "pendingSendsEmpty": "No sends waiting for confirmation.",
+    "pendingSendConfirm": "Confirm",
+    "pendingSendReject": "Reject",
+    "pendingSendConfirmed": "Send confirmed. The live link is now in the destination team.",
+    "pendingSendRejected": "Pending send rejected.",
+    "pendingSendUnknownFile": "Unknown file",
+    "pendingSendMeta": "To {{team}} · by {{nick}} · {{access}}"
   },
   "modals": {
     "includePasswordInShareLink": "Dołącz hasło do linku udostępniania",

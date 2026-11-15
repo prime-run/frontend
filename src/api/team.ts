@@ -24,11 +24,22 @@ export interface CreateTeamTransferService {
 
 export interface TeamTransferResponse {
   id: string;
-  dest_path: string;
+  dest_path?: string;
   source_uri: string;
   allow_write: boolean;
   from_team: string;
   from_team_name: string;
+  status: "pending" | "active";
+}
+
+export interface PendingTeamTransferItem {
+  id: string;
+  source_file_name: string;
+  dest_team_id: string;
+  dest_team_name: string;
+  created_by_nick: string;
+  allow_write: boolean;
+  created_at: number;
 }
 
 export interface TeamMemberEnt {

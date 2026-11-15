@@ -154,6 +154,11 @@ export interface GlobalStateSlice {
   sendToTeamDialogOpen?: boolean;
   sendToTeamDialogFiles?: FileResponse[];
 
+  // Pending team sends (source owner/admin confirmation)
+  pendingTeamSendsDialogOpen?: boolean;
+  pendingTeamSendsTeamId?: string;
+  pendingTeamSendsTeamName?: string;
+
   // Version control dialog
   versionControlDialogOpen?: boolean;
   versionControlDialogFile?: FileResponse;
@@ -411,6 +416,7 @@ export const globalStateSlice = createSlice({
       state.changeIconDialogOpen = state.changeIconDialogOpen ? false : undefined;
       state.shareLinkDialogOpen = state.shareLinkDialogOpen ? false : undefined;
       state.sendToTeamDialogOpen = state.sendToTeamDialogOpen ? false : undefined;
+      state.pendingTeamSendsDialogOpen = state.pendingTeamSendsDialogOpen ? false : undefined;
       state.versionControlDialogOpen = state.versionControlDialogOpen ? false : undefined;
       state.manageShareDialogOpen = state.manageShareDialogOpen ? false : undefined;
       state.createNewDialogOpen = state.createNewDialogOpen ? false : undefined;
@@ -763,6 +769,17 @@ export const globalStateSlice = createSlice({
     closeSendToTeamDialog: (state) => {
       state.sendToTeamDialogOpen = false;
     },
+    setPendingTeamSendsDialog: (
+      state,
+      action: PayloadAction<{ open: boolean; teamId?: string; teamName?: string }>,
+    ) => {
+      state.pendingTeamSendsDialogOpen = action.payload.open;
+      state.pendingTeamSendsTeamId = action.payload.teamId;
+      state.pendingTeamSendsTeamName = action.payload.teamName;
+    },
+    closePendingTeamSendsDialog: (state) => {
+      state.pendingTeamSendsDialogOpen = false;
+    },
     setSidebar: (state, action: PayloadAction<{ open: boolean; target?: FileResponse | string }>) => {
       state.sidebarOpen = action.payload.open;
       state.sidebarTarget = action.payload.target;
@@ -928,6 +945,8 @@ export const {
   closeShareLinkDialog,
   setSendToTeamDialog,
   closeSendToTeamDialog,
+  setPendingTeamSendsDialog,
+  closePendingTeamSendsDialog,
   setChangeIconDialog,
   closeChangeIconDialog,
   setTagsDialog,

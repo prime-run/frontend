@@ -501,7 +501,17 @@
     "transferSentBy": "Inviato da",
     "transferAccess": "Accesso trasferimento",
     "transferAccessReadOnly": "Sola lettura",
-    "transferAccessWrite": "Può modificare la fonte"
+    "transferAccessWrite": "Può modificare la fonte",
+    "sendToTeamPending": "Submitted {{count}} item(s) to {{team}}. Waiting for an owner or admin to confirm.",
+    "pendingSends": "Pending sends",
+    "pendingSendsTitle": "Pending sends — {{team}}",
+    "pendingSendsEmpty": "No sends waiting for confirmation.",
+    "pendingSendConfirm": "Confirm",
+    "pendingSendReject": "Reject",
+    "pendingSendConfirmed": "Send confirmed. The live link is now in the destination team.",
+    "pendingSendRejected": "Pending send rejected.",
+    "pendingSendUnknownFile": "Unknown file",
+    "pendingSendMeta": "To {{team}} · by {{nick}} · {{access}}"
   },
   "modals": {
     "includePasswordInShareLink": "Includi password nel link di condivisione",
