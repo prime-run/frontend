@@ -2221,14 +2221,14 @@ export function sendTeamTransfer(req: CreateTeamTransferService): ThunkResponse<
   };
 }
 
-export function listPendingTeamTransfers(teamId: string): ThunkResponse<PendingTeamTransferItem[]> {
+export function listPendingTeamTransfers(teamId?: string): ThunkResponse<PendingTeamTransferItem[]> {
   return async (dispatch, _getState) => {
     return await dispatch(
       send(
         `/file/teamTransfer`,
         {
           method: "GET",
-          params: { team_id: teamId },
+          params: teamId ? { team_id: teamId } : undefined,
         },
         {
           ...defaultOpts,

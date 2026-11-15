@@ -13,6 +13,7 @@ import { FileManagerIndex } from "../FileManager.tsx";
 import { FmIndexContext } from "../FmIndexContext.tsx";
 import Pinned, { usePinned } from "./Pinned.tsx";
 import TreeFiles from "./TreeFiles.tsx";
+import PendingTeamSendsNavItem from "./PendingTeamSendsNavItem.tsx";
 import WorkspaceSwitcher from "./WorkspaceSwitcher.tsx";
 
 export interface TreeNavigationProps {
@@ -145,6 +146,11 @@ const TreeNavigation = React.memo(
                       )}
                       {!disableSharedWithMe && (
                         <TreeFiles level={0} path={defaultSharedWithMePath} key={defaultSharedWithMePath} />
+                      )}
+                      {index == FileManagerIndex.main && (
+                        <Collapse key={"pending-sends"}>
+                          <PendingTeamSendsNavItem />
+                        </Collapse>
                       )}
                       {!disableTrash && (
                         <TreeFiles

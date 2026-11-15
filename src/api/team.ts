@@ -35,9 +35,15 @@ export interface TeamTransferResponse {
 export interface PendingTeamTransferItem {
   id: string;
   source_file_name: string;
+  source_is_dir: boolean;
+  source_size: number;
+  source_team_id: string;
+  source_team_name: string;
   dest_team_id: string;
   dest_team_name: string;
+  created_by: string;
   created_by_nick: string;
+  created_by_username: string;
   allow_write: boolean;
   created_at: number;
 }
